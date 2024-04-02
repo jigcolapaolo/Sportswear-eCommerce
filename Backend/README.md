@@ -1,5 +1,5 @@
 # Iniciar el proyecto
-Inicial el proyecto con la base de datos sql server configurada en un contenedor.
+Iniciar el proyecto con la base de datos sql server configurada en un contenedor.
 - Instalar docker 
 - Ubicarse en la ruta c17-117-t-csharp\Backend y ejecutar el comando:
   
