@@ -1,0 +1,28 @@
+[
+    {
+      "titulo": "Zapatillas de running Nike",
+      "precio": "$125.000",
+      "cuotas": "6 cuotas sin interés de 20833",
+      "imagen": "https://via.placeholder.com/150?text=Nike"
+    },
+    {
+      "titulo": "Shorts de entrenamiento Adidas",
+      "precio": "$85.000",
+      "cuotas": "6 cuotas sin interés de 14167",
+      "imagen": "https://via.placeholder.com/150?text=Adidas"
+    },
+    {
+      "titulo": "Camiseta de baloncesto Under Armour",
+      "precio": "$75.000",
+      "cuotas": "6 cuotas sin interés de 12500",
+      "imagen": "https://via.placeholder.com/150?text=UnderArmour"
+    },
+    {
+      "titulo": "Calcetines deportivos Puma",
+      "precio": "$15.000",
+      "cuotas": "6 cuotas sin interés de 2500",
+      "imagen": "https://via.placeholder.com/150?text=Puma"
+    }
+    
+  ]
+  

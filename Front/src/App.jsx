@@ -1,6 +1,10 @@
+import Articulo from "./components/Articulo"
+
 function App() {
   return (
     <>
+    <Articulo/>
+   
     </>
   )
 }
