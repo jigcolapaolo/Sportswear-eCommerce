@@ -17,12 +17,9 @@ namespace API.Controllers
 
         public BrandController(ApplicationDbContext DbContext, IMapper mapper, IBrandRepository brandRepository)
         {
-            //_dbContext = DbContext;
             _mapper = mapper;
             _brandRepository = brandRepository;
-        }
-
-        //ApplicationDbContext dbContext2 = new ApplicationDbContext();   
+        } 
 
         [HttpPost]
         public async Task<ActionResult> CreateBrand(BrandToCreateDto brandDto)
@@ -31,10 +28,7 @@ namespace API.Controllers
             Brand brand = _mapper.Map<Brand>(brandDto);
 
             // Add a brand
-            //await _dbContext.Brands.AddAsync(brand);
             await _brandRepository.CreateBrandAsync(brand);
-
-            //await _dbContext.SaveChangesAsync();
             await _brandRepository.SaveChangesAsync();
 
             return NoContent();

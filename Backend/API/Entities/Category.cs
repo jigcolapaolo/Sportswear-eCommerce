@@ -9,5 +9,10 @@
         // Navigation property
         public List<Product> Products { get; set; }
 
+        public Category()
+        {
+            CategoryId = Guid.NewGuid();
+        }
+
     }
 }

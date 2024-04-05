@@ -10,6 +10,7 @@ namespace API.Profiles
         {
             CreateMap<ProductToCreateDto, Product>();
             CreateMap<BrandToCreateDto, Brand>();
+            CreateMap<CategoryToCreateDto, Category>();
         }
     }
 }
