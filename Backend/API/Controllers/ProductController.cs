@@ -56,6 +56,19 @@ namespace API.Controllers
             return productsToReturn;
         }
 
+        [HttpDelete("{productId}")]
+        public async Task<ActionResult> DeleteProduct(Guid productId)
+        {
+            var success = await _productRepository.DeleteProductAsync(productId);
+
+            if (!success)
+            {
+                return NotFound("Error al eliminar el artículo, no se encontró.");
+            }
+
+            return Ok("Artículo eliminado exitosamente.");
+        }
+
 
 
 
