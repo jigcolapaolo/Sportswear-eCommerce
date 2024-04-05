@@ -11,8 +11,5 @@ namespace API.Services
         // Saves changes into the database
         Task SaveChangesAsync();
 
-        // CRUD
-        // Filtros
-
     }
 }

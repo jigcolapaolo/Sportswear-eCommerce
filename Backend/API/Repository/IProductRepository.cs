@@ -6,6 +6,7 @@ namespace API.Repository
     {
         //New Product
         Task CreateProductAsync(Product product);
+        Task<List<Product>> GetProductsByNameAsync(string name);
 
         // Saves changes into the database
         Task SaveChangesAsync();

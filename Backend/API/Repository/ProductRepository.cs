@@ -1,4 +1,6 @@
 ﻿using API.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace API.Repository
 {
@@ -15,6 +17,14 @@ namespace API.Repository
         {
             await _dbContext.Products.AddAsync(product);
         }
+
+        public async Task<List<Product>> GetProductsByNameAsync(string productName)
+        {
+            return await _dbContext.Products
+                .Where(p => p.Name.Contains(productName))
+                .ToListAsync();
+        }
+
 
         public async Task SaveChangesAsync()
         {

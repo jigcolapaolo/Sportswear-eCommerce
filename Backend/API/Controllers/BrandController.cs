@@ -22,14 +22,17 @@ namespace API.Controllers
         } 
 
         [HttpPost]
-        public async Task<ActionResult> CreateBrand(BrandToCreateDto brandDto)
+        public async Task<ActionResult<BrandToReturnDto>> CreateBrand(BrandToCreateDto brandDto)
         {
             // Mapping
             Brand brand = _mapper.Map<Brand>(brandDto);
 
             // Add a brand
             await _brandRepository.CreateBrandAsync(brand);
+            //Para que se guarde en la DB
             await _brandRepository.SaveChangesAsync();
+
+            BrandToReturnDto brandToReturn = _mapper.Map<BrandToReturnDto>(brand);
 
             return NoContent();
         }

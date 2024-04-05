@@ -9,6 +9,5 @@ namespace API.Dtos
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string PictureURL { get; set; }
-        public string BrandId {  get; set; }
     }
 }

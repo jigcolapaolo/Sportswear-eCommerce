@@ -15,6 +15,10 @@
         public Brand Brand { get; set; }
         public Category Category { get; set; }
 
+        //Foreign Keys
+        public Guid BrandId { get; set; }
+        public Guid CategoryId { get; set; }
+
 
         public Product()
         {

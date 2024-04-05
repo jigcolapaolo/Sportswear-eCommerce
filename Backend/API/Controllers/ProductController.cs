@@ -17,7 +17,6 @@ namespace API.Controllers
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
-        private readonly IBrandRepository _brandRepository;
 
         public ProductController(ApplicationDbContext DbContext, IMapper mapper, IProductRepository productRepository)
         {
@@ -26,27 +25,42 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto)
+        public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, Guid brandId, Guid categoryId)
         {
 
             // Mapping
             Product product = _mapper.Map<Product>(productDto);
+            product.BrandId = brandId;
+            product.CategoryId = categoryId;
 
             // Add a product
             await _productRepository.CreateProductAsync(product);
             await _productRepository.SaveChangesAsync();
 
+
             return NoContent();
+        }
+
+        [HttpGet("byname/{productName}")]
+        public async Task<ActionResult<List<ProductToGetDto>>> GetProductsByName(string productName)
+        {
+            var products = await _productRepository.GetProductsByNameAsync(productName);
+
+            if (products == null || products.Count == 0)
+            {
+                return NotFound("Producto no encontrado.");
+            }
+
+            var productsToReturn = _mapper.Map<List<ProductToGetDto>>(products);
+
+            return productsToReturn;
         }
 
 
 
 
-        //[HttpDelete]
-        //public void DeleteProduct()
-        //{
 
-        //}
+
 
 
 

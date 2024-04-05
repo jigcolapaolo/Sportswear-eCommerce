@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateCategory(CategoryToCreateDto categoryDto)
+        public async Task<ActionResult<CategoryToReturnDto>> CreateCategory(CategoryToCreateDto categoryDto)
         {
             // Mapping
             Category category = _mapper.Map<Category>(categoryDto);
@@ -30,6 +30,8 @@ namespace API.Controllers
             // Add a product
             await _categoryRepository.CreateCategoryAsync(category);
             await _categoryRepository.SaveChangesAsync();
+
+            CategoryToReturnDto categoryToReturn = _mapper.Map<CategoryToReturnDto>(category);
 
             return NoContent();
         }
