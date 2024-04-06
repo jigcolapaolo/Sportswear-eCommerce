@@ -4,10 +4,11 @@ namespace API.Repository
 {
     public interface ICategoryRepository
     {
-        //New Category
+        //Add
         Task CreateCategoryAsync(Category category);
+        //Get
+        Task<List<Category>> GetAllCategoriesAsync();
 
-        // Saves changes into the database
         Task SaveChangesAsync();
     }
 }

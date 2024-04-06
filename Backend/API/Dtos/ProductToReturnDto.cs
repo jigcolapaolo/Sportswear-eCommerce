@@ -2,7 +2,7 @@
 
 namespace API.Dtos
 {
-    public class ProductToGetDto
+    public class ProductToReturnDto
     {
         public Guid ProductId { get; set; }
         public string Description { get; set; }

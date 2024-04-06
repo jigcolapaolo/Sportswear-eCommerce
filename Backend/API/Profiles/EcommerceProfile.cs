@@ -13,7 +13,7 @@ namespace API.Profiles
             CreateMap<BrandToCreateDto, Brand>();
             CreateMap<CategoryToCreateDto, Category>();
             //Get
-            CreateMap<Product, ProductToGetDto>();
+            CreateMap<Product, ProductToReturnDto>();
             //Update
             CreateMap<ProductToUpdateDto, Product>();
             //Return

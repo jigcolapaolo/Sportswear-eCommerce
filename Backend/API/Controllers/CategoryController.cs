@@ -34,5 +34,18 @@ namespace API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("allCategories")]
+        public async Task<ActionResult<List<CategoryToReturnDto>>> GetAllCategories()
+        {
+            var categories = await _categoryRepository.GetAllCategoriesAsync();
+
+            if(categories == null || categories.Count == 0)
+            {
+                return NotFound("No se han encontrado Categorías. ");
+            }
+
+            return _mapper.Map<List<CategoryToReturnDto>>(categories);
+        }
     }
 }

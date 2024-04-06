@@ -41,7 +41,7 @@ namespace API.Controllers
         }
 
         [HttpGet("allProducts")]
-        public async Task<ActionResult<List<ProductToGetDto>>> GetAllProducts()
+        public async Task<ActionResult<List<ProductToReturnDto>>> GetAllProducts()
         {
             var products = await _productRepository.GetAllProductsAsync();
 
@@ -50,11 +50,11 @@ namespace API.Controllers
                 return NotFound("No se ha encontrado ningún producto.");
             }
 
-            return _mapper.Map<List<ProductToGetDto>>(products);
+            return _mapper.Map<List<ProductToReturnDto>>(products);
         }
 
         [HttpGet("byName/{productName}")]
-        public async Task<ActionResult<List<ProductToGetDto>>> GetProductsByName(string productName)
+        public async Task<ActionResult<List<ProductToReturnDto>>> GetProductsByName(string productName)
         {
             var products = await _productRepository.GetProductsByNameAsync(productName);
 
@@ -63,13 +63,13 @@ namespace API.Controllers
                 return NotFound("No se ha encontrado ningún producto.");
             }
 
-            var productsToReturn = _mapper.Map<List<ProductToGetDto>>(products);
+            var productsToReturn = _mapper.Map<List<ProductToReturnDto>>(products);
 
             return productsToReturn;
         }
 
         [HttpGet("byId/{productId}")]
-        public async Task<ActionResult<ProductToGetDto>> GetProductById(Guid productId)
+        public async Task<ActionResult<ProductToReturnDto>> GetProductById(Guid productId)
         {
             var product = await _productRepository.GetProductByIdAsync(productId);
 
@@ -78,7 +78,7 @@ namespace API.Controllers
                 return NotFound("Producto no encontrado.");
             }
 
-            var productToReturn = _mapper.Map<ProductToGetDto>(product);
+            var productToReturn = _mapper.Map<ProductToReturnDto>(product);
 
             return productToReturn;
         }
