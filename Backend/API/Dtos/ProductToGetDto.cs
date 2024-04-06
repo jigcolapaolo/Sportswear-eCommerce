@@ -1,4 +1,6 @@
-﻿namespace API.Dtos
+﻿using API.Entities;
+
+namespace API.Dtos
 {
     public class ProductToGetDto
     {
@@ -9,5 +11,8 @@
         public bool Available { get; set; }
         public string PictureURL { get; set; }
         public int ReviewRate { get; set; }
+
+        public Guid BrandId { get; set; }
+        public Guid CategoryId { get; set; }
     }
 }

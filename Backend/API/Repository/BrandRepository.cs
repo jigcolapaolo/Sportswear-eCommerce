@@ -15,8 +15,7 @@ namespace API.Services
         public async Task CreateBrandAsync(Brand brand)
         {
             await _dbContext.Brands.AddAsync(brand);
-            //Filtro
-            //_dbContext.Brands.FirstOrDefaultAsync(b => b.Name == "aaa");
+
         }
 
         public async Task SaveChangesAsync()

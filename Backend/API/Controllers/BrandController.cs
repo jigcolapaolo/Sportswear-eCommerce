@@ -11,11 +11,10 @@ namespace API.Controllers
     [ApiController]
     public class BrandController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IBrandRepository _brandRepository;
 
-        public BrandController(ApplicationDbContext DbContext, IMapper mapper, IBrandRepository brandRepository)
+        public BrandController(IMapper mapper, IBrandRepository brandRepository)
         {
             _mapper = mapper;
             _brandRepository = brandRepository;
