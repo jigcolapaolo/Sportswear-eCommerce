@@ -9,7 +9,7 @@ namespace API.Entities
         public DbSet<Category> Categories { get; set; }
 
 
-        public ApplicationDbContext(DbContextOptions options) :base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :base(options)
         {
             // FluentAPI
         }

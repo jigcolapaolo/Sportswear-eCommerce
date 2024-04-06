@@ -1,6 +1,8 @@
 using API.Entities;
+using API.Entities.Identity;
 using API.Profiles;
 using API.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,13 +14,32 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// My Services
+builder.Services.AddAutoMapper(typeof(EcommerceProfile));
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+
 // Register DbContext in services
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddAutoMapper(typeof(EcommerceProfile));
-builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+
+// Identity
+builder.Services.AddDbContext<AppIdentityDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+});
+builder.Services.AddIdentityCore<AppUser>(opt =>
+{
+    // add identity options here
+})
+.AddEntityFrameworkStores<AppIdentityDbContext>()
+.AddSignInManager<SignInManager<AppUser>>();
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
+
 
 var app = builder.Build();
 
@@ -31,7 +52,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapControllers();
 
