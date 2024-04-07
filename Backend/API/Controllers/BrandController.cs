@@ -32,7 +32,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpGet("allBrands")]
+        [HttpGet]
         public async Task<ActionResult<List<BrandToReturnDto>>> GetAllBrands()
         {
             var brands = await _brandRepository.GetAllBrandsAsync();

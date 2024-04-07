@@ -1,4 +1,5 @@
 ﻿using API.Entities;
+using System.ComponentModel;
 
 namespace API.Dtos
 {
@@ -12,7 +13,9 @@ namespace API.Dtos
         public string PictureURL { get; set; }
         public int ReviewRate { get; set; }
 
-        public Guid BrandId { get; set; }
-        public Guid CategoryId { get; set; }
+
+        public string BrandName {  get; set; }
+        public string CategoryName { get; set; }
+
     }
 }

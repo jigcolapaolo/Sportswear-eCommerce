@@ -35,7 +35,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpGet("allCategories")]
+        [HttpGet]
         public async Task<ActionResult<List<CategoryToReturnDto>>> GetAllCategories()
         {
             var categories = await _categoryRepository.GetAllCategoriesAsync();

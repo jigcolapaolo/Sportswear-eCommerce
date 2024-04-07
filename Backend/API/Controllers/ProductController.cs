@@ -40,7 +40,7 @@ namespace API.Controllers
             return Ok("Producto agregado exitosamente.");
         }
 
-        [HttpGet("allProducts")]
+        [HttpGet]
         public async Task<ActionResult<List<ProductToReturnDto>>> GetAllProducts()
         {
             var products = await _productRepository.GetAllProductsAsync();
@@ -68,7 +68,7 @@ namespace API.Controllers
             return productsToReturn;
         }
 
-        [HttpGet("byId/{productId}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<ProductToReturnDto>> GetProductById(Guid productId)
         {
             var product = await _productRepository.GetProductByIdAsync(productId);
