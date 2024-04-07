@@ -1,6 +1,7 @@
 using API.Entities;
 using API.Entities.Identity;
 using API.Profiles;
+using API.Repository;
 using API.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ builder.Services.AddSwaggerGen();
 // My Services
 builder.Services.AddAutoMapper(typeof(EcommerceProfile));
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Register DbContext in services
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
@@ -40,8 +43,7 @@ builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
 
 var app = builder.Build();
 
@@ -54,8 +56,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
