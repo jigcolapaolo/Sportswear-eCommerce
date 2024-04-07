@@ -1,13 +1,12 @@
-﻿using API.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace API.Dtos
+﻿namespace API.Dtos
 {
-    public class ProductToCreateDto
+    public class ProductToUpdateDto
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public bool Available { get; set; }
         public string PictureURL { get; set; }
+        public int ReviewRate { get; set; }
     }
 }

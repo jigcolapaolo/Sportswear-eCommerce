@@ -1,6 +1,8 @@
-﻿namespace API.Entities
+﻿using API.Entities;
+
+namespace API.Dtos
 {
-    public class Product
+    public class ProductToReturnDto
     {
         public Guid ProductId { get; set; }
         public string Description { get; set; }
@@ -10,19 +12,7 @@
         public string PictureURL { get; set; }
         public int ReviewRate { get; set; }
 
-
-        // Navigation property
-        public Brand Brand { get; set; }
-        public Category Category { get; set; }
-
-        //Foreign Keys
         public Guid BrandId { get; set; }
         public Guid CategoryId { get; set; }
-
-
-        public Product()
-        {
-            ProductId = Guid.NewGuid();
-        }
     }
 }

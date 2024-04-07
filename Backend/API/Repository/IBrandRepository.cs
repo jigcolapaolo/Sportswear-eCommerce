@@ -1,17 +1,17 @@
 ﻿using API.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
     public interface IBrandRepository
     {   
-        // Create a new brand
+        //Add
         Task CreateBrandAsync(Brand brand);
+        //Get
+        Task<List<Brand>> GetAllBrandsAsync();
 
         // Saves changes into the database
         Task SaveChangesAsync();
-
-        // CRUD
-        // Filtros
 
     }
 }

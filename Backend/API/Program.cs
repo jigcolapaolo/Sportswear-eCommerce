@@ -40,6 +40,8 @@ builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

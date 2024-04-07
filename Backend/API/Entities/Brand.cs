@@ -8,7 +8,6 @@
         // Navigation property
         public List<Product> Products { get; set; }
 
-
         public Brand()
         {
             BrandId = Guid.NewGuid();

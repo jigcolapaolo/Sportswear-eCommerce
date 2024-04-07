@@ -1,4 +1,5 @@
 ﻿using API.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
@@ -11,9 +12,17 @@ namespace API.Services
            _dbContext = dbContext;
         }
 
+        //Add
         public async Task CreateBrandAsync(Brand brand)
         {
             await _dbContext.Brands.AddAsync(brand);
+
+        }
+
+        //Get
+        public async Task<List<Brand>> GetAllBrandsAsync()
+        {
+            return await _dbContext.Brands.ToListAsync();
         }
 
         public async Task SaveChangesAsync()
