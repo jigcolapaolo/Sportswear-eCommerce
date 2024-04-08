@@ -69,9 +69,9 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductToReturnDto>> GetProductById(Guid productId)
+        public async Task<ActionResult<ProductToReturnDto>> GetProductById(Guid id)
         {
-            var product = await _productRepository.GetProductByIdAsync(productId);
+            var product = await _productRepository.GetProductByIdAsync(id);
 
             if (product == null)
             {
@@ -83,10 +83,10 @@ namespace API.Controllers
             return productToReturn;
         }
 
-        [HttpDelete("{productId}")]
-        public async Task<ActionResult> DeleteProduct(Guid productId)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProduct(Guid id)
         {
-            var success = await _productRepository.DeleteProductAsync(productId);
+            var success = await _productRepository.DeleteProductAsync(id);
 
             if (!success)
             {
@@ -97,10 +97,10 @@ namespace API.Controllers
         }
 
 
-        [HttpPut("{productId}")]
-        public async Task<ActionResult> UpdateProduct(Guid productId, ProductToUpdateDto productDto, Guid brandId, Guid categoryId)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProduct(Guid id, ProductToUpdateDto productDto, Guid brandId, Guid categoryId)
         {
-            var existingProduct = await _productRepository.GetProductByIdAsync(productId);
+            var existingProduct = await _productRepository.GetProductByIdAsync(id);
 
             if (existingProduct == null)
             {
@@ -121,15 +121,6 @@ namespace API.Controllers
 
             return Ok("Producto actualizado exitosamente.");
         }
-
-
-
-
-
-
-
-
-
 
     }
 }
