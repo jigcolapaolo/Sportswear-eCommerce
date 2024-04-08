@@ -20,22 +20,22 @@ namespace API.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, Guid brandId, Guid categoryId)
-        {
+        //[HttpPost]
+        //public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, Guid brandId, Guid categoryId)
+        //{
 
-            // Mapping
-            Product product = _mapper.Map<Product>(productDto);
-            product.BrandId = brandId;
-            product.CategoryId = categoryId;
+        //    // Mapping
+        //    Product product = _mapper.Map<Product>(productDto);
+        //    product.BrandId = brandId;
+        //    product.CategoryId = categoryId;
 
-            // Add a product
-            await _productRepository.CreateProductAsync(product);
-            await _productRepository.SaveChangesAsync();
+        //    // Add a product
+        //    await _productRepository.CreateProductAsync(product);
+        //    await _productRepository.SaveChangesAsync();
 
 
-            return Ok("Producto agregado exitosamente.");
-        }
+        //    return Ok("Producto agregado exitosamente.");
+        //}
 
         [HttpGet]
         public async Task<ActionResult<List<ProductToReturnDto>>> GetAllProducts()
@@ -50,20 +50,20 @@ namespace API.Controllers
             return _mapper.Map<List<ProductToReturnDto>>(products);
         }
 
-        [HttpGet("byName/{productName}")]
-        public async Task<ActionResult<List<ProductToReturnDto>>> GetProductsByName(string productName)
-        {
-            var products = await _productRepository.GetProductsByNameAsync(productName);
+        //[HttpGet("byName/{productName}")]
+        //public async Task<ActionResult<List<ProductToReturnDto>>> GetProductsByName(string productName)
+        //{
+        //    var products = await _productRepository.GetProductsByNameAsync(productName);
 
-            if (products == null || products.Count == 0)
-            {
-                return NotFound("No se ha encontrado ningún producto.");
-            }
+        //    if (products == null || products.Count == 0)
+        //    {
+        //        return NotFound("No se ha encontrado ningún producto.");
+        //    }
 
-            var productsToReturn = _mapper.Map<List<ProductToReturnDto>>(products);
+        //    var productsToReturn = _mapper.Map<List<ProductToReturnDto>>(products);
 
-            return productsToReturn;
-        }
+        //    return productsToReturn;
+        //}
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductToReturnDto>> GetProductById(Guid id)
@@ -80,44 +80,44 @@ namespace API.Controllers
             return productToReturn;
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteProduct(Guid id)
-        {
-            var success = await _productRepository.DeleteProductAsync(id);
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult> DeleteProduct(Guid id)
+        //{
+        //    var success = await _productRepository.DeleteProductAsync(id);
 
-            if (!success)
-            {
-                return NotFound("Error al eliminar el producto, no se encontró.");
-            }
+        //    if (!success)
+        //    {
+        //        return NotFound("Error al eliminar el producto, no se encontró.");
+        //    }
 
-            return Ok("Producto eliminado exitosamente.");
-        }
-
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProduct(Guid id, ProductToUpdateDto productDto, Guid brandId, Guid categoryId)
-        {
-            var existingProduct = await _productRepository.GetProductByIdAsync(id);
-
-            if (existingProduct == null)
-            {
-                return NotFound("Producto no encontrado");
-            }
-
-            _mapper.Map(productDto, existingProduct);
-            existingProduct.BrandId = brandId;
-            existingProduct.CategoryId = categoryId;
+        //    return Ok("Producto eliminado exitosamente.");
+        //}
 
 
-            var success = await _productRepository.UpdateProductAsync(existingProduct);
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult> UpdateProduct(Guid id, ProductToUpdateDto productDto, Guid brandId, Guid categoryId)
+        //{
+        //    var existingProduct = await _productRepository.GetProductByIdAsync(id);
 
-            if (!success)
-            {
-                return StatusCode(500);
-            }
+        //    if (existingProduct == null)
+        //    {
+        //        return NotFound("Producto no encontrado");
+        //    }
 
-            return Ok("Producto actualizado exitosamente.");
-        }
+        //    _mapper.Map(productDto, existingProduct);
+        //    existingProduct.BrandId = brandId;
+        //    existingProduct.CategoryId = categoryId;
+
+
+        //    var success = await _productRepository.UpdateProductAsync(existingProduct);
+
+        //    if (!success)
+        //    {
+        //        return StatusCode(500);
+        //    }
+
+        //    return Ok("Producto actualizado exitosamente.");
+        //}
 
     }
 }
