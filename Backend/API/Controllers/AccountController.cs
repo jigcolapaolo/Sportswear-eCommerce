@@ -1,9 +1,13 @@
 ﻿using API.Dtos.Account;
 using API.Entities.Identity;
+using API.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -14,13 +18,34 @@ namespace API.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
 
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager
-            , IMapper mapper)
+            , IMapper mapper, ITokenService itokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _tokenService = itokenService;
+        }
+
+        /// <summary>
+        /// Gets the current logged in user
+        /// </summary>
+        /// <returns>An action result that contains the user info</returns>
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            // Find user by email
+            var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+
+            return new UserDto
+            {
+                Email = user.Email,
+                Token = _tokenService.CreateToken(user),
+                Name = user.UserName
+            };
         }
 
         /// <summary>
@@ -45,7 +70,7 @@ namespace API.Controllers
         {
             if (CheckEmailExistsAsync(registerDto.Email).Result.Value)
             {
-                return BadRequest("Email address is in use");
+                return BadRequest("Dirección de Email en Uso!");
             }
 
             var user = new AppUser
@@ -61,6 +86,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Name = user.UserName,
+                Token = _tokenService.CreateToken(user),
                 Email = user.Email
             };
         }
@@ -80,14 +106,14 @@ namespace API.Controllers
                 return Unauthorized();
             }
 
-            //var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            //if (!result.Succeeded) return Unauthorized();
+            if (!result.Succeeded) return Unauthorized();
 
             return new UserDto
             {
                 Email = user.Email,
-                //Token = _tokenService.CreateToken(user),
+                Token = _tokenService.CreateToken(user),
                 Name = user.UserName
             };
         }
