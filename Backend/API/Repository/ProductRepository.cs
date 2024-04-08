@@ -20,7 +20,7 @@ namespace API.Repository
         //Get
         public async Task<List<Product>> GetAllProductsAsync()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Products.Include(p => p.Brand).Include(p => p.Category).ToListAsync();
         }
 
 
