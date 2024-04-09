@@ -1,4 +1,5 @@
-﻿using API.Entities;
+﻿using API.Dtos;
+using API.Entities;
 
 namespace API.Repository
 {
@@ -7,8 +8,7 @@ namespace API.Repository
         //Add
         Task CreateProductAsync(Product product);
         //Get
-        Task<List<Product>> GetAllProductsAsync();
-        Task<List<Product>> GetProductsByNameAsync(string name);
+        Task<List<Product>> GetProductsListAsync(ProductFilterDto filter);
         Task<Product?> GetProductByIdAsync(Guid productId);
         //Delete
         Task<bool> DeleteProductAsync(Guid productId);
