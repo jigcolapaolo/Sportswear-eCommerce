@@ -3,6 +3,7 @@ using API.Entities;
 using API.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -38,17 +39,34 @@ namespace API.Controllers
         //}
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductToReturnDto>>> GetAllProducts()
+        public async Task<ActionResult<List<ProductToReturnDto>>> GetAllProducts(
+            [FromQuery] string? name = null,
+            [FromQuery] string? brandName = null,
+            [FromQuery] string? categoryName = null,
+            [FromQuery] bool available = true)
         {
             var products = await _productRepository.GetAllProductsAsync();
 
-            if(products == null || products.Count == 0)
-            {
+            //Filtros
+            if (!string.IsNullOrEmpty(name))
+                products = products.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
+
+            if (!string.IsNullOrEmpty(brandName))
+                products = products.Where(p => p.Brand.Name.ToLower().Contains(brandName.ToLower())).ToList();
+
+            if (!string.IsNullOrEmpty(categoryName))
+                products = products.Where(p => p.Category.Name.ToLower().Contains(categoryName.ToLower())).ToList();
+
+            products = products.Where(p => p.Available == available).ToList();
+
+
+            if (products == null || products.Count == 0)
                 return NotFound("No se ha encontrado ningún producto.");
-            }
+
 
             return _mapper.Map<List<ProductToReturnDto>>(products);
         }
+
 
         //[HttpGet("byName/{productName}")]
         //public async Task<ActionResult<List<ProductToReturnDto>>> GetProductsByName(string productName)
