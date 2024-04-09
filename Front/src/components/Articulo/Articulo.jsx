@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react'
-import datosArticulos from '../assets/datosArticulos.json'
+import datosArticulos from '../../data/datosArticulos.json'
 
 export default function Articulo() {
   // const [datosArticulos, setDatosArticulos] = useState([]);
