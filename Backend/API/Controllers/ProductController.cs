@@ -38,14 +38,68 @@ namespace API.Controllers
         //    return Ok("Producto agregado exitosamente.");
         //}
 
+        //[HttpGet]
+        //public async Task<ActionResult<List<ProductToReturnDto>>> GetAllProducts(
+        //    [FromQuery] string? name = null,
+        //    [FromQuery] string? brandName = null,
+        //    [FromQuery] string? categoryName = null,
+        //    [FromQuery] bool? available = null,
+        //    [FromQuery] bool? cheaperFirst = null,
+        //    [FromQuery] bool? alphabeticalOrder = null)
+        //{
+        //    var products = await _productRepository.GetAllProductsAsync();
+
+        //    //Filtros
+        //    if (!string.IsNullOrEmpty(name))
+        //        products = products.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
+
+        //    if (!string.IsNullOrEmpty(brandName))
+        //        products = products.Where(p => p.Brand.Name.ToLower().Contains(brandName.ToLower())).ToList();
+
+        //    if (!string.IsNullOrEmpty(categoryName))
+        //        products = products.Where(p => p.Category.Name.ToLower().Contains(categoryName.ToLower())).ToList();
+
+        //    if(available != null)
+        //        products = products.Where(p => p.Available == available).ToList();
+
+        //    //Orden
+        //    //Precio
+        //    if (cheaperFirst.HasValue)
+        //    {
+        //        if (cheaperFirst.Value)
+        //            products = products.OrderBy(p => p.Price).ToList();
+        //        else
+        //            products = products.OrderByDescending(p => p.Price).ToList();
+        //    }
+
+        //    //Nombre
+        //    if (alphabeticalOrder.HasValue)
+        //    {
+        //        if (alphabeticalOrder.Value)
+        //            products = products.OrderBy(p => p.Name).ToList();
+        //        else
+        //            products = products.OrderByDescending(p => p.Name).ToList();
+        //    }
+
+
+
+        //    if (products == null || products.Count == 0)
+        //        return NotFound("No se ha encontrado ningún producto.");
+
+
+        //    return _mapper.Map<List<ProductToReturnDto>>(products);
+        //}
+
         [HttpGet]
-        public async Task<ActionResult<List<ProductToReturnDto>>> GetAllProducts(
+        public async Task<ActionResult<dynamic>> GetAllProducts(
             [FromQuery] string? name = null,
             [FromQuery] string? brandName = null,
             [FromQuery] string? categoryName = null,
             [FromQuery] bool? available = null,
             [FromQuery] bool? cheaperFirst = null,
-            [FromQuery] bool? alphabeticalOrder = null)
+            [FromQuery] bool? alphabeticalOrder = null,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
             var products = await _productRepository.GetAllProductsAsync();
 
@@ -59,7 +113,7 @@ namespace API.Controllers
             if (!string.IsNullOrEmpty(categoryName))
                 products = products.Where(p => p.Category.Name.ToLower().Contains(categoryName.ToLower())).ToList();
 
-            if(available != null)
+            if (available != null)
                 products = products.Where(p => p.Available == available).ToList();
 
             //Orden
@@ -82,13 +136,28 @@ namespace API.Controllers
             }
 
 
-
             if (products == null || products.Count == 0)
                 return NotFound("No se ha encontrado ningún producto.");
 
 
-            return _mapper.Map<List<ProductToReturnDto>>(products);
+            //Paginación
+            var totalItems = products.Count;
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            var itemsToShow = products.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            var response = new
+            {
+                TotalItems = totalItems,
+                TotalPages = totalPages,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Items = _mapper.Map<List<ProductToReturnDto>>(itemsToShow)
+            };
+
+            return Ok(response);
         }
+
+
 
 
         //[HttpGet("byName/{productName}")]
