@@ -33,7 +33,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-        [HttpGet("allOrders")]
+        [HttpGet]
         public async Task<ActionResult<List<OrderToReturnDto>>> GetAllOrders()
         {
             var orders = await _ordersRepository.GetAllOrdersAsync();
@@ -46,7 +46,7 @@ namespace API.Controllers
             return _mapper.Map<List<OrderToReturnDto>>(orders);
         }
 
-        [HttpGet("byId/{orderId}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<OrderToReturnDto>> GetOrderById(Guid orderId)
         {
             var order = await _ordersRepository.GetOrdersByIdAsync(orderId);
