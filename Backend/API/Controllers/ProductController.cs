@@ -43,7 +43,9 @@ namespace API.Controllers
             [FromQuery] string? name = null,
             [FromQuery] string? brandName = null,
             [FromQuery] string? categoryName = null,
-            [FromQuery] bool available = true)
+            [FromQuery] bool? available = null,
+            [FromQuery] bool? cheaperFirst = null,
+            [FromQuery] bool? alphabeticalOrder = null)
         {
             var products = await _productRepository.GetAllProductsAsync();
 
@@ -57,7 +59,28 @@ namespace API.Controllers
             if (!string.IsNullOrEmpty(categoryName))
                 products = products.Where(p => p.Category.Name.ToLower().Contains(categoryName.ToLower())).ToList();
 
-            products = products.Where(p => p.Available == available).ToList();
+            if(available != null)
+                products = products.Where(p => p.Available == available).ToList();
+
+            //Orden
+            //Precio
+            if (cheaperFirst.HasValue)
+            {
+                if (cheaperFirst.Value)
+                    products = products.OrderBy(p => p.Price).ToList();
+                else
+                    products = products.OrderByDescending(p => p.Price).ToList();
+            }
+
+            //Nombre
+            if (alphabeticalOrder.HasValue)
+            {
+                if (alphabeticalOrder.Value)
+                    products = products.OrderBy(p => p.Name).ToList();
+                else
+                    products = products.OrderByDescending(p => p.Name).ToList();
+            }
+
 
 
             if (products == null || products.Count == 0)
