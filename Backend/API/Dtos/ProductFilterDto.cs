@@ -8,6 +8,7 @@ namespace API.Dtos
         public string? Name { get; set; }
         public string? BrandName { get; set; }
         public string? CategoryName { get; set; }
+        public int? GenderId { get; set; }
         public bool? Available { get; set; }
         public bool? CheaperFirst { get; set; }
         public bool? AlphabeticalOrder { get; set; }

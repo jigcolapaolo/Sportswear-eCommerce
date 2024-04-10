@@ -14,8 +14,17 @@ namespace API.Dtos
         public int ReviewRate { get; set; }
 
 
+
         public string BrandName {  get; set; }
         public string CategoryName { get; set; }
+        public Gender Gender { get; set; }
+        public string GenderName
+        {
+            get
+            {
+                return Gender.ToString();
+            }
+        }
 
     }
 }

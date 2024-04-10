@@ -33,6 +33,9 @@ namespace API.Repository
             if (!string.IsNullOrEmpty(filter.CategoryName))
                 products = products.Where(p => p.Category.Name.ToLower().Contains(filter.CategoryName.ToLower())).ToList();
 
+            if (filter.GenderId != null)
+                products = products.Where(p => p.Gender == (Gender)filter.GenderId).ToList();
+
             if (filter.Available != null)
                 products = products.Where(p => p.Available == filter.Available).ToList();
 
