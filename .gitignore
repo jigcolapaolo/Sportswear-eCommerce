@@ -482,3 +482,5 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/Backend/API/Migrations/ApplicationDbContextModelSnapshot.cs
+/Backend/API/Migrations/ApplicationDbContextModelSnapshot.cs
