@@ -55,13 +55,16 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 // Register DbContext in services
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+
 });
 
 // Identity
 builder.Services.AddDbContext<AppIdentityDbContext>(opt =>
 {
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+    //opt.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection"));
 });
 builder.Services.AddIdentityCore<AppUser>(opt =>
 {
