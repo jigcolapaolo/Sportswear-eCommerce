@@ -21,44 +21,44 @@ namespace API.Controllers
             _ordersRepository = ordersRepository;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> CreateOrder(OrderToCreateDto orderDto, Guid basketId)
-        {
-            // Mapping
-            Order order = _mapper.Map<Order>(orderDto);
+        //[HttpPost]
+        //public async Task<ActionResult> CreateOrder(OrderToCreateDto orderDto, Guid basketId)
+        //{
+        //    // Mapping
+        //    Order order = _mapper.Map<Order>(orderDto);
 
-            await _ordersRepository.CreateOrdersAsync(order);
-            await _ordersRepository.SaveChangesAsync();
+        //    await _ordersRepository.CreateOrdersAsync(order);
+        //    await _ordersRepository.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
-        [HttpGet]
-        public async Task<ActionResult<List<OrderToReturnDto>>> GetAllOrders()
-        {
-            var orders = await _ordersRepository.GetAllOrdersAsync();
+        //[HttpGet]
+        //public async Task<ActionResult<List<OrderToReturnDto>>> GetAllOrders()
+        //{
+        //    var orders = await _ordersRepository.GetAllOrdersAsync();
 
-            if (orders == null || orders.Count == 0)
-            {
-                return NotFound("No se han encontrado ordenes.");
-            }
+        //    if (orders == null || orders.Count == 0)
+        //    {
+        //        return NotFound("No se han encontrado ordenes.");
+        //    }
 
-            return _mapper.Map<List<OrderToReturnDto>>(orders);
-        }
+        //    return _mapper.Map<List<OrderToReturnDto>>(orders);
+        //}
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<OrderToReturnDto>> GetOrderById(Guid orderId)
-        {
-            var order = await _ordersRepository.GetOrdersByIdAsync(orderId);
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<OrderToReturnDto>> GetOrderById(Guid orderId)
+        //{
+        //    var order = await _ordersRepository.GetOrdersByIdAsync(orderId);
 
-            if (order == null)
-            {
-                return NotFound("Orden no encontrada.");
-            }
+        //    if (order == null)
+        //    {
+        //        return NotFound("Orden no encontrada.");
+        //    }
 
-            var orderToReturn = _mapper.Map<OrderToReturnDto>(order);
+        //    var orderToReturn = _mapper.Map<OrderToReturnDto>(order);
 
-            return orderToReturn;
-        }
+        //    return orderToReturn;
+        //}
     }
 }
