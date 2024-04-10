@@ -63,7 +63,8 @@ namespace API.Repository
 
         public async Task<Product?> GetProductByIdAsync(Guid productId)
         {
-            var product = await _dbContext.Products.FindAsync(productId);
+            var product = await _dbContext.Products.Include(p => p.Brand).Include(p => p.Category)
+                                                   .FirstOrDefaultAsync(p => p.ProductId == productId);
 
             return product;
         }

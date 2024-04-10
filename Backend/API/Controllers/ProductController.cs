@@ -64,9 +64,7 @@ namespace API.Controllers
             var product = await _productRepository.GetProductByIdAsync(id);
 
             if (product == null)
-            {
                 return NotFound("Producto no encontrado.");
-            }
 
             var productToReturn = _mapper.Map<ProductToReturnDto>(product);
 
