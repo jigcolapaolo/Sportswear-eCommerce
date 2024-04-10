@@ -14,7 +14,5 @@ namespace API.Entities
         {
             // FluentAPI
         }
-
-       
     }
 }

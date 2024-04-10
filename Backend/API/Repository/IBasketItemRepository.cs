@@ -4,10 +4,13 @@ namespace API.Repository
 {
     public interface IBasketItemRepository
     {
-        // Create Item
+        // Get Item
+        Task<BasketItem?> GetBasketItemAsync(Guid BasketItemId);
+
+        // Post Item
         Task CreateBasketItemAsync(BasketItem basketItem);
 
-        // Save Changes
-        Task SaveChangesAsync();
+        // Delete Item
+        Task DeleteBasketItemAsync(Guid BasketItemId);
     }
 }

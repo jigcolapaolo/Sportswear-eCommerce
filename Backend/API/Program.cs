@@ -1,5 +1,6 @@
 using API.Entities;
 using API.Profiles;
+using API.Repository;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 });
 builder.Services.AddAutoMapper(typeof(EcommerceProfile));
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<IBasketItemRepository, BasketItemRepository>();
 
 var app = builder.Build();
 
