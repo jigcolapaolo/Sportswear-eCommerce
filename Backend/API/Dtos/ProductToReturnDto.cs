@@ -17,12 +17,12 @@ namespace API.Dtos
 
         public string BrandName {  get; set; }
         public string CategoryName { get; set; }
-        public Gender Gender { get; set; }
-        public string GenderName
+        public Audience Audience { get; set; }
+        public string AudienceType
         {
             get
             {
-                return Gender.ToString();
+                return Audience.ToString();
             }
         }
 

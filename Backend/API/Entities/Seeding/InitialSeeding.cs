@@ -77,7 +77,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = adidas.BrandId,
                 CategoryId = zapatillas.CategoryId,
-                Gender = Gender.Hombre
+                Audience = Audience.Hombre
             };
             var buzoFila = new Product()
             {
@@ -90,7 +90,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = fila.BrandId,
                 CategoryId = buzos.CategoryId,
-                Gender = Gender.Hombre
+                Audience = Audience.Hombre
             };
             var remeraNike = new Product()
             {
@@ -103,7 +103,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = nike.BrandId,
                 CategoryId = remeras.CategoryId,
-                Gender = Gender.Hombre
+                Audience = Audience.Hombre
             };
             var calzaFila = new Product()
             {
@@ -116,7 +116,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = fila.BrandId,
                 CategoryId = calzas.CategoryId,
-                Gender = Gender.Mujer
+                Audience = Audience.Mujer
             };
             var topAdidas = new Product()
             {
@@ -129,7 +129,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = adidas.BrandId,
                 CategoryId = tops.CategoryId,
-                Gender = Gender.Mujer
+                Audience = Audience.Mujer
             };
             var zapatillasNike = new Product()
             {
@@ -142,7 +142,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = nike.BrandId,
                 CategoryId = zapatillas.CategoryId,
-                Gender = Gender.Mujer
+                Audience = Audience.Mujer
             };
 
             modelBuilder.Entity<Product>().HasData(zapatillasAdidas, buzoFila, remeraNike, calzaFila, topAdidas, zapatillasNike);

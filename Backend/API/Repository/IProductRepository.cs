@@ -13,7 +13,7 @@ namespace API.Repository
         //Delete
         Task<bool> DeleteProductAsync(Guid productId);
         //Update
-        Task<bool> UpdateProductAsync(Product product);
+        Task<bool> UpdateProductAsync(Guid productId, ProductToUpdateDto productDto);
         // Saves changes into the database
         Task SaveChangesAsync();
     }

@@ -1,9 +1,10 @@
 ﻿namespace API.Entities
 {
-    public enum Gender
+    public enum Audience
     {
         Hombre,
-        Mujer
+        Mujer,
+        Niños
     }
 
     public class Product
@@ -15,7 +16,7 @@
         public bool Available { get; set; }
         public string PictureURL { get; set; }
         public int ReviewRate { get; set; }
-        public Gender Gender { get; set; }
+        public Audience Audience { get; set; }
 
 
         // Navigation property

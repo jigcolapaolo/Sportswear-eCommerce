@@ -33,8 +33,8 @@ namespace API.Repository
             if (!string.IsNullOrEmpty(filter.CategoryName))
                 products = products.Where(p => p.Category.Name.ToLower().Contains(filter.CategoryName.ToLower())).ToList();
 
-            if (filter.GenderId != null)
-                products = products.Where(p => p.Gender == (Gender)filter.GenderId).ToList();
+            if (filter.AudienceId != null)
+                products = products.Where(p => p.Audience == (Audience)filter.AudienceId).ToList();
 
             if (filter.Available != null)
                 products = products.Where(p => p.Available == filter.Available).ToList();
@@ -82,23 +82,43 @@ namespace API.Repository
             return true; //Producto eliminado exitosamente
         }
         //Update
-        public async Task<bool> UpdateProductAsync(Product product)
+        public async Task<bool> UpdateProductAsync(Guid productId, ProductToUpdateDto productDto)
         {
-            var existingProduct = await _dbContext.Products.FindAsync(product.ProductId);
+            var existingProduct = await _dbContext.Products.FindAsync(productId);
 
             if (existingProduct == null)
                 return false;
 
-            existingProduct.Name = product.Name;
-            existingProduct.Description = product.Description;
-            existingProduct.Price = product.Price;
-            existingProduct.Available = product.Available;
-            existingProduct.PictureURL = product.PictureURL;
-            existingProduct.ReviewRate = product.ReviewRate;
+            if (productDto.Name != null)
+                existingProduct.Name = productDto.Name;
+
+            if (productDto.Description != null)
+                existingProduct.Description = productDto.Description;
+
+            if (productDto.Price != 0)
+                existingProduct.Price = productDto.Price;
+
+            if (productDto.Available.HasValue)
+                existingProduct.Available = productDto.Available.Value;
+
+            if (productDto.PictureURL != null)
+                existingProduct.PictureURL = productDto.PictureURL;
+
+            if (productDto.ReviewRate != 0)
+                existingProduct.ReviewRate = productDto.ReviewRate;
+
+            if (productDto.BrandId != Guid.Empty)
+                existingProduct.BrandId = productDto.BrandId;
+
+            if (productDto.CategoryId != Guid.Empty)
+                existingProduct.CategoryId = productDto.CategoryId;
+
+            if (productDto.AudienceId.HasValue)
+                existingProduct.Audience = (Audience)productDto.AudienceId.Value;
 
             await _dbContext.SaveChangesAsync();
 
-            return true; //Producto actualizado exitosamente
+            return true; // Producto actualizado exitosamente
         }
 
 

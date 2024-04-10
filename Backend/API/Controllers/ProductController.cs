@@ -87,30 +87,28 @@ namespace API.Controllers
         //}
 
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> UpdateProduct(Guid id, ProductToUpdateDto productDto, Guid brandId, Guid categoryId)
-        //{
-        //    var existingProduct = await _productRepository.GetProductByIdAsync(id);
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
+        {
+            var existingProduct = await _productRepository.GetProductByIdAsync(id);
 
-        //    if (existingProduct == null)
-        //    {
-        //        return NotFound("Producto no encontrado");
-        //    }
+            if (existingProduct == null)
+                return NotFound("Producto no encontrado");
 
-        //    _mapper.Map(productDto, existingProduct);
-        //    existingProduct.BrandId = brandId;
-        //    existingProduct.CategoryId = categoryId;
+            //_mapper.Map(productDto, existingProduct);
 
+            if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId <= 2))
+                return BadRequest("Solo AudienceIDs de 0 a 2 inclusive.");
 
-        //    var success = await _productRepository.UpdateProductAsync(existingProduct);
+            var success = await _productRepository.UpdateProductAsync(id, productDto);
 
-        //    if (!success)
-        //    {
-        //        return StatusCode(500);
-        //    }
+            if (!success)
+            {
+                return StatusCode(500);
+            }
 
-        //    return Ok("Producto actualizado exitosamente.");
-        //}
+            return Ok("Producto actualizado exitosamente.");
+        }
 
     }
 }
