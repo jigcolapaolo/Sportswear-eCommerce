@@ -1,6 +1,6 @@
 ﻿using API.Dtos;
 using API.Entities;
-using API.Migrations;
+//using API.Migrations;
 using API.Repository;
 using API.Services;
 using AutoMapper;
@@ -25,7 +25,7 @@ namespace API.Controllers
         public async Task<ActionResult> CreateOrder(OrderToCreateDto orderDto, Guid basketId)
         {
             // Mapping
-            Orders order = _mapper.Map<Orders>(orderDto);
+            Order order = _mapper.Map<Order>(orderDto);
 
             await _ordersRepository.CreateOrdersAsync(order);
             await _ordersRepository.SaveChangesAsync();

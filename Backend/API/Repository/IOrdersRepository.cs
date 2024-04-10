@@ -5,9 +5,9 @@ namespace API.Repository
     public interface IOrdersRepository
     {
         //Add
-        Task CreateOrdersAsync(Orders orders);
+        Task CreateOrdersAsync(Order orders);
         //Get
-        Task<List<Orders>> GetAllOrdersAsync();
+        Task<List<Order>> GetAllOrdersAsync();
         Task<Product?> GetOrdersByIdAsync(Guid orderID);
 
         // Saves changes into the database

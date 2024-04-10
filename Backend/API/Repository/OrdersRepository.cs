@@ -12,14 +12,14 @@ namespace API.Repository
             _dbContext = dbContext;
         }
 
-        //Add
-        public async Task CreateOrdersAsync(Orders orders)
+        //TODO 4 Implementar la logica para crear una order, revisar patrón unit of work
+        public async Task CreateOrdersAsync(Order orders)
         {
             await _dbContext.Orders.AddAsync(orders);
         }
 
         //Get
-        public async Task<List<Orders>> GetAllOrdersAsync()
+        public async Task<List<Order>> GetAllOrdersAsync()
         {
             return await _dbContext.Orders.ToListAsync();
         }
