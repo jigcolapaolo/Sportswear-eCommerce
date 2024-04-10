@@ -26,5 +26,11 @@ namespace API.Entities
             InitialSeeding.Seed(modelBuilder);
         }
 
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            //Todos los strings de la DB aplican ese MaxLength
+            configurationBuilder.Properties<string>().HaveMaxLength(150);
+        }
+
     }
 }

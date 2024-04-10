@@ -1,9 +1,11 @@
 ﻿using API.Dtos;
 using API.Entities;
+using API.Migrations;
 using API.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Controllers
 {
@@ -22,13 +24,17 @@ namespace API.Controllers
         }
 
         //[HttpPost]
-        //public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, Guid brandId, Guid categoryId)
+        //public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, [Required] Guid brandId, [Required] Guid categoryId, [Required] int audienceId)
         //{
 
         //    // Mapping
         //    Product product = _mapper.Map<Product>(productDto);
         //    product.BrandId = brandId;
         //    product.CategoryId = categoryId;
+        //    if (audienceId >= 0 && audienceId < Enum.GetValues(typeof(Entities.Audience)).Length)
+        //        product.Audience = (Entities.Audience)audienceId;
+        //    else
+        //        return BadRequest("AudienceId debe estar entre 0 y " + (Enum.GetValues(typeof(Entities.Audience)).Length - 1 ));
 
         //    // Add a product
         //    await _productRepository.CreateProductAsync(product);
@@ -85,28 +91,28 @@ namespace API.Controllers
         //}
 
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
-        {
-            var existingProduct = await _productRepository.GetProductByIdAsync(id);
+        //[HttpPut("{id}")]
+        //public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
+        //{
+        //    var existingProduct = await _productRepository.GetProductByIdAsync(id);
 
-            if (existingProduct == null)
-                return NotFound("Producto no encontrado");
+        //    if (existingProduct == null)
+        //        return NotFound("Producto no encontrado");
 
-            //_mapper.Map(productDto, existingProduct);
+        //    //_mapper.Map(productDto, existingProduct);
 
-            if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId <= 2))
-                return BadRequest("Solo AudienceIDs de 0 a 2 inclusive.");
+        //    if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId < Enum.GetValues(typeof(Entities.Audience)).Length))
+        //        return BadRequest("Solo AudienceIDs de 0 a 2 inclusive.");
 
-            var success = await _productRepository.UpdateProductAsync(id, productDto);
+        //    var success = await _productRepository.UpdateProductAsync(id, productDto);
 
-            if (!success)
-            {
-                return StatusCode(500);
-            }
+        //    if (!success)
+        //    {
+        //        return StatusCode(500);
+        //    }
 
-            return Ok("Producto actualizado exitosamente.");
-        }
+        //    return Ok("Producto actualizado exitosamente.");
+        //}
 
     }
 }
