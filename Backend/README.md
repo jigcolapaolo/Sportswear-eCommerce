@@ -1,3 +1,10 @@
+# Link de la API
+https://ecommerce-api.app.csharpjourney.xyz/swagger/index.html
+
+# Consideraciones antes de realizar un pull request
+- Borrar los archivos dentro de la carpeta Migrations. No borrar la carpeta Migrations!.
+- La configuración en appsettings.json, launchSettings.json debe ser la misma a la que se tiene en la rama backend, esto en caso que realisastes alguna modificación en uno de estos archivos.
+
 # Iniciar el proyecto con Docker
 Iniciar el proyecto con la base de datos sql server configurada en un contenedor.
 - Instalar docker 
@@ -30,7 +37,4 @@ Iniciar el proyecto con la base de datos sql server configurada en un contenedor
 - Ejecutar la API
  `dotnet run`
 
-# Consideraciones antes de realizar un pull request
-- Borrar los archivos dentro de la carpeta Migrations. No borrar la carpeta Migrations!.
-- La configuración en appsettings.json, launchSettings.json debe ser la misma a la que se tiene en la rama backend, esto en caso que realisastes alguna modificación en uno de estos archivos.
 
