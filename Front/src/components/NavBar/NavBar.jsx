@@ -5,8 +5,8 @@ const NavBar = () => {
 
   return (
     <div>
-      <nav className="bg-gray-800">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <nav className="bg-[#212121]"> {/* [] */}
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8"> {/* mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 */}
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <div id="mobile-menu-button">
@@ -48,9 +48,21 @@ const NavBar = () => {
             </div>
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex flex-shrink-0 items-center">
-                <img className="h-8 w-auto" src="" alt="Logo del E-commerce" />
+                <img className="w-[250px] h-[74px] l-[94px]" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
               </div>
               <div className="hidden sm:ml-6 sm:block">
+                {/* Esta es la bara de busqyeda */}
+                <input 
+                  type="text" 
+                  placeholder="Buscar" 
+                  className="w-[675px] h-[40px] t-[25px] l-[383px]" /> {/* border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none */}
+              </div>
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='' alt='icono de ' />
+                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/perfil.png' alt='icono de ' />
+                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/corazon.png' alt='icono de ' />
+              </div>
+              {/* <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                   <a
                     href="#"
@@ -78,7 +90,7 @@ const NavBar = () => {
                     Contacto
                   </a>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
@@ -87,7 +99,7 @@ const NavBar = () => {
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">View notifications</span>
-                <svg
+                {/* <svg
                   className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -100,7 +112,7 @@ const NavBar = () => {
                     strokeLinejoin="round"
                     d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                   />
-                </svg>
+                </svg> */}
               </button>
             </div>
           </div>
