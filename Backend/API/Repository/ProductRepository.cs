@@ -21,7 +21,10 @@ namespace API.Repository
         //Get
         public async Task<List<Product>> GetProductsListAsync(ProductFilterDto filter)
         {
-            var products = await _dbContext.Products.Include(p => p.Brand).Include(p => p.Category).ToListAsync();
+            var products = await _dbContext.Products
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .ToListAsync();
 
             //Filtros
             if (!string.IsNullOrEmpty(filter.Name))
@@ -63,8 +66,10 @@ namespace API.Repository
 
         public async Task<Product?> GetProductByIdAsync(Guid productId)
         {
-            var product = await _dbContext.Products.Include(p => p.Brand).Include(p => p.Category)
-                                                   .FirstOrDefaultAsync(p => p.ProductId == productId);
+            var product = await _dbContext.Products
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.ProductId == productId);
 
             return product;
         }
@@ -72,16 +77,18 @@ namespace API.Repository
         //Delete
         public async Task<bool> DeleteProductAsync(Guid productId)
         {
-            var product = await _dbContext.Products.FindAsync(productId);
+            var deletedProducts = await _dbContext.Products
+                .Where(p => p.ProductId == productId)
+                .ExecuteDeleteAsync();
 
-            if (product == null)
+            if (deletedProducts == 0)
                 return false;
 
-            _dbContext.Products.Remove(product);
             await _dbContext.SaveChangesAsync();
 
             return true; //Producto eliminado exitosamente
         }
+
         //Update
         public async Task<bool> UpdateProductAsync(Guid productId, ProductToUpdateDto productDto)
         {

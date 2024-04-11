@@ -15,7 +15,7 @@ namespace API.Profiles
             //Get
             CreateMap<Product, ProductToReturnDto>();
             //Update
-            CreateMap<ProductToUpdateDto, Product>().ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null)); ;
+            CreateMap<ProductToUpdateDto, Product>().ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
             //Return
             CreateMap<Brand, BrandToReturnDto>();
             CreateMap<Category, CategoryToReturnDto>();

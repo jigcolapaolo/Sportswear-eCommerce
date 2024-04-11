@@ -14,7 +14,6 @@ namespace API.Dtos
         public int ReviewRate { get; set; }
 
 
-
         public string BrandName {  get; set; }
         public string CategoryName { get; set; }
         public Audience Audience;

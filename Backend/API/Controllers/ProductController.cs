@@ -83,9 +83,7 @@ namespace API.Controllers
         //    var success = await _productRepository.DeleteProductAsync(id);
 
         //    if (!success)
-        //    {
         //        return NotFound("Error al eliminar el producto, no se encontró.");
-        //    }
 
         //    return Ok("Producto eliminado exitosamente.");
         //}
