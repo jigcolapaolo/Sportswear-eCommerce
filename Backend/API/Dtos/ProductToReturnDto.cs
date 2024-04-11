@@ -16,6 +16,14 @@ namespace API.Dtos
 
         public string BrandName {  get; set; }
         public string CategoryName { get; set; }
+        public Audience Audience;
+        public string AudienceType
+        {
+            get
+            {
+                return Audience.ToString();
+            }
+        }
 
     }
 }

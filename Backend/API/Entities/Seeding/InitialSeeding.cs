@@ -77,6 +77,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = adidas.BrandId,
                 CategoryId = zapatillas.CategoryId,
+                Audience = Audience.Hombre
             };
             var buzoFila = new Product()
             {
@@ -89,6 +90,7 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = fila.BrandId,
                 CategoryId = buzos.CategoryId,
+                Audience = Audience.Hombre
             };
             var remeraNike = new Product()
             {
@@ -101,9 +103,49 @@ namespace API.Entities.Seeding
                 ReviewRate = 0,
                 BrandId = nike.BrandId,
                 CategoryId = remeras.CategoryId,
+                Audience = Audience.Hombre
+            };
+            var calzaFila = new Product()
+            {
+                ProductId = new Guid("d3f6cb84-be38-46f4-834d-0e6485adc750"),
+                Name = "Calza Fila Mujer",
+                Description = "Color Negro",
+                Price = 32000,
+                Available = true,
+                PictureURL = "",
+                ReviewRate = 0,
+                BrandId = fila.BrandId,
+                CategoryId = calzas.CategoryId,
+                Audience = Audience.Mujer
+            };
+            var topAdidas = new Product()
+            {
+                ProductId = new Guid("8dfb04b4-e714-4469-bf03-1029ecd7a2c3"),
+                Name = "Top Deportivo Adidas Mujer",
+                Description = "Color Blanco",
+                Price = 15000,
+                Available = true,
+                PictureURL = "",
+                ReviewRate = 0,
+                BrandId = adidas.BrandId,
+                CategoryId = tops.CategoryId,
+                Audience = Audience.Mujer
+            };
+            var zapatillasNike = new Product()
+            {
+                ProductId = new Guid("777da6a0-c9ae-4379-8832-7dfbbd58f260"),
+                Name = "Zapatillas Nike Mujer",
+                Description = "Color Negro",
+                Price = 25000,
+                Available = true,
+                PictureURL = "",
+                ReviewRate = 0,
+                BrandId = nike.BrandId,
+                CategoryId = zapatillas.CategoryId,
+                Audience = Audience.Mujer
             };
 
-            modelBuilder.Entity<Product>().HasData(zapatillasAdidas, buzoFila, remeraNike);
+            modelBuilder.Entity<Product>().HasData(zapatillasAdidas, buzoFila, remeraNike, calzaFila, topAdidas, zapatillasNike);
 
         }
     }
