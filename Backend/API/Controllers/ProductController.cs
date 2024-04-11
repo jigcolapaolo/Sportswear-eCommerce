@@ -91,22 +91,15 @@ namespace API.Controllers
         //[HttpPut("{id}")]
         //public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
         //{
-        //    var existingProduct = await _productRepository.GetProductByIdAsync(id);
-
-        //    if (existingProduct == null)
-        //        return NotFound("Producto no encontrado");
-
-        //    //_mapper.Map(productDto, existingProduct);
-
-        //    if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId < Enum.GetValues(typeof(Entities.Audience)).Length))
-        //        return BadRequest("Solo AudienceIDs de 0 a 2 inclusive.");
+        //    //Validación de AudienceId ingresado.
+        //    int enumMaxLength = Enum.GetValues(typeof(Audience)).Length - 1;
+        //    if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId <= enumMaxLength))
+        //        return BadRequest("Solo AudienceIDs de 0 a " + enumMaxLength + " inclusive.");
 
         //    var success = await _productRepository.UpdateProductAsync(id, productDto);
 
         //    if (!success)
-        //    {
-        //        return StatusCode(500);
-        //    }
+        //        return BadRequest("Producto no encontrado.");
 
         //    return Ok("Producto actualizado exitosamente.");
         //}
