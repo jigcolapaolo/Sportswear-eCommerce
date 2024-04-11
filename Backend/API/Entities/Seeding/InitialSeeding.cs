@@ -73,11 +73,10 @@ namespace API.Entities.Seeding
                 Description = "Color Blanco",
                 Price = 50000,
                 Available = true,
-                PictureURL = "",
                 ReviewRate = 0,
                 BrandId = adidas.BrandId,
                 CategoryId = zapatillas.CategoryId,
-                Audience = Audience.Hombre
+                Audience = Audience.Hombre,
             };
             var buzoFila = new Product()
             {
@@ -86,11 +85,10 @@ namespace API.Entities.Seeding
                 Description = "Color Azul",
                 Price = 30000,
                 Available = true,
-                PictureURL = "",
                 ReviewRate = 0,
                 BrandId = fila.BrandId,
                 CategoryId = buzos.CategoryId,
-                Audience = Audience.Hombre
+                Audience = Audience.Hombre,
             };
             var remeraNike = new Product()
             {
@@ -99,11 +97,10 @@ namespace API.Entities.Seeding
                 Description = "Color Negro",
                 Price = 20000,
                 Available = true,
-                PictureURL = "",
                 ReviewRate = 0,
                 BrandId = nike.BrandId,
                 CategoryId = remeras.CategoryId,
-                Audience = Audience.Hombre
+                Audience = Audience.Hombre,
             };
             var calzaFila = new Product()
             {
@@ -112,11 +109,10 @@ namespace API.Entities.Seeding
                 Description = "Color Negro",
                 Price = 32000,
                 Available = true,
-                PictureURL = "",
                 ReviewRate = 0,
                 BrandId = fila.BrandId,
                 CategoryId = calzas.CategoryId,
-                Audience = Audience.Mujer
+                Audience = Audience.Mujer,
             };
             var topAdidas = new Product()
             {
@@ -125,11 +121,10 @@ namespace API.Entities.Seeding
                 Description = "Color Blanco",
                 Price = 15000,
                 Available = true,
-                PictureURL = "",
                 ReviewRate = 0,
                 BrandId = adidas.BrandId,
                 CategoryId = tops.CategoryId,
-                Audience = Audience.Mujer
+                Audience = Audience.Mujer,
             };
             var zapatillasNike = new Product()
             {
@@ -138,14 +133,22 @@ namespace API.Entities.Seeding
                 Description = "Color Negro",
                 Price = 25000,
                 Available = true,
-                PictureURL = "",
                 ReviewRate = 0,
                 BrandId = nike.BrandId,
                 CategoryId = zapatillas.CategoryId,
-                Audience = Audience.Mujer
+                Audience = Audience.Mujer,
             };
 
             modelBuilder.Entity<Product>().HasData(zapatillasAdidas, buzoFila, remeraNike, calzaFila, topAdidas, zapatillasNike);
+
+            modelBuilder.Entity<PictureUrl>().HasData(
+                new PictureUrl { Url = "url1", ProductId = zapatillasAdidas.ProductId },
+                new PictureUrl { Url = "url2", ProductId = buzoFila.ProductId },
+                new PictureUrl { Url = "url3", ProductId = remeraNike.ProductId },
+                new PictureUrl { Url = "url4", ProductId = calzaFila.ProductId },
+                new PictureUrl { Url = "url5", ProductId = topAdidas.ProductId },
+                new PictureUrl { Url = "url6", ProductId = zapatillasNike.ProductId }
+            );
 
         }
     }

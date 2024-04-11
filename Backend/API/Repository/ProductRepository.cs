@@ -24,6 +24,7 @@ namespace API.Repository
             var products = await _dbContext.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
+                .Include(p => p.PictureUrls)
                 .ToListAsync();
 
             //Filtros
@@ -69,6 +70,7 @@ namespace API.Repository
             var product = await _dbContext.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
+                .Include(p => p.PictureUrls)
                 .FirstOrDefaultAsync(p => p.ProductId == productId);
 
             return product;
@@ -102,7 +104,6 @@ namespace API.Repository
             existingProduct.Description = productDto.Description ?? existingProduct.Description;
             existingProduct.Price = productDto.Price != 0 ? productDto.Price : existingProduct.Price;
             existingProduct.Available = productDto.Available ?? existingProduct.Available;
-            existingProduct.PictureURL = productDto.PictureURL ?? existingProduct.PictureURL;
             existingProduct.ReviewRate = productDto.ReviewRate != 0 ? productDto.ReviewRate : existingProduct.ReviewRate;
             existingProduct.BrandId = productDto.BrandId != Guid.Empty ? productDto.BrandId : existingProduct.BrandId;
             existingProduct.CategoryId = productDto.CategoryId != Guid.Empty ? productDto.CategoryId : existingProduct.CategoryId;

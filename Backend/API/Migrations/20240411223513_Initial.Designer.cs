@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240411194306_Initial")]
+    [Migration("20240411223513_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -117,6 +117,65 @@ namespace API.Migrations
                         });
                 });
 
+            modelBuilder.Entity("API.Entities.PictureUrl", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("PictureUrls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("23febcf3-1814-47e7-9bc1-a89e48522241"),
+                            ProductId = new Guid("4a908887-e7a4-4b1b-9f7e-32acdfad4c3d"),
+                            Url = "url1"
+                        },
+                        new
+                        {
+                            Id = new Guid("e92143fc-f1fc-465a-b3e7-1d4b37e99377"),
+                            ProductId = new Guid("2bb41d94-7894-4db9-b458-405d34abc009"),
+                            Url = "url2"
+                        },
+                        new
+                        {
+                            Id = new Guid("d6e25b9d-e23e-4055-8bad-afb76f3d084b"),
+                            ProductId = new Guid("33755bf6-4f1a-4e08-a544-4137e81507a7"),
+                            Url = "url3"
+                        },
+                        new
+                        {
+                            Id = new Guid("afb6e50d-b551-46d1-afa3-f1179fbb0f99"),
+                            ProductId = new Guid("d3f6cb84-be38-46f4-834d-0e6485adc750"),
+                            Url = "url4"
+                        },
+                        new
+                        {
+                            Id = new Guid("4c228bec-ffb4-47fc-9c51-6e8440dc40f9"),
+                            ProductId = new Guid("8dfb04b4-e714-4469-bf03-1029ecd7a2c3"),
+                            Url = "url5"
+                        },
+                        new
+                        {
+                            Id = new Guid("cd7bdd9a-d62e-4d2d-86ca-0b92596e4583"),
+                            ProductId = new Guid("777da6a0-c9ae-4379-8832-7dfbbd58f260"),
+                            Url = "url6"
+                        });
+                });
+
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
                     b.Property<Guid>("ProductId")
@@ -145,11 +204,6 @@ namespace API.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("PictureURL")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -174,7 +228,6 @@ namespace API.Migrations
                             CategoryId = new Guid("6c9b8c6d-4189-4898-916d-2f7d1d417be1"),
                             Description = "Color Blanco",
                             Name = "Zapatillas Adidas",
-                            PictureURL = "",
                             Price = 50000m,
                             ReviewRate = 0
                         },
@@ -187,7 +240,6 @@ namespace API.Migrations
                             CategoryId = new Guid("9bbdae54-6c3d-477b-8c7e-fb3325d6fc96"),
                             Description = "Color Azul",
                             Name = "Buzo Fila",
-                            PictureURL = "",
                             Price = 30000m,
                             ReviewRate = 0
                         },
@@ -200,7 +252,6 @@ namespace API.Migrations
                             CategoryId = new Guid("70018363-fd44-44e8-bed2-6dd7e2968022"),
                             Description = "Color Negro",
                             Name = "Remera Nike",
-                            PictureURL = "",
                             Price = 20000m,
                             ReviewRate = 0
                         },
@@ -213,7 +264,6 @@ namespace API.Migrations
                             CategoryId = new Guid("a9f1f13d-5a9a-412d-bb4d-0b55f495b9c6"),
                             Description = "Color Negro",
                             Name = "Calza Fila Mujer",
-                            PictureURL = "",
                             Price = 32000m,
                             ReviewRate = 0
                         },
@@ -226,7 +276,6 @@ namespace API.Migrations
                             CategoryId = new Guid("1fb94e63-ce4b-432e-b92e-dbbf7b6c77a8"),
                             Description = "Color Blanco",
                             Name = "Top Deportivo Adidas Mujer",
-                            PictureURL = "",
                             Price = 15000m,
                             ReviewRate = 0
                         },
@@ -239,10 +288,20 @@ namespace API.Migrations
                             CategoryId = new Guid("6c9b8c6d-4189-4898-916d-2f7d1d417be1"),
                             Description = "Color Negro",
                             Name = "Zapatillas Nike Mujer",
-                            PictureURL = "",
                             Price = 25000m,
                             ReviewRate = 0
                         });
+                });
+
+            modelBuilder.Entity("API.Entities.PictureUrl", b =>
+                {
+                    b.HasOne("API.Entities.Product", "Product")
+                        .WithMany("PictureUrls")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("API.Entities.Product", b =>
@@ -272,6 +331,11 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("API.Entities.Product", b =>
+                {
+                    b.Navigation("PictureUrls");
                 });
 #pragma warning restore 612, 618
         }
