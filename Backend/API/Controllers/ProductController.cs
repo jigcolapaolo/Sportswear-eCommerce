@@ -1,6 +1,5 @@
 ﻿using API.Dtos;
 using API.Entities;
-using API.Migrations;
 using API.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
