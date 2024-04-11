@@ -58,9 +58,9 @@ const NavBar = () => {
                   className="w-[675px] h-[40px] t-[25px] l-[383px]" /> {/* border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none */}
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='' alt='icono de ' />
-                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/perfil.png' alt='icono de ' />
-                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/corazon.png' alt='icono de ' />
+                  <img className='w-[40px] h-[40px] t-[20px] l-[1128px]' src='../../../public/images/iconos/email.png' alt='icono de email' />
+                  <img className='w-[40px] h-[40px] t-[25px] l-[1300px]' src='../../../public/images/iconos/perfil.png' alt='icono de perfil' />
+                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/favorite.png' alt='icono de favorito' />
               </div>
               {/* <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
@@ -118,7 +118,7 @@ const NavBar = () => {
           </div>
         </div>
         <div className={isMobileMenuOpen ? 'block sm:hidden' : 'hidden'} id="mobile-menu">
-          <div className="space-y-1 px-2 pb-3 pt-2">
+          {/* <div className="space-y-1 px-2 pb-3 pt-2">
             <a
               href="#"
               className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
@@ -144,7 +144,7 @@ const NavBar = () => {
             >
               Contacto
             </a>
-          </div>
+          </div> */}
         </div>
       </nav>
     </div>
