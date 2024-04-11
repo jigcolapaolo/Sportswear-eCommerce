@@ -1,12 +1,34 @@
-import { useState } from 'react';
+import { useState } from 'react'; 
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [busqueda, setBusqueda] = useState('');
+  const [resultados, setResultados] = useState([]);
+  const url = 'https://ecommerce-api.app.csharpjourney.xyz/api/products';
+ //Tengo el problema de que cuando hago una biusqueda no me la muestra en pantalla ni me tira error
+  const buscarProductos = async () => {
+    try {
+      const response = await fetch(`${url}?busqueda=${busqueda}`);
+      const data = await response.json();
+      setResultados(data);
+    } catch (error) {
+      console.error('Error al buscar productos:', error);
+    }
+  };
+
+  const manejarBusquedaChange = (e) => {
+    setBusqueda(e.target.value);
+  };
+
+  const manejarBusqueda = (e) => {
+    e.preventDefault();
+    buscarProductos(); 
+  };
 
   return (
     <div>
-      <nav className="bg-[#212121]"> {/* [] */}
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8"> {/* mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 */}
+      <nav className="bg-[#212121]">
+        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <div id="mobile-menu-button">
@@ -51,46 +73,22 @@ const NavBar = () => {
                 <img className="w-[250px] h-[74px] l-[94px]" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
               </div>
               <div className="hidden sm:ml-6 sm:block">
-                {/* Esta es la bara de busqyeda */}
-                <input 
-                  type="text" 
-                  placeholder="Buscar" 
-                  className="w-[675px] h-[40px] t-[25px] l-[383px]" /> {/* border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none */}
+                {/* Esta es la barra de búsqueda */}
+                <form onSubmit={manejarBusqueda}>
+              <input
+                type="text"
+                placeholder="Buscar"
+                className="w-[675px] h-[40px] t-[25px] l-[383px]"
+                value={busqueda}
+                onChange={manejarBusquedaChange}
+              />
+            </form>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <img className='w-[40px] h-[40px] t-[20px] l-[1128px]' src='../../../public/images/iconos/email.png' alt='icono de email' />
-                  <img className='w-[40px] h-[40px] t-[25px] l-[1300px]' src='../../../public/images/iconos/perfil.png' alt='icono de perfil' />
-                  <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/favorite.png' alt='icono de favorito' />
+                <img className='w-[40px] h-[40px] t-[20px] l-[1128px]' src='../../../public/images/iconos/email.png' alt='icono de email' />
+                <img className='w-[40px] h-[40px] t-[25px] l-[1300px]' src='../../../public/images/iconos/perfil.png' alt='icono de perfil' />
+                <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/favorite.png' alt='icono de favorito' />
               </div>
-              {/* <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
-                  <a
-                    href="#"
-                    className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                    aria-current="page"
-                  >
-                    Nombre del E-commerce
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  >
-                    Inicio
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  >
-                    Productos
-                  </a>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  >
-                    Contacto
-                  </a>
-                </div>
-              </div> */}
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
@@ -99,52 +97,12 @@ const NavBar = () => {
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">View notifications</span>
-                {/* <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                  />
-                </svg> */}
               </button>
             </div>
           </div>
         </div>
         <div className={isMobileMenuOpen ? 'block sm:hidden' : 'hidden'} id="mobile-menu">
-          {/* <div className="space-y-1 px-2 pb-3 pt-2">
-            <a
-              href="#"
-              className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-              aria-current="page"
-            >
-              Nombre del E-commerce
-            </a>
-            <a
-              href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-            >
-              Inicio
-            </a>
-            <a
-              href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-            >
-              Productos
-            </a>
-            <a
-              href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-            >
-              Contacto
-            </a>
-          </div> */}
+          {/* Aquí va el contenido del menú móvil */}
         </div>
       </nav>
     </div>
