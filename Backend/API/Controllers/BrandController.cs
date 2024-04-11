@@ -26,7 +26,7 @@ namespace API.Controllers
             var hasDuplicate = await _brandRepository.HasDuplicateName(brandDto.Name);
 
             if(hasDuplicate)
-                return BadRequest("Ya existe un Brand con ese nombre.");
+                return BadRequest("Ya existe una marca con ese nombre.");
 
 
             // Mapping
