@@ -25,8 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Images\Products\Adidas\" />
+    <Folder Include="Images\Products\Fila\" />
+    <Folder Include="Images\Products\Nike\" />
+    <Folder Include="Images\Products\Reebok\" />
+    <Folder Include="Images\Products\Puma\" />
     <Folder Include="Migrations\" />
-    <Folder Include="ProductImages\" />
   </ItemGroup>
 
 </Project>

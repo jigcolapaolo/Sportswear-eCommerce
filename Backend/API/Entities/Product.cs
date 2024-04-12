@@ -4,7 +4,8 @@
     {
         Hombre,
         Mujer,
-        Niños
+        Niños,
+        Niñas
     }
 
     public class Product
