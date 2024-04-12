@@ -1,4 +1,6 @@
-﻿namespace API.Dtos
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace API.Dtos
 {
     public class ProductToUpdateDto
     {
@@ -11,5 +13,6 @@
         public Guid BrandId { get; set; }
         public Guid CategoryId { get; set; }
         public int? AudienceId { get; set; }
+        public List<string>? PictureUrls { get; set; }
     }
 }

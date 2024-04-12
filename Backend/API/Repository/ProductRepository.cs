@@ -99,20 +99,30 @@ namespace API.Repository
             if (existingProduct == null)
                 return false;
 
+
             //Mapeo y validaciones
             existingProduct.Name = productDto.Name ?? existingProduct.Name;
             existingProduct.Description = productDto.Description ?? existingProduct.Description;
-            existingProduct.Price = productDto.Price != 0 ? productDto.Price : existingProduct.Price;
+            existingProduct.Price = productDto.Price >= 0 ? productDto.Price : existingProduct.Price;
             existingProduct.Available = productDto.Available ?? existingProduct.Available;
-            existingProduct.ReviewRate = productDto.ReviewRate != 0 ? productDto.ReviewRate : existingProduct.ReviewRate;
+            existingProduct.ReviewRate = productDto.ReviewRate >= 0 ? productDto.ReviewRate : existingProduct.ReviewRate;
             existingProduct.BrandId = productDto.BrandId != Guid.Empty ? productDto.BrandId : existingProduct.BrandId;
             existingProduct.CategoryId = productDto.CategoryId != Guid.Empty ? productDto.CategoryId : existingProduct.CategoryId;
             existingProduct.Audience = productDto.AudienceId.HasValue ? (Audience)productDto.AudienceId.Value : existingProduct.Audience;
+
+            if(productDto.PictureUrls != null)
+            {
+                existingProduct.PictureUrls = _dbContext.PictureUrls.Where(p => p.ProductId == existingProduct.ProductId).ToList();
+                existingProduct.PictureUrls.Clear();
+                existingProduct.PictureUrls = productDto.PictureUrls.Select(url => new PictureUrl { Url = url }).ToList();
+                _dbContext.PictureUrls.AddRange(existingProduct.PictureUrls);
+            }
 
 
             await _dbContext.SaveChangesAsync();
 
             return true; // Producto actualizado exitosamente
+
         }
 
 

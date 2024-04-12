@@ -100,21 +100,21 @@ namespace API.Controllers
         //}
 
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
-        //{
-        //    //Validación de AudienceId ingresado.
-        //    int enumMaxLength = Enum.GetValues(typeof(Audience)).Length - 1;
-        //    if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId <= enumMaxLength))
-        //        return BadRequest("Solo AudienceIDs de 0 a " + enumMaxLength + " inclusive.");
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
+        {
+            //Validación de AudienceId ingresado.
+            int enumMaxLength = Enum.GetValues(typeof(Audience)).Length - 1;
+            if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId <= enumMaxLength))
+                return BadRequest("Solo AudienceIDs de 0 a " + enumMaxLength + " inclusive.");
 
-        //    var success = await _productRepository.UpdateProductAsync(id, productDto);
+            var success = await _productRepository.UpdateProductAsync(id, productDto);
 
-        //    if (!success)
-        //        return BadRequest("Producto no encontrado.");
+            if (!success)
+                return BadRequest("Producto no encontrado.");
 
-        //    return Ok("Producto actualizado exitosamente.");
-        //}
+            return Ok("Producto actualizado exitosamente.");
+        }
 
     }
 }

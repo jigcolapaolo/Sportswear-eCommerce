@@ -11,7 +11,7 @@ namespace API.Profiles
             //Create
             CreateMap<ProductToCreateDto, Product>()
                 //Cambio de List<string> a List<PictureUrl>
-                .ForMember(dest => dest.PictureUrls, opt => opt.MapFrom(src => src.PictureUrls.Select(url => new PictureUrl { Url = url }))); ;
+                .ForMember(dest => dest.PictureUrls, opt => opt.MapFrom(src => src.PictureUrls.Select(url => new PictureUrl { Url = url })));
             CreateMap<BrandToCreateDto, Brand>();
             CreateMap<CategoryToCreateDto, Category>();
             //Get
