@@ -22,26 +22,38 @@ namespace API.Controllers
             _productRepository = productRepository;
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, [Required] Guid brandId, [Required] Guid categoryId, [Required] int audienceId)
-        //{
+        [HttpPost]
+        public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, [Required] Guid brandId, [Required] Guid categoryId, [Required] int audienceId)
+        {
 
-        //    // Mapping
-        //    Product product = _mapper.Map<Product>(productDto);
-        //    product.BrandId = brandId;
-        //    product.CategoryId = categoryId;
-        //    if (audienceId >= 0 && audienceId < Enum.GetValues(typeof(Entities.Audience)).Length)
-        //        product.Audience = (Entities.Audience)audienceId;
-        //    else
-        //        return BadRequest("AudienceId debe estar entre 0 y " + (Enum.GetValues(typeof(Entities.Audience)).Length - 1 ));
+            //AutoMapper aplica proyeccion para convertir List<string> -> List<PictureUrl>
+            Product product = _mapper.Map<Product>(productDto);
+            product.BrandId = brandId;
+            product.CategoryId = categoryId;
+            product.Description = string.IsNullOrEmpty(product.Description) ? "-Sin Descripción-" : product.Description;
 
-        //    // Add a product
-        //    await _productRepository.CreateProductAsync(product);
-        //    await _productRepository.SaveChangesAsync();
+            if (string.IsNullOrEmpty(product.Name))
+                return BadRequest("El producto debe tener un nombre.");
+
+            //Validación Audience
+            int maxEnumLength = Enum.GetValues(typeof(Audience)).Length;
+            if (audienceId >= 0 && audienceId < maxEnumLength)
+                product.Audience = (Audience)audienceId;
+            else
+                return BadRequest("AudienceId debe estar entre 0 y " + (maxEnumLength - 1));
+
+            //Por cada string ingresado en List<string>, creo nuevas imagenes relacionadas con este objeto
+            List<PictureUrl> pictureUrls = productDto.PictureUrls.Select(url => new PictureUrl { Url = url }).ToList();
+            product.PictureUrls = pictureUrls;
 
 
-        //    return Ok("Producto agregado exitosamente.");
-        //}
+            //Add a product
+            await _productRepository.CreateProductAsync(product);
+            await _productRepository.SaveChangesAsync();
+
+
+            return Ok("Producto agregado exitosamente.");
+        }
 
         [HttpGet]
         public async Task<ActionResult<List<ProductToReturnDto>>> GetProductsList([FromQuery] ProductFilterDto filterDto)

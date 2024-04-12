@@ -23,7 +23,7 @@ namespace API.Dtos
         }
 
         public List<PictureUrl> PictureUrls;
-        public List<string> Urls
+        public List<string> ImgUrls
         {
             get
             {

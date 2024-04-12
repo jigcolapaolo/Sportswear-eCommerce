@@ -32,6 +32,8 @@
         public Product()
         {
             ProductId = Guid.NewGuid();
+            ReviewRate = 0;
+            Available = true;
         }
     }
 }
