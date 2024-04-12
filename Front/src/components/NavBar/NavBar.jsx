@@ -1,12 +1,12 @@
-import { useState } from 'react'; 
+import { useState, useEffect } from 'react'; 
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
-  const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
 
   const buscarProductos = async () => {
+    const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
     try {
       const response = await fetch(`${url}?busqueda=${busqueda}`);
       const data = await response.json();
@@ -24,6 +24,10 @@ const NavBar = () => {
     e.preventDefault();
     buscarProductos(); 
   };
+
+  useEffect(() => {
+    buscarProductos();
+  });
 
   return (
     <div>
@@ -73,16 +77,15 @@ const NavBar = () => {
                 <img className="w-[250px] h-[74px] l-[94px]" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
               </div>
               <div className="hidden sm:ml-6 sm:block">
-                {/* Esta es la barra de búsqueda */}
                 <form onSubmit={manejarBusqueda}>
-              <input
-                type="text"
-                placeholder="Buscar"
-                className="w-[675px] h-[40px] t-[25px] l-[383px]"
-                value={busqueda}
-                onChange={manejarBusquedaChange}
-              />
-            </form>
+                  <input
+                    type="text"
+                    placeholder="Buscar"
+                    className="w-[675px] h-[40px] t-[25px] l-[383px]"
+                    value={busqueda}
+                    onChange={manejarBusquedaChange}
+                  />
+                </form>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <img className='w-[40px] h-[40px] t-[20px] l-[1128px]' src='../../../public/images/iconos/email.png' alt='icono de email' />
@@ -102,9 +105,17 @@ const NavBar = () => {
           </div>
         </div>
         <div className={isMobileMenuOpen ? 'block sm:hidden' : 'hidden'} id="mobile-menu">
-          {/* Aquí va el contenido del menú móvil */}
         </div>
       </nav>
+      <div>
+        {resultados.map((producto, index) => (
+          <div key={index}>
+            <p>{producto.nombre}</p>
+            <p>{producto.descripcion}</p>
+
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
