@@ -4,8 +4,8 @@ const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
-  const url = 'https://ecommerce-api.app.csharpjourney.xyz/api/products';
- //Tengo el problema de que cuando hago una biusqueda no me la muestra en pantalla ni me tira error
+  const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
+
   const buscarProductos = async () => {
     try {
       const response = await fetch(`${url}?busqueda=${busqueda}`);
