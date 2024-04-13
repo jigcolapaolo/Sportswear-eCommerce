@@ -19,6 +19,7 @@ namespace API.Profiles
             //Return
             CreateMap<Brand, BrandToReturnDto>();
             CreateMap<Category, CategoryToReturnDto>();
+            CreateMap<BasketItemToCreateDto, BasketItem>();
         }
     }
 }
