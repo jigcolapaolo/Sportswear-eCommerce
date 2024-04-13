@@ -22,6 +22,7 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
+
 // Register DbContext in services
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {
@@ -56,6 +57,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//Static Files in wwwroot
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

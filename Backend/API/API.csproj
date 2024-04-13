@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Images\**" />
+    <Content Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
@@ -22,15 +29,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\Products\Adidas\" />
-    <Folder Include="Images\Products\Fila\" />
-    <Folder Include="Images\Products\Nike\" />
-    <Folder Include="Images\Products\Reebok\" />
-    <Folder Include="Images\Products\Puma\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

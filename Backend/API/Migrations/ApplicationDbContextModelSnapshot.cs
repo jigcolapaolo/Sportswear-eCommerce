@@ -137,39 +137,9 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("23febcf3-1814-47e7-9bc1-a89e48522241"),
+                            Id = new Guid("68fc49ee-f939-4b3e-a388-6efd105e3309"),
                             ProductId = new Guid("4a908887-e7a4-4b1b-9f7e-32acdfad4c3d"),
-                            Url = "url1"
-                        },
-                        new
-                        {
-                            Id = new Guid("e92143fc-f1fc-465a-b3e7-1d4b37e99377"),
-                            ProductId = new Guid("2bb41d94-7894-4db9-b458-405d34abc009"),
-                            Url = "url2"
-                        },
-                        new
-                        {
-                            Id = new Guid("d6e25b9d-e23e-4055-8bad-afb76f3d084b"),
-                            ProductId = new Guid("33755bf6-4f1a-4e08-a544-4137e81507a7"),
-                            Url = "url3"
-                        },
-                        new
-                        {
-                            Id = new Guid("afb6e50d-b551-46d1-afa3-f1179fbb0f99"),
-                            ProductId = new Guid("d3f6cb84-be38-46f4-834d-0e6485adc750"),
-                            Url = "url4"
-                        },
-                        new
-                        {
-                            Id = new Guid("4c228bec-ffb4-47fc-9c51-6e8440dc40f9"),
-                            ProductId = new Guid("8dfb04b4-e714-4469-bf03-1029ecd7a2c3"),
-                            Url = "url5"
-                        },
-                        new
-                        {
-                            Id = new Guid("cd7bdd9a-d62e-4d2d-86ca-0b92596e4583"),
-                            ProductId = new Guid("777da6a0-c9ae-4379-8832-7dfbbd58f260"),
-                            Url = "url6"
+                            Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Hombre-4a908887-e7a4-4b1b-9f7e-32acdfad4c3d-1.png"
                         });
                 });
 
@@ -226,66 +196,6 @@ namespace API.Migrations
                             Description = "Color Blanco",
                             Name = "Zapatillas Adidas",
                             Price = 50000m,
-                            ReviewRate = 0
-                        },
-                        new
-                        {
-                            ProductId = new Guid("2bb41d94-7894-4db9-b458-405d34abc009"),
-                            Audience = 0,
-                            Available = true,
-                            BrandId = new Guid("6d03d8f6-c4e9-4f83-b573-ed7277e39181"),
-                            CategoryId = new Guid("9bbdae54-6c3d-477b-8c7e-fb3325d6fc96"),
-                            Description = "Color Azul",
-                            Name = "Buzo Fila",
-                            Price = 30000m,
-                            ReviewRate = 0
-                        },
-                        new
-                        {
-                            ProductId = new Guid("33755bf6-4f1a-4e08-a544-4137e81507a7"),
-                            Audience = 0,
-                            Available = true,
-                            BrandId = new Guid("590eb07c-2ace-496b-959f-3be70a4b03db"),
-                            CategoryId = new Guid("70018363-fd44-44e8-bed2-6dd7e2968022"),
-                            Description = "Color Negro",
-                            Name = "Remera Nike",
-                            Price = 20000m,
-                            ReviewRate = 0
-                        },
-                        new
-                        {
-                            ProductId = new Guid("d3f6cb84-be38-46f4-834d-0e6485adc750"),
-                            Audience = 1,
-                            Available = true,
-                            BrandId = new Guid("6d03d8f6-c4e9-4f83-b573-ed7277e39181"),
-                            CategoryId = new Guid("a9f1f13d-5a9a-412d-bb4d-0b55f495b9c6"),
-                            Description = "Color Negro",
-                            Name = "Calza Fila Mujer",
-                            Price = 32000m,
-                            ReviewRate = 0
-                        },
-                        new
-                        {
-                            ProductId = new Guid("8dfb04b4-e714-4469-bf03-1029ecd7a2c3"),
-                            Audience = 1,
-                            Available = true,
-                            BrandId = new Guid("ea99a1a3-5b55-4da7-bf08-4081aeff7b1d"),
-                            CategoryId = new Guid("1fb94e63-ce4b-432e-b92e-dbbf7b6c77a8"),
-                            Description = "Color Blanco",
-                            Name = "Top Deportivo Adidas Mujer",
-                            Price = 15000m,
-                            ReviewRate = 0
-                        },
-                        new
-                        {
-                            ProductId = new Guid("777da6a0-c9ae-4379-8832-7dfbbd58f260"),
-                            Audience = 1,
-                            Available = true,
-                            BrandId = new Guid("590eb07c-2ace-496b-959f-3be70a4b03db"),
-                            CategoryId = new Guid("6c9b8c6d-4189-4898-916d-2f7d1d417be1"),
-                            Description = "Color Negro",
-                            Name = "Zapatillas Nike Mujer",
-                            Price = 25000m,
                             ReviewRate = 0
                         });
                 });

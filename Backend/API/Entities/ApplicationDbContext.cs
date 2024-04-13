@@ -25,6 +25,7 @@ namespace API.Entities
 
             //Ejecutar el Seeding
             InitialSeeding.Seed(modelBuilder);
+
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
