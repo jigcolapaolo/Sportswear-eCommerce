@@ -14,6 +14,22 @@ namespace API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "BasketItem",
+                columns: table => new
+                {
+                    BasketItemId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Brand = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
+                    Type = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BasketItem", x => x.BasketItemId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Brands",
                 columns: table => new
                 {
@@ -160,6 +176,9 @@ namespace API.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BasketItem");
+
             migrationBuilder.DropTable(
                 name: "OrderItems");
 
