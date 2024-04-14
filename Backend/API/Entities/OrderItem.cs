@@ -13,6 +13,8 @@
         public OrderItem() 
         { 
             OrderItemId = Guid.NewGuid();
+            Price = 0m;
+            Quantity = 0;
         }
     }
 }
