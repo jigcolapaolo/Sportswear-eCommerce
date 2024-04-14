@@ -1,5 +1,11 @@
 ﻿namespace API.Entities
 {
+    public enum OrderStatus
+    {
+        Pending, // Pendiente
+        PaymentReceived, // Pago recibido
+        PaymentFailed // Error al realizar el pago
+    }
     public class Order
     {
         public Guid OrderId { get; set; }
@@ -8,7 +14,7 @@
         public decimal Subtotal { get; set; }
 
         //TODO 1: Cambiar por un enum(Pendiente, pago recivido, error al realizar el pago)
-        public bool Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         // Navigation property
         public List<OrderItem> OrderItems { get; set; }
