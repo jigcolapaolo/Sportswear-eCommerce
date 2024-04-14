@@ -23,6 +23,10 @@
         public Order()
         {
             OrderId = Guid.NewGuid();
+            Email =string.Empty;
+            Subtotal = 0m;
+            OrderItems = new List<OrderItem>();
+            OrderDate = DateTime.Now;
         }
     }
 }
