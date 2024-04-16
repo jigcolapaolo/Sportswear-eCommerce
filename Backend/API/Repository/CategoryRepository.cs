@@ -23,6 +23,11 @@ namespace API.Repository
             return await _dbContext.Categories.ToListAsync();
         }
 
+        public async Task<bool> HasDuplicateName(string name)
+        {
+            return await _dbContext.Categories.AnyAsync(c => c.Name == name);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();

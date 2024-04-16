@@ -23,6 +23,12 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<CategoryToReturnDto>> CreateCategory(CategoryToCreateDto categoryDto)
         {
+            var hasDuplicate = await _categoryRepository.HasDuplicateName(categoryDto.Name);
+
+            if (hasDuplicate)
+                return BadRequest("Ya existe una Categoría con ese nombre.");
+
+
             // Mapping
             Category category = _mapper.Map<Category>(categoryDto);
 

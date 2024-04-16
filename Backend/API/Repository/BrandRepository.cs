@@ -25,6 +25,11 @@ namespace API.Services
             return await _dbContext.Brands.ToListAsync();
         }
 
+        public async Task<bool> HasDuplicateName(string name)
+        {
+            return await _dbContext.Brands.AnyAsync(b => b.Name == name);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();

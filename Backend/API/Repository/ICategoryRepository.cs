@@ -8,6 +8,7 @@ namespace API.Repository
         Task CreateCategoryAsync(Category category);
         //Get
         Task<List<Category>> GetAllCategoriesAsync();
+        Task<bool> HasDuplicateName(string name);
 
         Task SaveChangesAsync();
     }

@@ -23,6 +23,12 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateBrand(BrandToCreateDto brandDto)
         {
+            var hasDuplicate = await _brandRepository.HasDuplicateName(brandDto.Name);
+
+            if(hasDuplicate)
+                return BadRequest("Ya existe una marca con ese nombre.");
+
+
             // Mapping
             Brand brand = _mapper.Map<Brand>(brandDto);
 

@@ -10,10 +10,7 @@ namespace API.Dtos
         public string Description { get; set; }
         public decimal Price { get; set; }
         public bool Available { get; set; }
-        public string PictureURL { get; set; }
         public int ReviewRate { get; set; }
-
-
         public string BrandName {  get; set; }
         public string CategoryName { get; set; }
         public Audience Audience;
@@ -25,5 +22,13 @@ namespace API.Dtos
             }
         }
 
+        public List<PictureUrl> PictureUrls;
+        public List<string> ImgUrls
+        {
+            get
+            {
+                return PictureUrls.Select(picture => picture.Url).ToList();
+            }
+        }
     }
 }

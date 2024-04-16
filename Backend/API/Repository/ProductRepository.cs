@@ -24,6 +24,7 @@ namespace API.Repository
             var products = await _dbContext.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
+                .Include(p => p.PictureUrls)
                 .ToListAsync();
 
             //Filtros
@@ -69,6 +70,7 @@ namespace API.Repository
             var product = await _dbContext.Products
                 .Include(p => p.Brand)
                 .Include(p => p.Category)
+                .Include(p => p.PictureUrls)
                 .FirstOrDefaultAsync(p => p.ProductId == productId);
 
             return product;
@@ -92,41 +94,35 @@ namespace API.Repository
         //Update
         public async Task<bool> UpdateProductAsync(Guid productId, ProductToUpdateDto productDto)
         {
-            var existingProduct = await _dbContext.Products.FindAsync(productId);
+            var existingProduct = await _dbContext.Products.FirstOrDefaultAsync(p => p.ProductId == productId);
 
             if (existingProduct == null)
                 return false;
 
-            if (productDto.Name != null)
-                existingProduct.Name = productDto.Name;
 
-            if (productDto.Description != null)
-                existingProduct.Description = productDto.Description;
+            //Mapeo y validaciones
+            existingProduct.Name = productDto.Name ?? existingProduct.Name;
+            existingProduct.Description = productDto.Description ?? existingProduct.Description;
+            existingProduct.Price = productDto.Price >= 0 ? productDto.Price : existingProduct.Price;
+            existingProduct.Available = productDto.Available ?? existingProduct.Available;
+            existingProduct.ReviewRate = productDto.ReviewRate >= 0 ? productDto.ReviewRate : existingProduct.ReviewRate;
+            existingProduct.BrandId = productDto.BrandId != Guid.Empty ? productDto.BrandId : existingProduct.BrandId;
+            existingProduct.CategoryId = productDto.CategoryId != Guid.Empty ? productDto.CategoryId : existingProduct.CategoryId;
+            existingProduct.Audience = productDto.AudienceId.HasValue ? (Audience)productDto.AudienceId.Value : existingProduct.Audience;
 
-            if (productDto.Price != 0)
-                existingProduct.Price = productDto.Price;
+            if(productDto.PictureUrls != null)
+            {
+                existingProduct.PictureUrls = _dbContext.PictureUrls.Where(p => p.ProductId == existingProduct.ProductId).ToList();
+                existingProduct.PictureUrls.Clear();
+                existingProduct.PictureUrls = productDto.PictureUrls.Select(url => new PictureUrl { Url = url }).ToList();
+                _dbContext.PictureUrls.AddRange(existingProduct.PictureUrls);
+            }
 
-            if (productDto.Available.HasValue)
-                existingProduct.Available = productDto.Available.Value;
-
-            if (productDto.PictureURL != null)
-                existingProduct.PictureURL = productDto.PictureURL;
-
-            if (productDto.ReviewRate != 0)
-                existingProduct.ReviewRate = productDto.ReviewRate;
-
-            if (productDto.BrandId != Guid.Empty)
-                existingProduct.BrandId = productDto.BrandId;
-
-            if (productDto.CategoryId != Guid.Empty)
-                existingProduct.CategoryId = productDto.CategoryId;
-
-            if (productDto.AudienceId.HasValue)
-                existingProduct.Audience = (Audience)productDto.AudienceId.Value;
 
             await _dbContext.SaveChangesAsync();
 
             return true; // Producto actualizado exitosamente
+
         }
 
 

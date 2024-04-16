@@ -22,26 +22,38 @@ namespace API.Controllers
             _productRepository = productRepository;
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, [Required] Guid brandId, [Required] Guid categoryId, [Required] int audienceId)
-        //{
+        [HttpPost]
+        public async Task<ActionResult> CreateProduct(ProductToCreateDto productDto, [Required] Guid brandId, [Required] Guid categoryId, [Required] int audienceId)
+        {
 
-        //    // Mapping
-        //    Product product = _mapper.Map<Product>(productDto);
-        //    product.BrandId = brandId;
-        //    product.CategoryId = categoryId;
-        //    if (audienceId >= 0 && audienceId < Enum.GetValues(typeof(Entities.Audience)).Length)
-        //        product.Audience = (Entities.Audience)audienceId;
-        //    else
-        //        return BadRequest("AudienceId debe estar entre 0 y " + (Enum.GetValues(typeof(Entities.Audience)).Length - 1 ));
+            //AutoMapper aplica proyeccion para convertir List<string> -> List<PictureUrl>
+            Product product = _mapper.Map<Product>(productDto);
+            product.BrandId = brandId;
+            product.CategoryId = categoryId;
+            product.Description = string.IsNullOrEmpty(product.Description) ? "-Sin Descripción-" : product.Description;
 
-        //    // Add a product
-        //    await _productRepository.CreateProductAsync(product);
-        //    await _productRepository.SaveChangesAsync();
+            if (string.IsNullOrEmpty(product.Name))
+                return BadRequest("El producto debe tener un nombre.");
+
+            //Validación Audience
+            int maxEnumLength = Enum.GetValues(typeof(Audience)).Length;
+            if (audienceId >= 0 && audienceId < maxEnumLength)
+                product.Audience = (Audience)audienceId;
+            else
+                return BadRequest("AudienceId debe estar entre 0 y " + (maxEnumLength - 1));
+
+            //Por cada string ingresado en List<string>, creo nuevas imagenes relacionadas con este objeto
+            List<PictureUrl> pictureUrls = productDto.PictureUrls.Select(url => new PictureUrl { Url = url }).ToList();
+            product.PictureUrls = pictureUrls;
 
 
-        //    return Ok("Producto agregado exitosamente.");
-        //}
+            //Add a product
+            await _productRepository.CreateProductAsync(product);
+            await _productRepository.SaveChangesAsync();
+
+
+            return Ok("Producto agregado exitosamente.");
+        }
 
         [HttpGet]
         public async Task<ActionResult<List<ProductToReturnDto>>> GetProductsList([FromQuery] ProductFilterDto filterDto)
@@ -88,28 +100,21 @@ namespace API.Controllers
         //}
 
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
-        //{
-        //    var existingProduct = await _productRepository.GetProductByIdAsync(id);
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProduct(Guid id, [FromQuery] ProductToUpdateDto productDto)
+        {
+            //Validación de AudienceId ingresado.
+            int enumMaxLength = Enum.GetValues(typeof(Audience)).Length - 1;
+            if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId <= enumMaxLength))
+                return BadRequest("Solo AudienceIDs de 0 a " + enumMaxLength + " inclusive.");
 
-        //    if (existingProduct == null)
-        //        return NotFound("Producto no encontrado");
+            var success = await _productRepository.UpdateProductAsync(id, productDto);
 
-        //    //_mapper.Map(productDto, existingProduct);
+            if (!success)
+                return BadRequest("Producto no encontrado.");
 
-        //    if (productDto.AudienceId != null && !(productDto.AudienceId >= 0 && productDto.AudienceId < Enum.GetValues(typeof(Entities.Audience)).Length))
-        //        return BadRequest("Solo AudienceIDs de 0 a 2 inclusive.");
-
-        //    var success = await _productRepository.UpdateProductAsync(id, productDto);
-
-        //    if (!success)
-        //    {
-        //        return StatusCode(500);
-        //    }
-
-        //    return Ok("Producto actualizado exitosamente.");
-        //}
+            return Ok("Producto actualizado exitosamente.");
+        }
 
     }
 }

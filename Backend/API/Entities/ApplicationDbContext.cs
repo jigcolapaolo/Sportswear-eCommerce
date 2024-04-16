@@ -13,6 +13,7 @@ namespace API.Entities
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<BasketItem> BasketItem { get; set; }
 
+        public DbSet<PictureUrl> PictureUrls { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :base(options)
@@ -28,6 +29,7 @@ namespace API.Entities
 
             //Ejecutar el Seeding
             InitialSeeding.Seed(modelBuilder);
+
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
