@@ -12,7 +12,7 @@ namespace API.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<BasketItem?> GetBasketItemAsync(Guid BasketItemId)
+        public async Task<BasketItem> GetBasketItemAsync(Guid BasketItemId)
         {
             var basketItem = await _dbContext.BasketItem.FindAsync(BasketItemId);
             return basketItem;
