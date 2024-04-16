@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/Backend/API/Migrations/20240413142643_inicio.cs
+/Backend/API/Migrations/20240415233723_Initial.cs
+/Backend/API/Migrations/20240415233723_Initial.Designer.cs

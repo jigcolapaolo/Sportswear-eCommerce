@@ -15,11 +15,13 @@ namespace API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
+        private readonly IConfiguration _config;
 
-        public ProductController(IMapper mapper, IProductRepository productRepository)
+        public ProductController(IMapper mapper, IProductRepository productRepository, IConfiguration config)
         {
             _mapper = mapper;
             _productRepository = productRepository;
+            _config = config;
         }
 
         [HttpPost]
@@ -70,8 +72,10 @@ namespace API.Controllers
             var totalPages = (int)Math.Ceiling((double)totalItems / filterDto.PageSize);
             var itemsToShow = products.Skip((filterDto.PageNumber - 1) * filterDto.PageSize).Take(filterDto.PageSize).ToList();
 
+            var productToReturn = _mapper.Map<List<ProductToReturnDto>>(itemsToShow);
+            productToReturn.ForEach(p => p.PictureUrls.ForEach(url => url.Url = _config["ApiUrl"] + url.Url));
 
-            return _mapper.Map<List<ProductToReturnDto>>(itemsToShow);
+            return productToReturn;
         }
 
 
