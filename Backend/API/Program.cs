@@ -52,6 +52,7 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 
 // Register DbContext in services
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>

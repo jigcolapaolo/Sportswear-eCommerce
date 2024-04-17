@@ -5,13 +5,15 @@ namespace API.Repository
     public interface IOrdersRepository
     {
         //Add
-        Task CreateOrdersAsync(Order orders);
+        Task CreateOrdersAsync(Order order);
+
         //Get
         Task<List<Order>> GetAllOrdersAsync();
-        Task<Product?> GetOrdersByIdAsync(Guid orderID);
+
+        //Get by Id
+        Task<Order> GetOrderByIdAsync(Guid orderId);
 
         // Saves changes into the database
         Task SaveChangesAsync();
-
     }
 }
