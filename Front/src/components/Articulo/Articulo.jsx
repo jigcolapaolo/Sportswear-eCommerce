@@ -1,4 +1,3 @@
-import datosArticulos from '../../data/datosArticulos.json'
 import { useState, useEffect } from 'react'; 
 
 export default function Articulo() {
@@ -23,15 +22,15 @@ export default function Articulo() {
   }, []);
 
   return (
-    
-    <div className="flex flex-wrap justify-center">
+    <><h1 className="text-6xl text-[#F1F2F3] text-center mb-10">Productos en Oferta!</h1>
+    <div className="flex flex-wrap justify-center pb-36">
       {datosArticulos.map((articulo, index) => (
-        <div key={index} className="bg-gray-900 text-[#F1F2F3] hover:bg-gray-700 rounded w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 ">
+        <div key={index} className="bg-gray-900 text-[#F1F2F3] hover:bg-gray-700 rounded w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 hover:scale-105 transition duration-2000">
           <div className="flex flex-col">
             <div className="w-full h-52">
-              <img src={articulo.imgUrls.find(url => url.endsWith("1.png"))} 
-              alt={articulo.name}
-              className="w-full h-full object-contain" />
+              <img src={articulo.imgUrls.find(url => url.endsWith("1.png"))}
+                alt={articulo.name}
+                className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col py-2 px-3 gap-2">
               <h2 className='font-bold text-center text-lg'>{articulo.name}</h2>
@@ -41,6 +40,6 @@ export default function Articulo() {
           </div>
         </div>
       ))}
-  </div>
+    </div></>
   )
 }
