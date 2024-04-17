@@ -10,6 +10,8 @@
   line-height: 1.5;
   font-weight: 400;
 
+  background-color: hsl(228, 12%, 25%);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -35,3 +37,40 @@ textarea {
   white-space: revert;
 }
   
+
+/* ---------------Barra de Scroll-------------- */
+::-webkit-scrollbar {
+  width: .6rem;
+  border-radius: .5rem;
+  background-color: hsl(228, 12%, 25%);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(228, 8%, 35%);
+  border-radius: .5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(228, 8%, 45%);
+}
+
+/* ---------------Footer Divider-------------- */
+.custom-shape-divider-top-footer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-footer svg {
+  position: relative;
+  display: block;
+  width: calc(600% + 1.3px);
+  height: 40px;
+}
+
+.custom-shape-divider-top-footer .shape-fill {
+  fill: #212121;
+}
