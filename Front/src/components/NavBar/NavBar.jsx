@@ -10,7 +10,8 @@ const NavBar = () => {
     try {
       const response = await fetch(`${url}?busqueda=${busqueda}`);
       const data = await response.json();
-      setResultados(data);
+      // setResultados(data);
+      console.log(data);
     } catch (error) {
       console.error('Error al buscar productos:', error);
     }
@@ -27,12 +28,11 @@ const NavBar = () => {
 
   useEffect(() => {
     buscarProductos();
-  });
+  }, [busqueda]);
 
   return (
     <div>
-      <nav className="bg-[#212121]">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <nav className="bg-[#212121] fixed w-full z-50">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <div id="mobile-menu-button">
@@ -72,35 +72,34 @@ const NavBar = () => {
                 </button>
               </div>
             </div>
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              <div className="flex flex-shrink-0 items-center">
-                <img className="w-[250px] h-[74px] l-[94px]" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
+            <div className="flex justify-around items-center h-full w-full">
+              <div className="h-full w-64 pb-2 flex items-center">
+                <img src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <form onSubmit={manejarBusqueda}>
                   <input
                     type="text"
-                    placeholder="Buscar"
-                    className="w-[675px] h-[40px] t-[25px] l-[383px]"
+                    placeholder="Buscar..."
+                    className="w-[675px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2"
                     value={busqueda}
                     onChange={manejarBusquedaChange}
                   />
                 </form>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <img className='w-[40px] h-[40px] t-[20px] l-[1128px]' src='../../../public/images/iconos/email.png' alt='icono de email' />
-                <img className='w-[40px] h-[40px] t-[25px] l-[1300px]' src='../../../public/images/iconos/perfil.png' alt='icono de perfil' />
-                <img className='w-[40px] h-[40px] t-[25px] l-[1221px]' src='../../../public/images/iconos/favorite.png' alt='icono de favorito' />
+              <div className="flex">
+                <img className="mx-4 w-8 h-8" src='../../../public/images/iconos/email.png' alt='icono de email' />
+                <img className="mx-4 w-8 h-8" src='../../../public/images/iconos/perfil.png' alt='icono de perfil' />
+                <img className="mx-4 w-8 h-8" src='../../../public/images/iconos/favorite.png' alt='icono de favorito' />
               </div>
-            </div>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <button
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              {/* <button
                 type="button"
                 className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">View notifications</span>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -110,9 +109,8 @@ const NavBar = () => {
       <div>
         {resultados.map((producto, index) => (
           <div key={index}>
-            <p>{producto.nombre}</p>
-            <p>{producto.descripcion}</p>
-
+            <p>{producto.name}</p>
+            <p>{producto.description}</p>
           </div>
         ))}
       </div>
