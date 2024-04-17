@@ -1,5 +1,4 @@
 import Articulo from "./components/Articulo/Articulo";
-import ArticuloFotos from "./components/Articulo/ArticuloFotos";
 import { CategoryGrid } from "./components/CategoryGrid/CategoryGrid";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer.jsx";
@@ -10,7 +9,6 @@ function App() {
       <NavBar />
       <CategoryGrid />
       <Articulo />
-      <ArticuloFotos />
       <Footer/>
     </main>
   );
