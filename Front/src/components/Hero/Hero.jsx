@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Asegúrate de importar los estilos CSS
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const Hero = () => {
   const carouselRef = useRef(null);
