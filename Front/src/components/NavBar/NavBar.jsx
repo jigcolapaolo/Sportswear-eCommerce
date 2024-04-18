@@ -32,18 +32,18 @@ const NavBar = () => {
 
   return (
     <div>
-      <nav className="bg-[#212121] fixed w-full z-50">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+      <nav className="bg-transparent backdrop-filter backdrop-blur-xl bg-[#212121] fixed w-full z-50">
+        <div className="flex h-16 items-center justify-between">
+          {/* Menu mobile */}
+          <div className="flex items-center sm:hidden">
             <div id="mobile-menu-button">
               <button
                 type="button"
-                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                className="items-center justify-center p-2 text-gray-400 hover:text-white focus:outline-none "
                 aria-controls="mobile-menu"
                 aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
                 onClick={() => setIsMobileMenuOpen(prevState => !prevState)}
               >
-                <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open main menu</span>
                 <svg
                   className={isMobileMenuOpen ? 'hidden h-6 w-6' : 'block h-6 w-6'}
@@ -72,6 +72,7 @@ const NavBar = () => {
               </button>
             </div>
           </div>
+          {/* Contenido del navbar */}
           <div className="flex justify-around items-center h-full w-full">
             <div className="h-full w-64 pb-2 flex items-center">
               <img className="hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
@@ -81,7 +82,7 @@ const NavBar = () => {
                 <input
                   type="text"
                   placeholder="Buscar..."
-                  className="w-[675px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2"
+                  className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
                   value={busqueda}
                   onChange={manejarBusquedaChange}
                 />
@@ -89,19 +90,27 @@ const NavBar = () => {
             </div>
             <div className="flex">
               <a>
-                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de email' />
+                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de basket' />
               </a>
               <a>
                 <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/perfil1.png' alt='icono de perfil' />
-
               </a>
-              {/* <img className="mx-4 w-8 h-8" src='../../../public/images/iconos/favorite.png' alt='icono de favorito' /> */}
             </div>
           </div>
         </div>
-        <div className={isMobileMenuOpen ? 'block sm:hidden' : 'hidden'} id="mobile-menu">
+        <div className={`flex justify-center sm:hidden transition-[max-height] duration-200 ease-in-out overflow-hidden ${isMobileMenuOpen ? 'max-h-[300px]' : 'max-h-0'}`} id="mobile-menu">
+          <form onSubmit={manejarBusqueda}>
+            <input
+              type="text"
+              placeholder="Buscar..."
+              className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full mb-[20px] p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
+              value={busqueda}
+              onChange={manejarBusquedaChange}
+            />
+          </form>
         </div>
       </nav>
+      {/* Resultados */}
       <div>
         {resultados.map((producto, index) => (
           <div key={index}>

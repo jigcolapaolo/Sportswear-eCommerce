@@ -60,17 +60,18 @@ export default function Articulo() {
     ));
 
     return (
+      <><h1 className="text-4xl lg:text-5xl md:text-5xl sm:text-4xl text-[#ecac30] text-center mb-10 cursor-default">¡Productos en Oferta!</h1>
       <div className="flex flex-wrap justify-center pb-36">
         {placeholders}
-      </div>
+      </div></>
     );
   }
 
   return (
-    <><h1 className="text-4xl lg:text-5xl md:text-5xl sm:text-4xl text-[#F1F2F3] text-center mb-10">¡Productos en Oferta!</h1>
+    <><h1 className="text-4xl lg:text-5xl md:text-5xl sm:text-4xl text-[#ecac30] text-center mb-10 cursor-default">¡Productos en Oferta!</h1>
       <div className="flex flex-wrap justify-center pb-36">
         {datosArticulos.map((articulo, index) => (
-          <div key={index} className="bg-gray-900 text-[#F1F2F3] hover:bg-gray-700 rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 hover:scale-105 transition duration-2000">
+          <div key={index} className="bg-gray-900 text-[#F1F2F3] hover:bg-gray-700 rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 cursor-pointer hover:scale-105 transition duration-2000">
             <div className="flex flex-col">
               <div className="w-full h-52">
                 <img src={articulo.imgUrls.find(url => url.endsWith("1.png"))}

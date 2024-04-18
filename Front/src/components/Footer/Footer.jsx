@@ -24,7 +24,7 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center">
-        <p className="font-normal text-base text-xl leading-28.13 text-gray-900 mb-8">
+        <p className="font-normal text-base text-xl leading-28.13 text-gray-900 mb-8 cursor-default">
           Seguinos en:
         </p>
         <div className="flex">
