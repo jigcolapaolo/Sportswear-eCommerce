@@ -33,12 +33,6 @@ const Footer = () => {
           <img className="mx-4 w-12 h-12 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/iconosFooter/devicon_facebook.png" alt="Icono de facebook" />
         </div>
       </div>
-
-      {/* <div className="flex items-center justify-end">
-        <p className="font-roboto font-normal text-base leading-28.13 text-black text-24">
-          Cuenta administrador
-        </p>
-      </div> */}
     </footer>
   );
 };
