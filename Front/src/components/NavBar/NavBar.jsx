@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import LoginModal from '../LoginModal/LoginModal';
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const buscarProductos = async () => {
     const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
@@ -29,6 +31,12 @@ const NavBar = () => {
   useEffect(() => {
     buscarProductos();
   }, [busqueda]);
+
+
+  //Login Modal
+  const toggleLoginModal = () => {
+    setIsLoginModalOpen(!isLoginModalOpen);
+  };
 
   return (
     <div>
@@ -92,12 +100,13 @@ const NavBar = () => {
               <a href='/catalogo'>
                 <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de basket' />
               </a>
-              <a href='/perfil'>
+              <a onClick={toggleLoginModal}>
                 <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/perfil1.png' alt='icono de perfil' />
               </a>
             </div>
           </div>
         </div>
+        {/* Barra de busqueda mobile */}
         <div className={`flex justify-center sm:hidden transition-[max-height] duration-200 ease-in-out overflow-hidden ${isMobileMenuOpen ? 'max-h-[300px]' : 'max-h-0'}`} id="mobile-menu">
           <form onSubmit={manejarBusqueda}>
             <input
@@ -110,6 +119,8 @@ const NavBar = () => {
           </form>
         </div>
       </nav>
+      {/* Login Modal */}
+        <LoginModal isLoginModalOpen={isLoginModalOpen}/>
       {/* Resultados */}
       <div>
         {resultados.map((producto, index) => (
