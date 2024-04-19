@@ -53,7 +53,7 @@ const NavBar = () => {
                 onClick={() => setIsMobileMenuOpen(prevState => !prevState)}
               >
                 <span className="sr-only">Open main menu</span>
-                <svg
+                {/* <svg
                   className={isMobileMenuOpen ? 'hidden h-6 w-6' : 'block h-6 w-6'}
                   fill="none"
                   viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ const NavBar = () => {
                     strokeLinejoin="round"
                     d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                   />
-                </svg>
+                </svg> */}
                 <svg
                   className={isMobileMenuOpen ? 'block h-6 w-6' : 'hidden h-6 w-6'}
                   fill="none"
@@ -86,19 +86,27 @@ const NavBar = () => {
               <img className="hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
             </a>
             <div className="hidden sm:ml-6 sm:block">
-              <form onSubmit={manejarBusqueda}>
-                <input
-                  type="text"
-                  placeholder="Buscar..."
-                  className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
-                  value={busqueda}
-                  onChange={manejarBusquedaChange}
-                />
+              <form onSubmit={manejarBusqueda} className="relative">
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    placeholder="Buscar..."
+                    className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
+                    value={busqueda}
+                    onChange={manejarBusquedaChange}
+                  />
+                  <div className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                    <img src="../../../public/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
+                  </div>
+                </div>
               </form>
             </div>
             <div className="flex">
               <a href='/catalogo'>
-                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de basket' />
+                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de catalogo' />
+              </a>
+              <a onClick="">
+                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/favorite.png' alt='icono de basket' />
               </a>
               <a onClick={toggleLoginModal}>
                 <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/perfil1.png' alt='icono de perfil' />
@@ -108,19 +116,24 @@ const NavBar = () => {
         </div>
         {/* Barra de busqueda mobile */}
         <div className={`flex justify-center sm:hidden transition-[max-height] duration-200 ease-in-out overflow-hidden ${isMobileMenuOpen ? 'max-h-[300px]' : 'max-h-0'}`} id="mobile-menu">
-          <form onSubmit={manejarBusqueda}>
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full mb-[20px] p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
-              value={busqueda}
-              onChange={manejarBusquedaChange}
-            />
+          <form onSubmit={manejarBusqueda} className="relative pb-2">
+            <div className="relative flex items-center">
+              <input
+                type="text"
+                placeholder="Buscar..."
+                className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
+                value={busqueda}
+                onChange={manejarBusquedaChange}
+              />
+              <div className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                <img src="../../../public/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
+              </div>
+            </div>
           </form>
         </div>
       </nav>
       {/* Login Modal */}
-        <LoginModal isLoginModalOpen={isLoginModalOpen}/>
+      <LoginModal isLoginModalOpen={isLoginModalOpen} />
       {/* Resultados */}
       <div>
         {resultados.map((producto, index) => (
