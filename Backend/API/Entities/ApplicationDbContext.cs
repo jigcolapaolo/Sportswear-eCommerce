@@ -14,6 +14,7 @@ namespace API.Entities
         public DbSet<BasketItem> BasketItem { get; set; }
 
         public DbSet<PictureUrl> PictureUrls { get; set; }
+        public DbSet<CustomerBasket> CustomerBaskets { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :base(options)

@@ -16,5 +16,8 @@ namespace API.Entities
         {
             BasketItemId = Guid.NewGuid();
         }
+
+        public CustomerBasket CustomerBasket { get; set; }
+        public Guid CustomerBasketId { get; set; }
     }
 }
