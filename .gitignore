@@ -481,6 +481,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Vim temporary swap files
+**/Migrations/
 *.swp
 /Backend/API/Migrations/20240413142643_inicio.cs
 /Backend/API/Migrations/20240415233723_Initial.cs
@@ -490,3 +491,6 @@ $RECYCLE.BIN/
 /Backend/API/Migrations/20240416151210_inicio.cs
 /Backend/API/Migrations/20240416151210_inicio.cs
 /Backend/API/Migrations/20240416151210_inicio.Designer.cs
+/Backend/API/Migrations/20240419185210_initial.cs
+/Backend/API/Migrations/20240419185210_initial.Designer.cs
+/Backend/API/Migrations/ApplicationDbContextModelSnapshot.cs
