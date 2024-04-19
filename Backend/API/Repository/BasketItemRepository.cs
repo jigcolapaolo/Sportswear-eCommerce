@@ -1,5 +1,6 @@
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repository
 {
@@ -12,28 +13,29 @@ namespace API.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<BasketItem> GetBasketItemAsync(Guid BasketItemId)
+        public async Task<CustomerBasket?> GetBasketItemAsync(Guid BasketItemId)
         {
-            var basketItem = await _dbContext.BasketItem.FindAsync(BasketItemId);
+            var basketItem = await _dbContext.CustomerBaskets.Include(cb => cb.BasketItems).FirstOrDefaultAsync(cb => cb.CustomerBasketId == BasketItemId);
             return basketItem;
         }
 
-        public async Task CreateBasketItemAsync(BasketItem basketItem)
+        public async Task<CustomerBasket> CreateBasketItemAsync(CustomerBasket customerBasket)
         {
-            await _dbContext.BasketItem.AddAsync(basketItem);
+            await _dbContext.CustomerBaskets.AddAsync(customerBasket);
             await _dbContext.SaveChangesAsync();
+            return await GetBasketItemAsync(customerBasket.CustomerBasketId);
         }
 
         public async Task DeleteBasketItemAsync(Guid BasketItemId)
         {
-            var basketItem = await _dbContext.BasketItem.FindAsync(BasketItemId);
+            var basket = await _dbContext.CustomerBaskets.FindAsync(BasketItemId);
 
-            if (basketItem == null)
+            if (basket == null)
             {
                 throw new Exception($"El elemento con el ID '{BasketItemId}' no fue encontrado en la cesta.");
             }
 
-            _dbContext.BasketItem.Remove(basketItem);
+             _dbContext.CustomerBaskets.Remove(basket);
             await _dbContext.SaveChangesAsync();
         }
 

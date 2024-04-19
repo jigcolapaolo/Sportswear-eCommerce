@@ -1,4 +1,5 @@
 ﻿using API.Dtos;
+using API.Dtos.Account;
 using API.Entities;
 using AutoMapper;
 
@@ -23,7 +24,10 @@ namespace API.Profiles
             //Return
             CreateMap<Brand, BrandToReturnDto>();
             CreateMap<Category, CategoryToReturnDto>();
+            CreateMap<CustomerBasketToCreateDto, CustomerBasket>();
             CreateMap<BasketItemToCreateDto, BasketItem>();
+            CreateMap<CustomerBasket, CustomerBasketToReturnDto>();
+            CreateMap<BasketItem, BasketItemToReturnDto>();
         }
     }
 }

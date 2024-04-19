@@ -5,16 +5,21 @@ using System.Reflection;
 namespace API.Entities
 {
     public class ApplicationDbContext : DbContext
-    {
+    {   
+        // Products
         public DbSet<Product> Products { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<PictureUrl> PictureUrls { get; set; }
+
+        // Orders
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+
+        // Basket
+        public DbSet<CustomerBasket> CustomerBaskets { get; set; }
         public DbSet<BasketItem> BasketItem { get; set; }
 
-        public DbSet<PictureUrl> PictureUrls { get; set; }
-        public DbSet<CustomerBasket> CustomerBaskets { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :base(options)
@@ -30,6 +35,11 @@ namespace API.Entities
 
             //Ejecutar el Seeding
             InitialSeeding.Seed(modelBuilder);
+
+            modelBuilder.Entity<CustomerBasket>()
+                .HasMany(cb => cb.BasketItems)
+                .WithOne(b => b.CustomerBasket);
+                
 
         }
 

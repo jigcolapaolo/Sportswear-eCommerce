@@ -1,9 +1,9 @@
 using API.Dtos;
+using API.Dtos.Account;
 using API.Entities;
 using API.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -14,38 +14,56 @@ namespace API.Controllers
     {
         private readonly IBasketItemRepository _basketItemRepository;
         private readonly IMapper _mapper;
+        private readonly IProductRepository _productRepository;
 
-        public BasketItemController(IBasketItemRepository basketItemRepository, IMapper mapper)
+        public BasketItemController(IBasketItemRepository basketItemRepository, IMapper mapper, IProductRepository productRepository)
         {
             _basketItemRepository = basketItemRepository;
             _mapper = mapper;
+            _productRepository = productRepository;
         }
 
         // Get, Post, Delete.
         
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetBasketItem(Guid id)
+        public async Task<ActionResult<CustomerBasket>> GetBasketItem(Guid id)
         {
-            var getSuccessfully = await _basketItemRepository.GetBasketItemAsync(id);
+            var customerBasket = await _basketItemRepository.GetBasketItemAsync(id);
 
-            if (getSuccessfully == null)
+            if (customerBasket == null)
             {
-                return NotFound("No se puede encontrar el elemento en la cesta");
-            }
-            else
-            {
-                return Ok("Item Encontrado");
-            }
+                return NotFound("Id Invalido!");
+            }            
+            
+            return Ok(customerBasket);
+            
         }
         
         [HttpPost]
-        public async Task CreateBasketItemAsync(BasketItem basketItem)
+        public async Task<ActionResult<CustomerBasketToReturnDto>> CreateBasketItemAsync(CustomerBasketToCreateDto basketToCreateDto)
         {
-            await _basketItemRepository.CreateBasketItemAsync(basketItem);
+            foreach (var item in basketToCreateDto.BasketItems)
+            {
+                var product = await _productRepository.GetProductByIdAsync(item.ProductId);
+
+                if (product == null)
+                {
+                    return NotFound("ProductId no existe!");
+                }
+            }
+
+
+            CustomerBasket customerBasket =_mapper.Map<CustomerBasket>(basketToCreateDto);
+
+            var basketCreated = await _basketItemRepository.CreateBasketItemAsync(customerBasket);
+
+            var customerBasketToReturnDto = _mapper.Map<CustomerBasketToReturnDto>(basketCreated);
+
+            return Ok(customerBasketToReturnDto);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteBasketItem(Guid id)
+        public async Task<IActionResult> DeleteBasketItem(Guid id)
         {
             try
             {

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240416151210_inicio")]
-    partial class inicio
+    [Migration("20240419023226_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,24 +32,35 @@ namespace API.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Brand")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<Guid>("CustomerBasketId")
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("ProductName")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Type")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
                     b.HasKey("BasketItemId");
+
+                    b.HasIndex("CustomerBasketId");
 
                     b.ToTable("BasketItem");
                 });
@@ -146,9 +157,20 @@ namespace API.Migrations
                         });
                 });
 
+            modelBuilder.Entity("API.Entities.CustomerBasket", b =>
+                {
+                    b.Property<Guid>("CustomerBasketId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("CustomerBasketId");
+
+                    b.ToTable("CustomerBaskets");
+                });
+
             modelBuilder.Entity("API.Entities.Order", b =>
                 {
-                    b.Property<Guid>("OrderId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -166,29 +188,32 @@ namespace API.Migrations
                     b.Property<decimal>("Subtotal")
                         .HasColumnType("numeric");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("API.Entities.OrderItem", b =>
                 {
-                    b.Property<Guid>("OrderItemId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("OrdersOrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.HasKey("OrderItemId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("OrdersOrderId");
+                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
                 });
@@ -216,1837 +241,1837 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a46ded01-f5a0-49ec-8e87-7426172bf93c"),
+                            Id = new Guid("086614c3-9660-4e73-9a40-c7342972424f"),
                             ProductId = new Guid("875cf1ea-ad27-409b-a03e-51b2a3f4bb6c"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Hombre-875cf1ea-ad27-409b-a03e-51b2a3f4bb6c-1.png"
                         },
                         new
                         {
-                            Id = new Guid("c72afc2b-5cc7-4b74-a0b8-3c409fb8604a"),
+                            Id = new Guid("4cacd926-f95c-4d95-a42c-3f3edc4de057"),
                             ProductId = new Guid("875cf1ea-ad27-409b-a03e-51b2a3f4bb6c"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Hombre-875cf1ea-ad27-409b-a03e-51b2a3f4bb6c-2.png"
                         },
                         new
                         {
-                            Id = new Guid("37cb179f-381a-403c-b5ea-5d1700a2c9db"),
+                            Id = new Guid("d4dacd65-ba69-49c0-8e40-10324e96a56e"),
                             ProductId = new Guid("875cf1ea-ad27-409b-a03e-51b2a3f4bb6c"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Hombre-875cf1ea-ad27-409b-a03e-51b2a3f4bb6c-3.png"
                         },
                         new
                         {
-                            Id = new Guid("7ab23935-da6f-41dd-976b-070d4dda811f"),
+                            Id = new Guid("60af2a7e-98eb-4f18-b8e1-ad1802364584"),
                             ProductId = new Guid("3a13a2d8-956e-400d-9213-9893dd929897"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Hombre-3a13a2d8-956e-400d-9213-9893dd929897-1.png"
                         },
                         new
                         {
-                            Id = new Guid("48caec97-341a-4bae-9696-095e17da44cc"),
+                            Id = new Guid("4aef7308-9d2a-435e-a340-eedf1fd78553"),
                             ProductId = new Guid("3a13a2d8-956e-400d-9213-9893dd929897"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Hombre-3a13a2d8-956e-400d-9213-9893dd929897-2.png"
                         },
                         new
                         {
-                            Id = new Guid("c29e0e77-36ad-4f8e-b12d-5b0fe20b309a"),
+                            Id = new Guid("2be70997-c788-4b8b-aa6a-0b1a479180b7"),
                             ProductId = new Guid("3a13a2d8-956e-400d-9213-9893dd929897"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Hombre-3a13a2d8-956e-400d-9213-9893dd929897-3.png"
                         },
                         new
                         {
-                            Id = new Guid("4debcba3-9941-40ea-97cf-bc1278522fed"),
+                            Id = new Guid("9bf8f687-7abb-418e-b089-fb286587c6cf"),
                             ProductId = new Guid("2df90aaf-900c-410a-bf6b-3c8da468f600"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Mujer-2df90aaf-900c-410a-bf6b-3c8da468f600-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bb4086bb-456f-47da-84af-4d3e34dab17e"),
+                            Id = new Guid("42ad08a6-837a-49ef-8a73-bff0ba12214d"),
                             ProductId = new Guid("2df90aaf-900c-410a-bf6b-3c8da468f600"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Mujer-2df90aaf-900c-410a-bf6b-3c8da468f600-2.png"
                         },
                         new
                         {
-                            Id = new Guid("592b9682-ba77-4903-83aa-3a8e9702b3bf"),
+                            Id = new Guid("02e160ba-8bb2-4d92-9416-eab87b6a28c3"),
                             ProductId = new Guid("2df90aaf-900c-410a-bf6b-3c8da468f600"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Mujer-2df90aaf-900c-410a-bf6b-3c8da468f600-3.png"
                         },
                         new
                         {
-                            Id = new Guid("67b17929-b4e5-4c57-9eef-e1f1cf0e5ffc"),
+                            Id = new Guid("caf76b8b-b3cf-4c0a-8f54-01dbf1c4dc4a"),
                             ProductId = new Guid("cc91c201-d57d-488e-8f16-c423234a8260"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Mujer-cc91c201-d57d-488e-8f16-c423234a8260-1.png"
                         },
                         new
                         {
-                            Id = new Guid("20b07f32-6c64-4fab-9cf3-44c3f26b41a8"),
+                            Id = new Guid("d0167218-45b9-41f1-8c57-7b3cc7282c56"),
                             ProductId = new Guid("cc91c201-d57d-488e-8f16-c423234a8260"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Mujer-cc91c201-d57d-488e-8f16-c423234a8260-2.png"
                         },
                         new
                         {
-                            Id = new Guid("9c035f9d-6a12-49f7-a40f-6909ea40ed25"),
+                            Id = new Guid("edda19f7-0b2b-4c08-9bce-cb8009c16403"),
                             ProductId = new Guid("cc91c201-d57d-488e-8f16-c423234a8260"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Mujer-cc91c201-d57d-488e-8f16-c423234a8260-3.png"
                         },
                         new
                         {
-                            Id = new Guid("82761646-899c-4ee3-aae4-05ad36151004"),
+                            Id = new Guid("2bf42132-0d83-4327-9230-7e978ab9f95e"),
                             ProductId = new Guid("e3676b6a-190b-4e72-bb64-ca5c636f321e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Niñas-e3676b6a-190b-4e72-bb64-ca5c636f321e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("498351bf-303d-497d-a8cb-32b375d38b1e"),
+                            Id = new Guid("967ffd9b-c00f-4f7c-b458-4049029940c5"),
                             ProductId = new Guid("e3676b6a-190b-4e72-bb64-ca5c636f321e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Niñas-e3676b6a-190b-4e72-bb64-ca5c636f321e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("05e7f5d5-821c-48ee-bf2e-fbbe203af6f8"),
+                            Id = new Guid("b14771c1-6cb6-4f09-a85d-dc4fef920f22"),
                             ProductId = new Guid("e3676b6a-190b-4e72-bb64-ca5c636f321e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Niñas-e3676b6a-190b-4e72-bb64-ca5c636f321e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("2237c455-f2ca-4d26-ab86-141ef8f8580f"),
+                            Id = new Guid("a95f3156-4131-458c-8150-9f22d3f0e8e3"),
                             ProductId = new Guid("4287b952-5edc-43bb-bb61-fc42d2e51f14"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Niños-4287b952-5edc-43bb-bb61-fc42d2e51f14-1.png"
                         },
                         new
                         {
-                            Id = new Guid("febbfc01-9324-4a71-b35c-ebb8e1e504d6"),
+                            Id = new Guid("9aa15711-ee22-452e-8cb1-26cb6f5a3960"),
                             ProductId = new Guid("4287b952-5edc-43bb-bb61-fc42d2e51f14"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Buzos y Camperas-Niños-4287b952-5edc-43bb-bb61-fc42d2e51f14-2.png"
                         },
                         new
                         {
-                            Id = new Guid("f8a98091-c754-4b7c-b3a4-1233ea834414"),
+                            Id = new Guid("81760c8b-bd28-483e-a63e-875e01c54db7"),
                             ProductId = new Guid("6c62b16f-af56-4a69-aa7d-f769c70facb0"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Hombre-6c62b16f-af56-4a69-aa7d-f769c70facb0-1.png"
                         },
                         new
                         {
-                            Id = new Guid("d56ed57e-4200-4637-b21e-98c727f6b7e5"),
+                            Id = new Guid("fdb7a486-42ec-444a-a082-a6ba38cd0627"),
                             ProductId = new Guid("6c62b16f-af56-4a69-aa7d-f769c70facb0"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Hombre-6c62b16f-af56-4a69-aa7d-f769c70facb0-2.png"
                         },
                         new
                         {
-                            Id = new Guid("9c818db1-28ee-4151-8bc2-7ae615b31927"),
+                            Id = new Guid("3e84c075-ac31-4585-b0bd-3222b3d3b13a"),
                             ProductId = new Guid("6c62b16f-af56-4a69-aa7d-f769c70facb0"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Hombre-6c62b16f-af56-4a69-aa7d-f769c70facb0-3.png"
                         },
                         new
                         {
-                            Id = new Guid("060fa0d3-8080-4203-8fbb-25619c83a832"),
+                            Id = new Guid("5309e309-6dda-49f8-9ed6-e499ec26c911"),
                             ProductId = new Guid("1670707a-10e8-49d1-a071-fc427d319c10"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Mujer-1670707a-10e8-49d1-a071-fc427d319c10-1.png"
                         },
                         new
                         {
-                            Id = new Guid("e11be535-6f01-464c-8f51-7f785c942008"),
+                            Id = new Guid("ddc370a4-f4d1-4dda-9859-e4dbc1f0c7a8"),
                             ProductId = new Guid("1670707a-10e8-49d1-a071-fc427d319c10"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Mujer-1670707a-10e8-49d1-a071-fc427d319c10-2.png"
                         },
                         new
                         {
-                            Id = new Guid("320f34ea-6749-42ea-984c-162353081b82"),
+                            Id = new Guid("53c8670f-1826-44a5-b014-b7c0d68f4b9f"),
                             ProductId = new Guid("1670707a-10e8-49d1-a071-fc427d319c10"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Mujer-1670707a-10e8-49d1-a071-fc427d319c10-3.png"
                         },
                         new
                         {
-                            Id = new Guid("dade69e6-e5d3-48cb-b893-3841910c00e9"),
+                            Id = new Guid("b5b2d20a-26b7-4692-98b7-8a37452aba70"),
                             ProductId = new Guid("49f8f920-4610-440f-ba71-a1c1ed6ddb8d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Mujer-49f8f920-4610-440f-ba71-a1c1ed6ddb8d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("c358b7c8-e032-4435-a01f-154d689c7811"),
+                            Id = new Guid("f92c8566-c646-4e6f-b88f-b03f90090d7d"),
                             ProductId = new Guid("49f8f920-4610-440f-ba71-a1c1ed6ddb8d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Mujer-49f8f920-4610-440f-ba71-a1c1ed6ddb8d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("d3d7d436-7819-4c9e-a1d5-91210edd428a"),
+                            Id = new Guid("cd8b7d48-6d3b-4c2d-88ec-41cbf3bdf527"),
                             ProductId = new Guid("49f8f920-4610-440f-ba71-a1c1ed6ddb8d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Calzas-Mujer-49f8f920-4610-440f-ba71-a1c1ed6ddb8d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("a973a5fa-499f-48d4-979b-bf06536897d3"),
+                            Id = new Guid("6109e32b-11a2-4bd2-8f20-0cce2731aaef"),
                             ProductId = new Guid("058f6760-7751-440c-bfcd-dcb0cf16fe4e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Hombre-058f6760-7751-440c-bfcd-dcb0cf16fe4e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("21635d95-8bb4-4c10-b4a3-b5557766d51a"),
+                            Id = new Guid("c2ab6242-422d-43b2-8f56-4b71a2e963df"),
                             ProductId = new Guid("058f6760-7751-440c-bfcd-dcb0cf16fe4e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Hombre-058f6760-7751-440c-bfcd-dcb0cf16fe4e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("97761946-f15b-4932-9646-e68cfe941e56"),
+                            Id = new Guid("f73f3c45-43e6-4f83-9cfc-24b4a12e1bbe"),
                             ProductId = new Guid("058f6760-7751-440c-bfcd-dcb0cf16fe4e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Hombre-058f6760-7751-440c-bfcd-dcb0cf16fe4e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6da50284-f0fd-461f-99c6-17c644bbf8c3"),
+                            Id = new Guid("2802c8dd-3b91-4b6c-8b8d-6fda891e3b64"),
                             ProductId = new Guid("a08a0c1c-f882-4a8e-af0b-b889e87cc93d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Hombre-a08a0c1c-f882-4a8e-af0b-b889e87cc93d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bf138e60-2041-45ae-9219-8cc9bace97f8"),
+                            Id = new Guid("3bc03e77-d3c3-42d8-8603-1f155165f68f"),
                             ProductId = new Guid("a08a0c1c-f882-4a8e-af0b-b889e87cc93d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Hombre-a08a0c1c-f882-4a8e-af0b-b889e87cc93d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("438f4260-c40e-493a-a723-366c3215b00b"),
+                            Id = new Guid("9197313b-b09e-41f9-91f8-5ca2a3d0fb30"),
                             ProductId = new Guid("a08a0c1c-f882-4a8e-af0b-b889e87cc93d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Hombre-a08a0c1c-f882-4a8e-af0b-b889e87cc93d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("d3e2bf76-a57c-4d0a-a6d9-c8b918d8af81"),
+                            Id = new Guid("c12aa130-54f9-4081-bf46-25007cd0841d"),
                             ProductId = new Guid("29c7841e-2f15-4bcd-8ae3-bb3a8bce478d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Mujer-29c7841e-2f15-4bcd-8ae3-bb3a8bce478d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("f6159c41-7984-4622-856a-9f03455df54c"),
+                            Id = new Guid("97a61e40-d580-43f1-9ea1-c7d996ac6889"),
                             ProductId = new Guid("29c7841e-2f15-4bcd-8ae3-bb3a8bce478d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Mujer-29c7841e-2f15-4bcd-8ae3-bb3a8bce478d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("44488f4b-06b3-4a8a-9c16-396042625ae4"),
+                            Id = new Guid("e16e4909-a552-40af-a435-2ab6a90e6615"),
                             ProductId = new Guid("29c7841e-2f15-4bcd-8ae3-bb3a8bce478d"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Mujer-29c7841e-2f15-4bcd-8ae3-bb3a8bce478d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("e47023c9-75c0-4587-a58f-5dd2f32e5626"),
+                            Id = new Guid("fca56d68-b49f-4b61-a134-b03cfeb81c65"),
                             ProductId = new Guid("2962fbca-53b3-4393-88ad-2642a49b8492"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Mujer-2962fbca-53b3-4393-88ad-2642a49b8492-1.png"
                         },
                         new
                         {
-                            Id = new Guid("dcc02471-65cc-4f76-9e24-70236703c8e6"),
+                            Id = new Guid("f5e7eb17-bd99-4b01-b636-6637d02982ce"),
                             ProductId = new Guid("2962fbca-53b3-4393-88ad-2642a49b8492"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Mujer-2962fbca-53b3-4393-88ad-2642a49b8492-2.png"
                         },
                         new
                         {
-                            Id = new Guid("bff23ca1-5b3a-49d0-a3ae-feda202d36c3"),
+                            Id = new Guid("d4f46b38-853c-4779-8e41-c700a4373d3b"),
                             ProductId = new Guid("2962fbca-53b3-4393-88ad-2642a49b8492"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Mujer-2962fbca-53b3-4393-88ad-2642a49b8492-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6b2dc568-8920-45b9-8dcf-aeda91804893"),
+                            Id = new Guid("213eae51-349d-49f9-8500-38a85acd9305"),
                             ProductId = new Guid("7cd84802-c771-4d1c-b17a-320d05ae81b8"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Niñas-7cd84802-c771-4d1c-b17a-320d05ae81b8-1.png"
                         },
                         new
                         {
-                            Id = new Guid("87518274-0b82-4e83-a5ab-7697d3b89a7e"),
+                            Id = new Guid("523e086c-c633-421b-88ef-bc92101e308d"),
                             ProductId = new Guid("7cd84802-c771-4d1c-b17a-320d05ae81b8"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Niñas-7cd84802-c771-4d1c-b17a-320d05ae81b8-2.png"
                         },
                         new
                         {
-                            Id = new Guid("5bb3dcf2-1c31-421d-afe3-f421b6ee5d66"),
+                            Id = new Guid("7d653fa9-ae46-4811-a597-64b0d0ae4ffc"),
                             ProductId = new Guid("7cd84802-c771-4d1c-b17a-320d05ae81b8"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Niñas-7cd84802-c771-4d1c-b17a-320d05ae81b8-3.png"
                         },
                         new
                         {
-                            Id = new Guid("0100092a-3301-43ba-9e13-991c3921ceb4"),
+                            Id = new Guid("5a8c88f6-f528-4839-aff6-9dde39095621"),
                             ProductId = new Guid("f5b76376-3dd6-4cd0-936f-0391703cec10"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Niños-f5b76376-3dd6-4cd0-936f-0391703cec10-1.png"
                         },
                         new
                         {
-                            Id = new Guid("81120d6a-c038-4711-8b1f-cc6bfe9e4310"),
+                            Id = new Guid("d2e7bbfe-248a-4955-84de-fd495d8409a1"),
                             ProductId = new Guid("f5b76376-3dd6-4cd0-936f-0391703cec10"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Niños-f5b76376-3dd6-4cd0-936f-0391703cec10-2.png"
                         },
                         new
                         {
-                            Id = new Guid("9af0ccca-67f2-411f-aab6-697f32a192e3"),
+                            Id = new Guid("5e58f381-4316-4565-aa07-325c905307cd"),
                             ProductId = new Guid("f5b76376-3dd6-4cd0-936f-0391703cec10"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Remeras-Niños-f5b76376-3dd6-4cd0-936f-0391703cec10-3.png"
                         },
                         new
                         {
-                            Id = new Guid("3d75a407-e53e-4d1c-9141-565ae8a0bf03"),
+                            Id = new Guid("89221196-4c06-460d-ad34-db65e4f241fe"),
                             ProductId = new Guid("fb25a719-2394-4987-b092-715e9f44005a"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Tops-Mujer-fb25a719-2394-4987-b092-715e9f44005a-1.png"
                         },
                         new
                         {
-                            Id = new Guid("fca0985f-641f-4b01-ae8c-eb054e76c726"),
+                            Id = new Guid("ae903490-01d1-4171-aabd-4999fef38610"),
                             ProductId = new Guid("fb25a719-2394-4987-b092-715e9f44005a"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Tops-Mujer-fb25a719-2394-4987-b092-715e9f44005a-2.png"
                         },
                         new
                         {
-                            Id = new Guid("2625e0ef-b599-4df4-bd6f-9967da30249c"),
+                            Id = new Guid("5945f7e2-febc-4514-b568-4b3ee17bff96"),
                             ProductId = new Guid("fb25a719-2394-4987-b092-715e9f44005a"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Tops-Mujer-fb25a719-2394-4987-b092-715e9f44005a-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6b03dfa3-52e2-49c1-8121-c27b4aff3ff5"),
+                            Id = new Guid("7260df1e-9aa4-412d-b84b-a5867cd2a6c4"),
                             ProductId = new Guid("ef9069f0-638c-4291-a2b2-637d5b08fe77"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Tops-Mujer-ef9069f0-638c-4291-a2b2-637d5b08fe77-1.png"
                         },
                         new
                         {
-                            Id = new Guid("8835ab14-a847-4aee-927c-fd59c1f47e0b"),
+                            Id = new Guid("24ec070f-06c4-4ca3-b2a7-290a7501b2c1"),
                             ProductId = new Guid("ef9069f0-638c-4291-a2b2-637d5b08fe77"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Tops-Mujer-ef9069f0-638c-4291-a2b2-637d5b08fe77-2.png"
                         },
                         new
                         {
-                            Id = new Guid("93cc5ee6-2afd-4b36-b50a-441bf4f7c5d5"),
+                            Id = new Guid("51c43a43-9a07-4aab-b03b-b7f7f78250cd"),
                             ProductId = new Guid("ef9069f0-638c-4291-a2b2-637d5b08fe77"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Tops-Mujer-ef9069f0-638c-4291-a2b2-637d5b08fe77-3.png"
                         },
                         new
                         {
-                            Id = new Guid("482e1519-4d72-41e2-ae4c-c049b9bf8047"),
+                            Id = new Guid("54ad613d-8c17-4634-9323-bba3a6b5ca31"),
                             ProductId = new Guid("01591ef9-277b-4e32-bfd3-03226b4f5b33"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Hombre-01591ef9-277b-4e32-bfd3-03226b4f5b33-1.png"
                         },
                         new
                         {
-                            Id = new Guid("93d00f32-5e98-4334-8d69-d78734e33de1"),
+                            Id = new Guid("d950ab4a-62b5-4485-bf0d-0e6a6a3dc681"),
                             ProductId = new Guid("01591ef9-277b-4e32-bfd3-03226b4f5b33"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Hombre-01591ef9-277b-4e32-bfd3-03226b4f5b33-2.png"
                         },
                         new
                         {
-                            Id = new Guid("6be1baf5-b559-4961-ab3f-66b45785d7d0"),
+                            Id = new Guid("4ab47308-8f3b-455d-977e-b758c5d94fb9"),
                             ProductId = new Guid("01591ef9-277b-4e32-bfd3-03226b4f5b33"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Hombre-01591ef9-277b-4e32-bfd3-03226b4f5b33-3.png"
                         },
                         new
                         {
-                            Id = new Guid("f37007e0-fbc3-42a6-a38b-a5dd550d048d"),
+                            Id = new Guid("e7b931b3-9347-40ae-8298-e4c85f7c0b2e"),
                             ProductId = new Guid("ff0b7b2c-abd2-4bae-9b81-43211a47b3ed"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Hombre-ff0b7b2c-abd2-4bae-9b81-43211a47b3ed-1.png"
                         },
                         new
                         {
-                            Id = new Guid("2553cb0a-d31c-4397-a15b-71fdec41af98"),
+                            Id = new Guid("459bfc9b-e14b-4571-bc4c-a291fbad88bf"),
                             ProductId = new Guid("ff0b7b2c-abd2-4bae-9b81-43211a47b3ed"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Hombre-ff0b7b2c-abd2-4bae-9b81-43211a47b3ed-2.png"
                         },
                         new
                         {
-                            Id = new Guid("1e5b5c1c-f01f-4825-b07d-cb8933cb9bc5"),
+                            Id = new Guid("96fae010-8c03-45d6-8b7c-4ef0821d36f4"),
                             ProductId = new Guid("ff0b7b2c-abd2-4bae-9b81-43211a47b3ed"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Hombre-ff0b7b2c-abd2-4bae-9b81-43211a47b3ed-3.png"
                         },
                         new
                         {
-                            Id = new Guid("282a530e-eb3f-4c96-a049-2d2163434946"),
+                            Id = new Guid("b8d26326-f02e-4159-b8d9-c0c2be8b627c"),
                             ProductId = new Guid("62fe85a1-3b51-46fa-9650-602b69f29fe9"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Mujer-62fe85a1-3b51-46fa-9650-602b69f29fe9-1.png"
                         },
                         new
                         {
-                            Id = new Guid("94a2c4ff-1689-4842-bca5-d1da08320d47"),
+                            Id = new Guid("a61a31b5-16fd-49bc-9729-1533602bec7d"),
                             ProductId = new Guid("62fe85a1-3b51-46fa-9650-602b69f29fe9"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Mujer-62fe85a1-3b51-46fa-9650-602b69f29fe9-2.png"
                         },
                         new
                         {
-                            Id = new Guid("9a2c25cd-d861-4d69-b729-d9d434cbfe83"),
+                            Id = new Guid("93b713e0-9c2b-415b-84ab-cc63c83d36bf"),
                             ProductId = new Guid("62fe85a1-3b51-46fa-9650-602b69f29fe9"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Mujer-62fe85a1-3b51-46fa-9650-602b69f29fe9-3.png"
                         },
                         new
                         {
-                            Id = new Guid("baace9d6-261d-4597-b9a2-210e7e14d647"),
+                            Id = new Guid("1f91e1ed-9994-462f-844c-adddd971a2d9"),
                             ProductId = new Guid("ec751372-dd49-41fd-baf7-7f51099d273a"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Mujer-ec751372-dd49-41fd-baf7-7f51099d273a-1.png"
                         },
                         new
                         {
-                            Id = new Guid("f45f879d-42bc-4850-abf3-323b013aa8a2"),
+                            Id = new Guid("3aaf5265-872b-475d-8928-009b83f77b84"),
                             ProductId = new Guid("ec751372-dd49-41fd-baf7-7f51099d273a"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Mujer-ec751372-dd49-41fd-baf7-7f51099d273a-2.png"
                         },
                         new
                         {
-                            Id = new Guid("cf4a6c7b-651e-43d8-b2d5-8f13cb68b42b"),
+                            Id = new Guid("71e2ddca-a2d2-473c-bf85-90124c3331a1"),
                             ProductId = new Guid("ec751372-dd49-41fd-baf7-7f51099d273a"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Mujer-ec751372-dd49-41fd-baf7-7f51099d273a-3.png"
                         },
                         new
                         {
-                            Id = new Guid("79fd35ba-447e-4b25-993b-e319e2271a4a"),
+                            Id = new Guid("075fb70e-e1e7-4e80-b1b6-b4c4aa26b598"),
                             ProductId = new Guid("1a20c0e5-a7be-4e83-b3d7-fb05cc54ca2e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Niñas-1a20c0e5-a7be-4e83-b3d7-fb05cc54ca2e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("5a87597b-c405-43fe-928b-780fa05b8b0e"),
+                            Id = new Guid("e50b5717-0eb6-42de-a5ac-0208fc4473eb"),
                             ProductId = new Guid("1a20c0e5-a7be-4e83-b3d7-fb05cc54ca2e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Niñas-1a20c0e5-a7be-4e83-b3d7-fb05cc54ca2e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("37d5981a-6b03-4f89-b113-3042bff4a91a"),
+                            Id = new Guid("db9156e9-5b3f-4460-a161-685feef8e119"),
                             ProductId = new Guid("1a20c0e5-a7be-4e83-b3d7-fb05cc54ca2e"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Niñas-1a20c0e5-a7be-4e83-b3d7-fb05cc54ca2e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("b04e5595-df25-4c17-826e-72adae87646e"),
+                            Id = new Guid("ab3d0473-7a02-4b33-90fc-fdce4635231b"),
                             ProductId = new Guid("862057bb-3275-43a5-98ee-9650f3f9c45f"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Niños-862057bb-3275-43a5-98ee-9650f3f9c45f-1.png"
                         },
                         new
                         {
-                            Id = new Guid("e6f1516b-1395-4964-8f25-bc962bcfa24c"),
+                            Id = new Guid("b418146b-08c3-4dfa-a53d-82561f21c87e"),
                             ProductId = new Guid("862057bb-3275-43a5-98ee-9650f3f9c45f"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Niños-862057bb-3275-43a5-98ee-9650f3f9c45f-2.png"
                         },
                         new
                         {
-                            Id = new Guid("d8610831-39bb-4a7c-a606-9800cf4a263d"),
+                            Id = new Guid("80260e50-58b6-43ee-9975-0a88dd5c14e5"),
                             ProductId = new Guid("862057bb-3275-43a5-98ee-9650f3f9c45f"),
                             Url = "/Images/Products/Adidas/Product-Adidas-Zapatillas-Niños-862057bb-3275-43a5-98ee-9650f3f9c45f-3.png"
                         },
                         new
                         {
-                            Id = new Guid("a4d968c2-247e-458c-9b9d-a93617797b30"),
+                            Id = new Guid("5a3e9e4c-2c24-4af4-ad8e-0b30e64328cc"),
                             ProductId = new Guid("6761cc8a-5fd8-4b01-8b6a-944446f223e2"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Hombre-6761cc8a-5fd8-4b01-8b6a-944446f223e2-1.png"
                         },
                         new
                         {
-                            Id = new Guid("1534665e-c298-497e-b20e-ac6131da67d3"),
+                            Id = new Guid("e5aca766-6137-485d-aa79-b04797082aa2"),
                             ProductId = new Guid("6761cc8a-5fd8-4b01-8b6a-944446f223e2"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Hombre-6761cc8a-5fd8-4b01-8b6a-944446f223e2-2.png"
                         },
                         new
                         {
-                            Id = new Guid("e35ac957-77cd-4820-9c2c-8a4c880d646d"),
+                            Id = new Guid("2f08b72d-2396-4da6-a780-2e8910ddf4cc"),
                             ProductId = new Guid("8dbb6d66-dfc2-4144-9271-aeb099c030b4"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Hombre-8dbb6d66-dfc2-4144-9271-aeb099c030b4-1.png"
                         },
                         new
                         {
-                            Id = new Guid("fec5d721-0047-4e4e-a162-20dc948914f9"),
+                            Id = new Guid("a2915549-c9d0-42b1-bc19-e362128f6499"),
                             ProductId = new Guid("8dbb6d66-dfc2-4144-9271-aeb099c030b4"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Hombre-8dbb6d66-dfc2-4144-9271-aeb099c030b4-2.png"
                         },
                         new
                         {
-                            Id = new Guid("8dfe2e25-007d-4f91-988e-08c8e5adc217"),
+                            Id = new Guid("798e77d7-5f10-4068-9e85-e814a6a06e44"),
                             ProductId = new Guid("3d09411f-28af-4aee-bd2b-b0ad0630b25e"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Mujer-3d09411f-28af-4aee-bd2b-b0ad0630b25e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("f2728f87-2498-4d8f-9698-409d13af036d"),
+                            Id = new Guid("5c1b0629-a109-4c42-b63e-800b6b29c6ee"),
                             ProductId = new Guid("3d09411f-28af-4aee-bd2b-b0ad0630b25e"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Mujer-3d09411f-28af-4aee-bd2b-b0ad0630b25e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("6121af44-accf-4a06-86cb-9484e3475f33"),
+                            Id = new Guid("b058a021-281a-42f1-9380-b49e0ca6918f"),
                             ProductId = new Guid("3d09411f-28af-4aee-bd2b-b0ad0630b25e"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Mujer-3d09411f-28af-4aee-bd2b-b0ad0630b25e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("a9f097cc-a01c-4b5b-8928-7f2ab17b275a"),
+                            Id = new Guid("7f20a356-7610-4022-8474-0a48c852765d"),
                             ProductId = new Guid("e5c695b3-2517-4163-92f9-fd76762a0a5f"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Mujer-e5c695b3-2517-4163-92f9-fd76762a0a5f-1.png"
                         },
                         new
                         {
-                            Id = new Guid("7685493b-ad70-4b4b-be20-e6f887ea2f11"),
+                            Id = new Guid("c7ded9a1-0c2d-4363-a271-b9244cb5a9c4"),
                             ProductId = new Guid("e5c695b3-2517-4163-92f9-fd76762a0a5f"),
                             Url = "/Images/Products/Fila/Product-Fila-Buzos y Camperas-Mujer-e5c695b3-2517-4163-92f9-fd76762a0a5f-2.png"
                         },
                         new
                         {
-                            Id = new Guid("375fb42e-8153-48ce-bfa1-dfec65e6b727"),
+                            Id = new Guid("effbb173-4d0b-40c1-be5a-7619dd6cbf37"),
                             ProductId = new Guid("a5a17788-615e-45f9-bcf8-4e31114caf27"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Hombre-a5a17788-615e-45f9-bcf8-4e31114caf27-1.png"
                         },
                         new
                         {
-                            Id = new Guid("a1ba46fb-94e4-4290-8f78-cf72897fe48f"),
+                            Id = new Guid("c9cebad3-1029-44b7-9d8f-7aac71bbbe3e"),
                             ProductId = new Guid("a5a17788-615e-45f9-bcf8-4e31114caf27"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Hombre-a5a17788-615e-45f9-bcf8-4e31114caf27-2.png"
                         },
                         new
                         {
-                            Id = new Guid("30b7e2f7-9922-4def-98f4-f25c4c86424d"),
+                            Id = new Guid("0340d4af-e2ff-4266-b5e2-31f23368c25c"),
                             ProductId = new Guid("6d22ff2a-f7a9-4759-9c0b-2cf8a061842e"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Mujer-6d22ff2a-f7a9-4759-9c0b-2cf8a061842e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("2b967992-5549-4328-9bca-b4cc57c88648"),
+                            Id = new Guid("108d2d45-1574-4475-a7fb-702ea93eac80"),
                             ProductId = new Guid("6d22ff2a-f7a9-4759-9c0b-2cf8a061842e"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Mujer-6d22ff2a-f7a9-4759-9c0b-2cf8a061842e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("554ef044-93fd-47ad-b790-a42da2d99fb5"),
+                            Id = new Guid("c2c5f8cf-2e11-4957-90f2-88873674ae61"),
                             ProductId = new Guid("6d22ff2a-f7a9-4759-9c0b-2cf8a061842e"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Mujer-6d22ff2a-f7a9-4759-9c0b-2cf8a061842e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("f7a2469b-6996-4e80-8103-fc271c15c455"),
+                            Id = new Guid("a1b335da-2607-4348-af47-1ebfcbfc71cc"),
                             ProductId = new Guid("e0b585b5-886a-483e-a75e-5d183b30b4af"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Mujer-e0b585b5-886a-483e-a75e-5d183b30b4af-1.png"
                         },
                         new
                         {
-                            Id = new Guid("7bd2ab6c-0447-4377-aeec-e598629459a8"),
+                            Id = new Guid("3b5a352a-8723-48cb-9669-9c6559080781"),
                             ProductId = new Guid("e0b585b5-886a-483e-a75e-5d183b30b4af"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Mujer-e0b585b5-886a-483e-a75e-5d183b30b4af-2.png"
                         },
                         new
                         {
-                            Id = new Guid("49c8052a-cfc0-42e7-9f02-f94c72d79ae4"),
+                            Id = new Guid("f058e400-17ce-4d3a-8c3c-a745d9b342b4"),
                             ProductId = new Guid("e0b585b5-886a-483e-a75e-5d183b30b4af"),
                             Url = "/Images/Products/Fila/Product-Fila-Calzas-Mujer-e0b585b5-886a-483e-a75e-5d183b30b4af-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6e7503d9-1441-42b9-9b86-bf70cd2a4aaa"),
+                            Id = new Guid("3fd270b5-6f14-4d5f-9e68-e6ea8c1da3a2"),
                             ProductId = new Guid("f1e7e785-d70a-4246-9b77-8253fb07e321"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Hombre-f1e7e785-d70a-4246-9b77-8253fb07e321-1.png"
                         },
                         new
                         {
-                            Id = new Guid("cff64c1d-d7d9-4aa2-84b3-abb7033a5b34"),
+                            Id = new Guid("e3ec2735-ba25-488a-b15d-45857e14d3c6"),
                             ProductId = new Guid("f1e7e785-d70a-4246-9b77-8253fb07e321"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Hombre-f1e7e785-d70a-4246-9b77-8253fb07e321-2.png"
                         },
                         new
                         {
-                            Id = new Guid("3a576e3d-c6ce-437d-859e-d85b4c6cce82"),
+                            Id = new Guid("5ea68b5d-999d-44ec-966a-829bd2be495a"),
                             ProductId = new Guid("f1e7e785-d70a-4246-9b77-8253fb07e321"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Hombre-f1e7e785-d70a-4246-9b77-8253fb07e321-3.png"
                         },
                         new
                         {
-                            Id = new Guid("51ca7265-726a-424b-888b-99f811b451da"),
+                            Id = new Guid("0d7d4fcc-53c3-4317-8309-243267dfea43"),
                             ProductId = new Guid("838edd99-f13f-43a6-8cd6-afbddf440a89"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Hombre-838edd99-f13f-43a6-8cd6-afbddf440a89-1.png"
                         },
                         new
                         {
-                            Id = new Guid("9ab4f13d-bf51-484b-b54d-7e817238d0af"),
+                            Id = new Guid("d4617ccc-9387-47f2-8aa1-9920f52b289f"),
                             ProductId = new Guid("838edd99-f13f-43a6-8cd6-afbddf440a89"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Hombre-838edd99-f13f-43a6-8cd6-afbddf440a89-2.png"
                         },
                         new
                         {
-                            Id = new Guid("897685e6-2cce-4bd6-85db-c8ba38043d62"),
+                            Id = new Guid("8c41ccf4-a6ae-4be7-abd1-62ac2ca65f8a"),
                             ProductId = new Guid("838edd99-f13f-43a6-8cd6-afbddf440a89"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Hombre-838edd99-f13f-43a6-8cd6-afbddf440a89-3.png"
                         },
                         new
                         {
-                            Id = new Guid("7bb86dbc-5ad0-4653-b364-421deed90883"),
+                            Id = new Guid("99ec474d-3935-4515-ab44-5bd9dafd8056"),
                             ProductId = new Guid("6f655ea7-e257-481f-94a3-3ef7d8c4c46e"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Mujer-6f655ea7-e257-481f-94a3-3ef7d8c4c46e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("ea4366a0-db01-4766-b728-895006c0a0f4"),
+                            Id = new Guid("e1071f90-fb7e-4929-b6d1-ea940da44bf7"),
                             ProductId = new Guid("6f655ea7-e257-481f-94a3-3ef7d8c4c46e"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Mujer-6f655ea7-e257-481f-94a3-3ef7d8c4c46e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("859bd1a9-e65f-438e-a188-2851ba7f5d5d"),
+                            Id = new Guid("077c57ed-f33d-4a30-bc1f-01238371dbd0"),
                             ProductId = new Guid("6f655ea7-e257-481f-94a3-3ef7d8c4c46e"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Mujer-6f655ea7-e257-481f-94a3-3ef7d8c4c46e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("0eba3830-e2d1-4928-9cdb-a61d06103cde"),
+                            Id = new Guid("4ad45100-36e1-4bfd-ac51-bc6ea00bcdbf"),
                             ProductId = new Guid("915ded0b-e311-4fa1-85fd-9546ba0983dd"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Mujer-915ded0b-e311-4fa1-85fd-9546ba0983dd-1.png"
                         },
                         new
                         {
-                            Id = new Guid("02967eb2-cd09-4d12-aa80-33f4a64ccd90"),
+                            Id = new Guid("dcb7efff-a0fe-44f5-9cee-bbd05c506746"),
                             ProductId = new Guid("915ded0b-e311-4fa1-85fd-9546ba0983dd"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Mujer-915ded0b-e311-4fa1-85fd-9546ba0983dd-2.png"
                         },
                         new
                         {
-                            Id = new Guid("51eec8f4-335c-4218-b896-fd7dcf83f398"),
+                            Id = new Guid("581de875-8ff0-4425-9609-5e14eac002e2"),
                             ProductId = new Guid("915ded0b-e311-4fa1-85fd-9546ba0983dd"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Mujer-915ded0b-e311-4fa1-85fd-9546ba0983dd-3.png"
                         },
                         new
                         {
-                            Id = new Guid("5d87dcb4-2efd-43e6-af01-51ec5cfb0069"),
+                            Id = new Guid("698397ed-d036-46c9-8bbf-ee9bab8bc145"),
                             ProductId = new Guid("c191621c-6345-4b75-9fea-18fdfe9ad100"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Niñas-c191621c-6345-4b75-9fea-18fdfe9ad100-1.png"
                         },
                         new
                         {
-                            Id = new Guid("f00379e2-48ca-43f9-8701-13f60e511b98"),
+                            Id = new Guid("b3ba759b-6082-4363-b4de-efa8fc7fc68a"),
                             ProductId = new Guid("c191621c-6345-4b75-9fea-18fdfe9ad100"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Niñas-c191621c-6345-4b75-9fea-18fdfe9ad100-2.png"
                         },
                         new
                         {
-                            Id = new Guid("84441aba-1555-45d6-a3cf-21b16d6d274d"),
+                            Id = new Guid("b2032cb7-7c1c-4424-b6e1-0546223543c1"),
                             ProductId = new Guid("c191621c-6345-4b75-9fea-18fdfe9ad100"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Niñas-c191621c-6345-4b75-9fea-18fdfe9ad100-3.png"
                         },
                         new
                         {
-                            Id = new Guid("b425fe68-03b5-4f51-84cd-fb2e6ba3ed28"),
+                            Id = new Guid("e72936b5-2cae-4d91-88fd-bf3861af279d"),
                             ProductId = new Guid("acce2896-28b7-4995-a8e6-a5f800362499"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Niños-acce2896-28b7-4995-a8e6-a5f800362499-1.png"
                         },
                         new
                         {
-                            Id = new Guid("a6b45fd2-d5af-42c7-bd53-914f6b564db2"),
+                            Id = new Guid("7703a9a0-b4cc-4554-95d6-1ded5beba547"),
                             ProductId = new Guid("acce2896-28b7-4995-a8e6-a5f800362499"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Niños-acce2896-28b7-4995-a8e6-a5f800362499-2.png"
                         },
                         new
                         {
-                            Id = new Guid("fc72dfa1-8d99-4311-9f03-72c564ed84f6"),
+                            Id = new Guid("392ac7e2-f112-4e58-b5d2-e08a2039ddcc"),
                             ProductId = new Guid("acce2896-28b7-4995-a8e6-a5f800362499"),
                             Url = "/Images/Products/Fila/Product-Fila-Remeras-Niños-acce2896-28b7-4995-a8e6-a5f800362499-3.png"
                         },
                         new
                         {
-                            Id = new Guid("94593d53-ae49-4a14-9746-e2e211f0dad1"),
+                            Id = new Guid("0ee13b77-4ea5-4ffe-aae8-b523c41d8a99"),
                             ProductId = new Guid("4c3b847d-2c63-44b9-9720-9d93744dadb2"),
                             Url = "/Images/Products/Fila/Product-Fila-Tops-Mujer-4c3b847d-2c63-44b9-9720-9d93744dadb2-1.png"
                         },
                         new
                         {
-                            Id = new Guid("7f8c7515-a70f-4329-8541-208d99c142ec"),
+                            Id = new Guid("7c731c27-2d23-4d5f-814e-7f7606a714d5"),
                             ProductId = new Guid("4c3b847d-2c63-44b9-9720-9d93744dadb2"),
                             Url = "/Images/Products/Fila/Product-Fila-Tops-Mujer-4c3b847d-2c63-44b9-9720-9d93744dadb2-2.png"
                         },
                         new
                         {
-                            Id = new Guid("f190f276-72d6-44d7-9426-76defeb6a8fb"),
+                            Id = new Guid("f79b7030-c7d3-4d82-a74f-c774b3844e34"),
                             ProductId = new Guid("4c3b847d-2c63-44b9-9720-9d93744dadb2"),
                             Url = "/Images/Products/Fila/Product-Fila-Tops-Mujer-4c3b847d-2c63-44b9-9720-9d93744dadb2-3.png"
                         },
                         new
                         {
-                            Id = new Guid("277fed7e-3ca6-485f-bea6-14c77aac5241"),
+                            Id = new Guid("13fe4bf8-1d6b-4f1c-955e-63fdada0625e"),
                             ProductId = new Guid("918f7193-ccad-4ad5-b5f1-33e77588a77d"),
                             Url = "/Images/Products/Fila/Product-Fila-Tops-Mujer-918f7193-ccad-4ad5-b5f1-33e77588a77d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("7a9aa396-8a32-41fd-9f71-5511559d4ad9"),
+                            Id = new Guid("d550ed8b-256c-41a2-a889-68f75492d4b8"),
                             ProductId = new Guid("918f7193-ccad-4ad5-b5f1-33e77588a77d"),
                             Url = "/Images/Products/Fila/Product-Fila-Tops-Mujer-918f7193-ccad-4ad5-b5f1-33e77588a77d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("21781ca6-9f7f-4f02-888d-c8757cc72786"),
+                            Id = new Guid("46b7a64f-d737-4ce5-8b07-f9f72ee1257e"),
                             ProductId = new Guid("918f7193-ccad-4ad5-b5f1-33e77588a77d"),
                             Url = "/Images/Products/Fila/Product-Fila-Tops-Mujer-918f7193-ccad-4ad5-b5f1-33e77588a77d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("d6fc4795-d2cb-49b1-9f50-20472be380d4"),
+                            Id = new Guid("6c6060b5-ad0e-4f95-abc1-7f391ea2640c"),
                             ProductId = new Guid("64ef8009-bdf3-4feb-a153-aaee4073c606"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Hombre-64ef8009-bdf3-4feb-a153-aaee4073c606-1.png"
                         },
                         new
                         {
-                            Id = new Guid("7f16db24-8707-4762-8405-dc8d30f5a8e0"),
+                            Id = new Guid("923c06c4-768a-48a1-8e23-606b86b86a9b"),
                             ProductId = new Guid("64ef8009-bdf3-4feb-a153-aaee4073c606"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Hombre-64ef8009-bdf3-4feb-a153-aaee4073c606-2.png"
                         },
                         new
                         {
-                            Id = new Guid("7d61d227-618e-4467-b3f1-a32de2a3b1f7"),
+                            Id = new Guid("b03cf932-bcf4-4a7a-936f-df936f431348"),
                             ProductId = new Guid("64ef8009-bdf3-4feb-a153-aaee4073c606"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Hombre-64ef8009-bdf3-4feb-a153-aaee4073c606-3.png"
                         },
                         new
                         {
-                            Id = new Guid("f0da3fd9-eaa6-4e4e-89dd-fdeb7537b2c2"),
+                            Id = new Guid("1fcbaf5f-5de2-4aa4-a960-3b277ce16297"),
                             ProductId = new Guid("7690ef50-3588-4ec1-a2d5-d7d2ccf6d40b"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Hombre-7690ef50-3588-4ec1-a2d5-d7d2ccf6d40b-1.png"
                         },
                         new
                         {
-                            Id = new Guid("2c31cf46-e01f-4ac3-8f99-f8c738f520c7"),
+                            Id = new Guid("1a004fa0-b9f7-4ad5-b467-d4c49b48c18b"),
                             ProductId = new Guid("7690ef50-3588-4ec1-a2d5-d7d2ccf6d40b"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Hombre-7690ef50-3588-4ec1-a2d5-d7d2ccf6d40b-2.png"
                         },
                         new
                         {
-                            Id = new Guid("d3f87690-48a2-4086-bd9a-4920312c1618"),
+                            Id = new Guid("e60fc259-44a7-4198-b0fb-c8e241e6c36a"),
                             ProductId = new Guid("7690ef50-3588-4ec1-a2d5-d7d2ccf6d40b"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Hombre-7690ef50-3588-4ec1-a2d5-d7d2ccf6d40b-3.png"
                         },
                         new
                         {
-                            Id = new Guid("ee690f9b-99f4-44c9-ab04-6f7b5be2182b"),
+                            Id = new Guid("1ec23322-0783-4c73-921d-f7156257ea09"),
                             ProductId = new Guid("abd609da-bfcf-4194-9c19-d61a3eab5fcb"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Mujer-abd609da-bfcf-4194-9c19-d61a3eab5fcb-1.png"
                         },
                         new
                         {
-                            Id = new Guid("65d83bbe-49d7-4d2f-b290-f74d4b9eb768"),
+                            Id = new Guid("b0e69a42-ab39-4ca1-b573-9baaf00b8548"),
                             ProductId = new Guid("abd609da-bfcf-4194-9c19-d61a3eab5fcb"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Mujer-abd609da-bfcf-4194-9c19-d61a3eab5fcb-2.png"
                         },
                         new
                         {
-                            Id = new Guid("90b961e6-555a-4697-853e-4bc5e5167945"),
+                            Id = new Guid("d6291aee-02cd-4ec1-ae6d-444a69ff977b"),
                             ProductId = new Guid("abd609da-bfcf-4194-9c19-d61a3eab5fcb"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Mujer-abd609da-bfcf-4194-9c19-d61a3eab5fcb-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6d25b2e0-a5c9-476a-8d1a-8cb5c2221645"),
+                            Id = new Guid("3eaa74c8-477a-4ed5-9399-c56913401d44"),
                             ProductId = new Guid("bba05e71-0cd0-48c7-bf1d-192707b77873"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Mujer-bba05e71-0cd0-48c7-bf1d-192707b77873-1.png"
                         },
                         new
                         {
-                            Id = new Guid("24d3b6b7-52d2-4419-93b6-f7395261f8d4"),
+                            Id = new Guid("a9de1715-5587-487b-9fa4-92f228b1e910"),
                             ProductId = new Guid("bba05e71-0cd0-48c7-bf1d-192707b77873"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Mujer-bba05e71-0cd0-48c7-bf1d-192707b77873-2.png"
                         },
                         new
                         {
-                            Id = new Guid("9e06b54a-f50a-4ca9-a541-dcae4277cde1"),
+                            Id = new Guid("a56e1185-305a-45d7-9e0f-32173abfb363"),
                             ProductId = new Guid("bba05e71-0cd0-48c7-bf1d-192707b77873"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Mujer-bba05e71-0cd0-48c7-bf1d-192707b77873-3.png"
                         },
                         new
                         {
-                            Id = new Guid("bfe5a3ce-4efe-47c6-ba24-b554df62d407"),
+                            Id = new Guid("be9d8e9e-99cb-4ba4-b8ea-802363ec5dd3"),
                             ProductId = new Guid("7617b910-b3e5-4d52-8041-3a3507cc052e"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Niñas-7617b910-b3e5-4d52-8041-3a3507cc052e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("5c46e907-aac8-44af-a5a0-1a66aa58758b"),
+                            Id = new Guid("f6dca5f9-4292-48ab-82b1-c22efee8bb2c"),
                             ProductId = new Guid("7617b910-b3e5-4d52-8041-3a3507cc052e"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Niñas-7617b910-b3e5-4d52-8041-3a3507cc052e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("b7eb4ad7-1d8f-4098-a31e-c64a8464040c"),
+                            Id = new Guid("72f71065-e484-4ea3-86d7-b6dd217204de"),
                             ProductId = new Guid("7617b910-b3e5-4d52-8041-3a3507cc052e"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Niñas-7617b910-b3e5-4d52-8041-3a3507cc052e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("b318cef6-07a6-45e5-86bc-9b02100bea68"),
+                            Id = new Guid("09e2b5f4-c657-42c3-af56-989160fc249f"),
                             ProductId = new Guid("bf86d111-a57e-44b0-b2e3-5195c73507a9"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Niños-bf86d111-a57e-44b0-b2e3-5195c73507a9-1.png"
                         },
                         new
                         {
-                            Id = new Guid("b2405a9d-6ecc-4831-855c-2b5b13ee205f"),
+                            Id = new Guid("e3320025-f2a9-4941-8483-30b59c48cd0b"),
                             ProductId = new Guid("bf86d111-a57e-44b0-b2e3-5195c73507a9"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Niños-bf86d111-a57e-44b0-b2e3-5195c73507a9-2.png"
                         },
                         new
                         {
-                            Id = new Guid("2b31a752-4353-480d-b353-3b8871936271"),
+                            Id = new Guid("1165ef94-0549-48af-8fde-88b86b2b2367"),
                             ProductId = new Guid("bf86d111-a57e-44b0-b2e3-5195c73507a9"),
                             Url = "/Images/Products/Fila/Product-Fila-Zapatillas-Niños-bf86d111-a57e-44b0-b2e3-5195c73507a9-3.png"
                         },
                         new
                         {
-                            Id = new Guid("35afa91a-7d2c-4213-9dbc-2aa7bee6507d"),
+                            Id = new Guid("50c03b80-e146-47a5-9c68-f263f7666717"),
                             ProductId = new Guid("bd73387d-9db3-4933-baab-7330ee1f741c"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Hombre-bd73387d-9db3-4933-baab-7330ee1f741c-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bad46864-4c11-4879-ac99-d2216dc7c0a3"),
+                            Id = new Guid("90799f8b-06a5-4440-8b1d-d7c8459bbcdd"),
                             ProductId = new Guid("bd73387d-9db3-4933-baab-7330ee1f741c"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Hombre-bd73387d-9db3-4933-baab-7330ee1f741c-2.png"
                         },
                         new
                         {
-                            Id = new Guid("7fece68e-1c84-4e00-bd6b-03df7aa4a834"),
+                            Id = new Guid("f7ca5c9e-3062-4e90-aec7-08de73470cd7"),
                             ProductId = new Guid("bd73387d-9db3-4933-baab-7330ee1f741c"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Hombre-bd73387d-9db3-4933-baab-7330ee1f741c-3.png"
                         },
                         new
                         {
-                            Id = new Guid("9a69921d-b149-45eb-9c68-03d3f83c3355"),
+                            Id = new Guid("82330d82-140c-4e97-951e-b57ddab1ca25"),
                             ProductId = new Guid("7ed42256-f685-44c0-a3c5-b0b2c07bee12"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Mujer-7ed42256-f685-44c0-a3c5-b0b2c07bee12-1.png"
                         },
                         new
                         {
-                            Id = new Guid("9b63edb8-2e62-45cb-84b3-ba90d6fb32f5"),
+                            Id = new Guid("82fa996c-9b5c-4a82-a229-049e2604448a"),
                             ProductId = new Guid("7ed42256-f685-44c0-a3c5-b0b2c07bee12"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Mujer-7ed42256-f685-44c0-a3c5-b0b2c07bee12-2.png"
                         },
                         new
                         {
-                            Id = new Guid("3cfe89af-bc6c-43c1-9bde-fb07005e12ec"),
+                            Id = new Guid("25854851-6ee9-45ee-ba52-597c8cb32864"),
                             ProductId = new Guid("7ed42256-f685-44c0-a3c5-b0b2c07bee12"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Mujer-7ed42256-f685-44c0-a3c5-b0b2c07bee12-3.png"
                         },
                         new
                         {
-                            Id = new Guid("26690408-876a-4e24-8092-9d1c93679894"),
+                            Id = new Guid("a945f858-eb90-435e-8245-035bdcee7edf"),
                             ProductId = new Guid("087237c0-e590-44f5-806a-9ed8a5fdccc4"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Mujer-087237c0-e590-44f5-806a-9ed8a5fdccc4-1.png"
                         },
                         new
                         {
-                            Id = new Guid("ccc79750-4df8-48e4-8e4d-8fba5a3ad69b"),
+                            Id = new Guid("40b3b29b-053c-427d-a2e6-9217f27898be"),
                             ProductId = new Guid("087237c0-e590-44f5-806a-9ed8a5fdccc4"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Mujer-087237c0-e590-44f5-806a-9ed8a5fdccc4-2.png"
                         },
                         new
                         {
-                            Id = new Guid("41c7d14b-d87e-4027-afaf-ee495a5b64f0"),
+                            Id = new Guid("c3cad39d-cf8a-41be-aacc-ce2a1e50450e"),
                             ProductId = new Guid("087237c0-e590-44f5-806a-9ed8a5fdccc4"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Mujer-087237c0-e590-44f5-806a-9ed8a5fdccc4-3.png"
                         },
                         new
                         {
-                            Id = new Guid("4b4c6664-103d-48c6-bb3f-3f8e677ce53e"),
+                            Id = new Guid("0f4e19ec-aef3-40d0-85ea-824728bc73e7"),
                             ProductId = new Guid("4ee0914d-5aa7-4968-905f-7bd2750cb2e6"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Niñas-4ee0914d-5aa7-4968-905f-7bd2750cb2e6-1.png"
                         },
                         new
                         {
-                            Id = new Guid("184f33a6-0438-4fc3-bfcc-1601b10c9bb2"),
+                            Id = new Guid("62961f23-5027-406e-acb1-7ffce501a70b"),
                             ProductId = new Guid("4ee0914d-5aa7-4968-905f-7bd2750cb2e6"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Niñas-4ee0914d-5aa7-4968-905f-7bd2750cb2e6-2.png"
                         },
                         new
                         {
-                            Id = new Guid("d2d3476c-40b1-4537-aae9-bcc09d3d8146"),
+                            Id = new Guid("ecb92377-4a20-4b56-9146-4d790a1623cd"),
                             ProductId = new Guid("4ee0914d-5aa7-4968-905f-7bd2750cb2e6"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Niñas-4ee0914d-5aa7-4968-905f-7bd2750cb2e6-3.png"
                         },
                         new
                         {
-                            Id = new Guid("0e70bde7-7a24-4d72-9d27-d5ae49844732"),
+                            Id = new Guid("2b702406-363a-40e8-b8a8-551a16c49f8d"),
                             ProductId = new Guid("ee616c82-bc73-4316-9b30-ee25833805b3"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Niños-ee616c82-bc73-4316-9b30-ee25833805b3-1.png"
                         },
                         new
                         {
-                            Id = new Guid("d4d18eaa-3789-4c71-b11d-7bcd35779fa0"),
+                            Id = new Guid("88ec1ed7-9a51-46da-8775-690a982b42b4"),
                             ProductId = new Guid("ee616c82-bc73-4316-9b30-ee25833805b3"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Niños-ee616c82-bc73-4316-9b30-ee25833805b3-2.png"
                         },
                         new
                         {
-                            Id = new Guid("ddc47125-8703-4734-9469-a226082f7b48"),
+                            Id = new Guid("9b459ca0-e6fc-4cfc-94df-b7e214b2ee76"),
                             ProductId = new Guid("ee616c82-bc73-4316-9b30-ee25833805b3"),
                             Url = "/Images/Products/Nike/Product-Nike-Buzos y Camperas-Niños-ee616c82-bc73-4316-9b30-ee25833805b3-3.png"
                         },
                         new
                         {
-                            Id = new Guid("ecaaffc3-7caf-4830-8aa1-078c6748ab0e"),
+                            Id = new Guid("6159329b-a055-41a9-876f-efb3a01de7b0"),
                             ProductId = new Guid("19f7af3a-3576-4f83-a3b6-b1f51729d3f3"),
                             Url = "/Images/Products/Nike/Product-Nike-Calzas-Mujer-19f7af3a-3576-4f83-a3b6-b1f51729d3f3-1.png"
                         },
                         new
                         {
-                            Id = new Guid("65c4496f-d496-4153-9282-039eb5c23466"),
+                            Id = new Guid("4b20dc72-5fa8-45eb-bd4d-4061cd207f85"),
                             ProductId = new Guid("19f7af3a-3576-4f83-a3b6-b1f51729d3f3"),
                             Url = "/Images/Products/Nike/Product-Nike-Calzas-Mujer-19f7af3a-3576-4f83-a3b6-b1f51729d3f3-2.png"
                         },
                         new
                         {
-                            Id = new Guid("a69b596b-ae86-44b6-993d-e397e77079b6"),
+                            Id = new Guid("c8287273-5a88-4bb1-8d7c-679ce19a493c"),
                             ProductId = new Guid("19f7af3a-3576-4f83-a3b6-b1f51729d3f3"),
                             Url = "/Images/Products/Nike/Product-Nike-Calzas-Mujer-19f7af3a-3576-4f83-a3b6-b1f51729d3f3-3.png"
                         },
                         new
                         {
-                            Id = new Guid("a0b387b7-9a75-4f65-8eae-8326687c845c"),
+                            Id = new Guid("1e9d2c5d-7f82-436f-98ab-4faf991c16cf"),
                             ProductId = new Guid("671c59f3-0d7d-4e0b-81ae-c543368b605d"),
                             Url = "/Images/Products/Nike/Product-Nike-Calzas-Mujer-671c59f3-0d7d-4e0b-81ae-c543368b605d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bdb67580-8a2a-48c3-8a98-d7a6ac930c77"),
+                            Id = new Guid("86c0736b-d4ed-41b4-9bfb-24d67a6909a1"),
                             ProductId = new Guid("671c59f3-0d7d-4e0b-81ae-c543368b605d"),
                             Url = "/Images/Products/Nike/Product-Nike-Calzas-Mujer-671c59f3-0d7d-4e0b-81ae-c543368b605d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("16443f5e-0cec-4084-aa62-4ac7631608b1"),
+                            Id = new Guid("1a210e5e-7f9e-4f26-bc03-bf01d9703ba7"),
                             ProductId = new Guid("671c59f3-0d7d-4e0b-81ae-c543368b605d"),
                             Url = "/Images/Products/Nike/Product-Nike-Calzas-Mujer-671c59f3-0d7d-4e0b-81ae-c543368b605d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("73aab0f3-8107-4830-a471-1e7866214f5e"),
+                            Id = new Guid("da45b270-5804-40bc-bf18-7416efbb4fba"),
                             ProductId = new Guid("8bd2ed90-bf07-4d3a-9bf1-24c46a3ceacc"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Hombre-8bd2ed90-bf07-4d3a-9bf1-24c46a3ceacc-1.png"
                         },
                         new
                         {
-                            Id = new Guid("014419e6-2cf6-4ff1-b64a-04c0f43cae22"),
+                            Id = new Guid("93dc2621-5507-43b0-960d-9740339df1cc"),
                             ProductId = new Guid("8bd2ed90-bf07-4d3a-9bf1-24c46a3ceacc"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Hombre-8bd2ed90-bf07-4d3a-9bf1-24c46a3ceacc-2.png"
                         },
                         new
                         {
-                            Id = new Guid("fa32c61f-9cb9-4da4-83dd-8ad93b0777d2"),
+                            Id = new Guid("baec66d1-16fe-4642-b635-4f29935df63b"),
                             ProductId = new Guid("8bd2ed90-bf07-4d3a-9bf1-24c46a3ceacc"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Hombre-8bd2ed90-bf07-4d3a-9bf1-24c46a3ceacc-3.png"
                         },
                         new
                         {
-                            Id = new Guid("4d711ba3-7efd-4cee-9a24-5b07fe20e6ec"),
+                            Id = new Guid("23bd4694-d260-499e-bdca-24d8b5ac1900"),
                             ProductId = new Guid("10c6cff5-d98c-48d6-85e1-175d7f7e5149"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Hombre-10c6cff5-d98c-48d6-85e1-175d7f7e5149-1.png"
                         },
                         new
                         {
-                            Id = new Guid("661bfbdd-35e7-4e81-80d3-766b483a7cd7"),
+                            Id = new Guid("fbfd509a-6e54-4c7a-a55d-d6e0743ec4fe"),
                             ProductId = new Guid("10c6cff5-d98c-48d6-85e1-175d7f7e5149"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Hombre-10c6cff5-d98c-48d6-85e1-175d7f7e5149-2.png"
                         },
                         new
                         {
-                            Id = new Guid("70b55080-a285-4924-a6bd-b625cad17efc"),
+                            Id = new Guid("c65e13ce-4ca3-462a-8e11-effb207e997f"),
                             ProductId = new Guid("10c6cff5-d98c-48d6-85e1-175d7f7e5149"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Hombre-10c6cff5-d98c-48d6-85e1-175d7f7e5149-3.png"
                         },
                         new
                         {
-                            Id = new Guid("7a3a995a-55fd-4207-984e-eb798a5d2471"),
+                            Id = new Guid("63005a17-ff9a-41c9-b85e-ee7c5ba40127"),
                             ProductId = new Guid("8b498a6e-dd85-4cf8-aa62-4a803a98d9a0"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Mujer-8b498a6e-dd85-4cf8-aa62-4a803a98d9a0-1.png"
                         },
                         new
                         {
-                            Id = new Guid("359f9f76-ce23-4737-93b4-94d256b1d51f"),
+                            Id = new Guid("3b7f468d-2de6-4b69-b08c-22afd00ba2da"),
                             ProductId = new Guid("8b498a6e-dd85-4cf8-aa62-4a803a98d9a0"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Mujer-8b498a6e-dd85-4cf8-aa62-4a803a98d9a0-2.png"
                         },
                         new
                         {
-                            Id = new Guid("b5744469-79c6-4511-a98f-c58095cd7f0c"),
+                            Id = new Guid("270b4063-dd5b-4370-8d2a-af4fc9351e56"),
                             ProductId = new Guid("8b498a6e-dd85-4cf8-aa62-4a803a98d9a0"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Mujer-8b498a6e-dd85-4cf8-aa62-4a803a98d9a0-3.png"
                         },
                         new
                         {
-                            Id = new Guid("367f104c-c69c-425f-bb8d-004ceb7883b7"),
+                            Id = new Guid("2e49ea56-680f-4266-82db-40217220e2ce"),
                             ProductId = new Guid("e4185b6c-15da-44f7-a48c-3520f3bb5354"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Mujer-e4185b6c-15da-44f7-a48c-3520f3bb5354-1.png"
                         },
                         new
                         {
-                            Id = new Guid("5412b8dd-f1c2-4709-b5fd-af9eed8eea1f"),
+                            Id = new Guid("9160a5de-bf64-4ef5-9fea-7361406c8398"),
                             ProductId = new Guid("e4185b6c-15da-44f7-a48c-3520f3bb5354"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Mujer-e4185b6c-15da-44f7-a48c-3520f3bb5354-2.png"
                         },
                         new
                         {
-                            Id = new Guid("c1449e14-f13c-401c-8a76-9e8da7d24b0c"),
+                            Id = new Guid("05f83e21-35ac-47c6-9243-1195bd95d501"),
                             ProductId = new Guid("e4185b6c-15da-44f7-a48c-3520f3bb5354"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Mujer-e4185b6c-15da-44f7-a48c-3520f3bb5354-3.png"
                         },
                         new
                         {
-                            Id = new Guid("65b5da73-8fb2-47ff-9a08-496b82421ed0"),
+                            Id = new Guid("cf238de4-0b63-41eb-8d35-9d5de936c154"),
                             ProductId = new Guid("9eacb903-4d21-49f3-bc4e-49b70a4387f3"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Niñas-9eacb903-4d21-49f3-bc4e-49b70a4387f3-1.png"
                         },
                         new
                         {
-                            Id = new Guid("5d5fa53a-4afb-4a31-9db8-c7b5dc321195"),
+                            Id = new Guid("52666eba-8ba4-468e-94b7-bc3487328b74"),
                             ProductId = new Guid("9eacb903-4d21-49f3-bc4e-49b70a4387f3"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Niñas-9eacb903-4d21-49f3-bc4e-49b70a4387f3-2.png"
                         },
                         new
                         {
-                            Id = new Guid("032ed69e-4009-4806-8422-061d2b8d4634"),
+                            Id = new Guid("7b6fb57b-cb28-4003-befa-fc6b7fe4fed8"),
                             ProductId = new Guid("9eacb903-4d21-49f3-bc4e-49b70a4387f3"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Niñas-9eacb903-4d21-49f3-bc4e-49b70a4387f3-3.png"
                         },
                         new
                         {
-                            Id = new Guid("caa7dc00-a50e-409e-a8e7-966160aba08d"),
+                            Id = new Guid("81de0031-52cc-43e3-a073-74f1a214b6b8"),
                             ProductId = new Guid("08058bbb-9553-4a5e-84f7-7cb3ec5440dd"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Niños-08058bbb-9553-4a5e-84f7-7cb3ec5440dd-1.png"
                         },
                         new
                         {
-                            Id = new Guid("f9c9eb5c-e8ed-4dd0-b0ed-0361f0a28f49"),
+                            Id = new Guid("63375c0d-a626-4829-ab4e-79ed82953061"),
                             ProductId = new Guid("08058bbb-9553-4a5e-84f7-7cb3ec5440dd"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Niños-08058bbb-9553-4a5e-84f7-7cb3ec5440dd-2.png"
                         },
                         new
                         {
-                            Id = new Guid("4755a2c4-6766-4e36-86b9-bfe7ff90d239"),
+                            Id = new Guid("304ef200-a4c7-4029-8fb0-e7a4f60a5dd7"),
                             ProductId = new Guid("08058bbb-9553-4a5e-84f7-7cb3ec5440dd"),
                             Url = "/Images/Products/Nike/Product-Nike-Remeras-Niños-08058bbb-9553-4a5e-84f7-7cb3ec5440dd-3.png"
                         },
                         new
                         {
-                            Id = new Guid("1fcc5058-810a-4e96-94ab-a96fe3ee8ca1"),
+                            Id = new Guid("1eedc752-2dc6-466d-bb8b-70cd10daf555"),
                             ProductId = new Guid("2c1b4bdb-2de7-43e2-a259-1fb75dc44fbc"),
                             Url = "/Images/Products/Nike/Product-Nike-Tops-Mujer-2c1b4bdb-2de7-43e2-a259-1fb75dc44fbc-1.png"
                         },
                         new
                         {
-                            Id = new Guid("8186d597-2a8b-4bf1-8420-78779738e692"),
+                            Id = new Guid("faca8dff-ad9e-4940-8330-905a5fbddce0"),
                             ProductId = new Guid("2c1b4bdb-2de7-43e2-a259-1fb75dc44fbc"),
                             Url = "/Images/Products/Nike/Product-Nike-Tops-Mujer-2c1b4bdb-2de7-43e2-a259-1fb75dc44fbc-2.png"
                         },
                         new
                         {
-                            Id = new Guid("74c9188b-0034-4488-979b-a83e51fbb76b"),
+                            Id = new Guid("422f6ad8-ac4b-4011-8f5e-9528d628d833"),
                             ProductId = new Guid("2c1b4bdb-2de7-43e2-a259-1fb75dc44fbc"),
                             Url = "/Images/Products/Nike/Product-Nike-Tops-Mujer-2c1b4bdb-2de7-43e2-a259-1fb75dc44fbc-3.png"
                         },
                         new
                         {
-                            Id = new Guid("d7eeb65c-62e2-44bc-a6fc-3598abcdf04c"),
+                            Id = new Guid("07d86e42-ae91-45a0-8dc7-845a99fecb25"),
                             ProductId = new Guid("c49d0933-ac5c-4e7a-8fb8-afe275fb59ff"),
                             Url = "/Images/Products/Nike/Product-Nike-Tops-Mujer-c49d0933-ac5c-4e7a-8fb8-afe275fb59ff-1.png"
                         },
                         new
                         {
-                            Id = new Guid("0761da72-91cf-4d75-81bf-d668a0aecfd4"),
+                            Id = new Guid("75b4819a-c71a-42f9-bad9-1e866b6856c4"),
                             ProductId = new Guid("c49d0933-ac5c-4e7a-8fb8-afe275fb59ff"),
                             Url = "/Images/Products/Nike/Product-Nike-Tops-Mujer-c49d0933-ac5c-4e7a-8fb8-afe275fb59ff-2.png"
                         },
                         new
                         {
-                            Id = new Guid("24063919-5334-47e6-8444-b0659595bc1c"),
+                            Id = new Guid("08c60b6a-40f1-4497-be4f-f3de1480c3ce"),
                             ProductId = new Guid("c49d0933-ac5c-4e7a-8fb8-afe275fb59ff"),
                             Url = "/Images/Products/Nike/Product-Nike-Tops-Mujer-c49d0933-ac5c-4e7a-8fb8-afe275fb59ff-3.png"
                         },
                         new
                         {
-                            Id = new Guid("f4514f97-2378-47af-9d23-738e38db034e"),
+                            Id = new Guid("a810e9e7-59be-4c9f-ba1e-48c13dc58196"),
                             ProductId = new Guid("700fb128-5017-41ca-9221-765c3c3d9629"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Hombre-700fb128-5017-41ca-9221-765c3c3d9629-1.png"
                         },
                         new
                         {
-                            Id = new Guid("64d0100b-4911-44b5-985b-61fa9c58d33d"),
+                            Id = new Guid("f2508245-d309-494b-a819-662628a8d737"),
                             ProductId = new Guid("700fb128-5017-41ca-9221-765c3c3d9629"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Hombre-700fb128-5017-41ca-9221-765c3c3d9629-2.png"
                         },
                         new
                         {
-                            Id = new Guid("76779515-2948-4a21-8100-c0a3a09ffd71"),
+                            Id = new Guid("4012a444-b555-464e-b0ff-6862f9687aa0"),
                             ProductId = new Guid("700fb128-5017-41ca-9221-765c3c3d9629"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Hombre-700fb128-5017-41ca-9221-765c3c3d9629-3.png"
                         },
                         new
                         {
-                            Id = new Guid("bf41848c-c53c-49ed-a08f-ba2b10ff7d9d"),
+                            Id = new Guid("f1a1c580-c071-4d3b-b657-3beba05cbcab"),
                             ProductId = new Guid("71ab1383-8f2f-4bf5-9619-c49703653021"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Hombre-71ab1383-8f2f-4bf5-9619-c49703653021-1.png"
                         },
                         new
                         {
-                            Id = new Guid("805aa51a-9cbc-4ab3-ac1a-b71a5066e189"),
+                            Id = new Guid("ac6e1737-c906-46e6-ba16-7e64ddd793d5"),
                             ProductId = new Guid("71ab1383-8f2f-4bf5-9619-c49703653021"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Hombre-71ab1383-8f2f-4bf5-9619-c49703653021-2.png"
                         },
                         new
                         {
-                            Id = new Guid("faba3389-5fd2-4eb7-9946-d190e24f44a5"),
+                            Id = new Guid("7aada0a2-9fa3-4d59-9199-0e2d7b17e704"),
                             ProductId = new Guid("71ab1383-8f2f-4bf5-9619-c49703653021"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Hombre-71ab1383-8f2f-4bf5-9619-c49703653021-3.png"
                         },
                         new
                         {
-                            Id = new Guid("bb140842-3404-4068-b562-5eb728cb905e"),
+                            Id = new Guid("81eee138-cd06-4280-834c-111b24609e59"),
                             ProductId = new Guid("54f52aed-e8e6-46f6-a363-1097b0b02e38"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Mujer-54f52aed-e8e6-46f6-a363-1097b0b02e38-1.png"
                         },
                         new
                         {
-                            Id = new Guid("0fa26259-cad0-4141-b8c0-8498075f1c35"),
+                            Id = new Guid("57a663ca-8786-460e-8534-6e9adf66ccdd"),
                             ProductId = new Guid("54f52aed-e8e6-46f6-a363-1097b0b02e38"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Mujer-54f52aed-e8e6-46f6-a363-1097b0b02e38-2.png"
                         },
                         new
                         {
-                            Id = new Guid("5d13dfab-3364-48b0-965a-b58eeea6c9f1"),
+                            Id = new Guid("489514c1-f43e-4432-9af0-46bcf5c6d0d0"),
                             ProductId = new Guid("54f52aed-e8e6-46f6-a363-1097b0b02e38"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Mujer-54f52aed-e8e6-46f6-a363-1097b0b02e38-3.png"
                         },
                         new
                         {
-                            Id = new Guid("e8d2fb14-1427-42f1-a91c-30ec2394ca8f"),
+                            Id = new Guid("61ca651c-ecfe-45ca-aa02-acb4c4828042"),
                             ProductId = new Guid("5d6f08f0-fce2-4e2e-80e7-961619d48788"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Mujer-5d6f08f0-fce2-4e2e-80e7-961619d48788-1.png"
                         },
                         new
                         {
-                            Id = new Guid("22bae6ef-410d-4581-a138-e5d93bf73cb5"),
+                            Id = new Guid("6bb18f7e-f4d4-4180-b459-0830dc3e721e"),
                             ProductId = new Guid("5d6f08f0-fce2-4e2e-80e7-961619d48788"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Mujer-5d6f08f0-fce2-4e2e-80e7-961619d48788-2.png"
                         },
                         new
                         {
-                            Id = new Guid("2896055b-c6ab-45b3-9099-016a9a08e9fd"),
+                            Id = new Guid("dbd8ecd3-619b-41f9-a63e-8b7dc2f14181"),
                             ProductId = new Guid("5d6f08f0-fce2-4e2e-80e7-961619d48788"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Mujer-5d6f08f0-fce2-4e2e-80e7-961619d48788-3.png"
                         },
                         new
                         {
-                            Id = new Guid("df308188-1575-4a97-9f42-b05bcf560592"),
+                            Id = new Guid("cb593c4f-3e21-41d9-954f-5985c910e979"),
                             ProductId = new Guid("e2db1b89-6662-4e1c-992a-500b485c505f"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Niñas-e2db1b89-6662-4e1c-992a-500b485c505f-1.png"
                         },
                         new
                         {
-                            Id = new Guid("f8b985f1-dcc6-48ac-a86f-7b0db53782dd"),
+                            Id = new Guid("8585228d-01f5-4171-8f9a-152d4e9942eb"),
                             ProductId = new Guid("e2db1b89-6662-4e1c-992a-500b485c505f"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Niñas-e2db1b89-6662-4e1c-992a-500b485c505f-2.png"
                         },
                         new
                         {
-                            Id = new Guid("522c9926-37bd-4bf5-be9b-09985b942976"),
+                            Id = new Guid("6353e833-0097-4e8b-8dea-db2de36d02bb"),
                             ProductId = new Guid("e2db1b89-6662-4e1c-992a-500b485c505f"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Niñas-e2db1b89-6662-4e1c-992a-500b485c505f-3.png"
                         },
                         new
                         {
-                            Id = new Guid("9f63d663-b638-4dd7-915f-abc54a4efd7e"),
+                            Id = new Guid("67a5ca1f-f2c5-46cf-a6de-db29bd98be0f"),
                             ProductId = new Guid("4c498b21-648d-443e-a7ac-5a7c61da8a83"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Niños-4c498b21-648d-443e-a7ac-5a7c61da8a83-1.png"
                         },
                         new
                         {
-                            Id = new Guid("83ce88d9-745d-492a-b08e-bd83147a9dd9"),
+                            Id = new Guid("733c76f8-ebdb-4ceb-a8f5-cc62e3b94e76"),
                             ProductId = new Guid("4c498b21-648d-443e-a7ac-5a7c61da8a83"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Niños-4c498b21-648d-443e-a7ac-5a7c61da8a83-2.png"
                         },
                         new
                         {
-                            Id = new Guid("c4ef2609-12c5-4901-8b31-9bfddb9d56a5"),
+                            Id = new Guid("77a6ca9d-9685-4e99-9c0c-63115b9d3ff1"),
                             ProductId = new Guid("4c498b21-648d-443e-a7ac-5a7c61da8a83"),
                             Url = "/Images/Products/Nike/Product-Nike-Zapatillas-Niños-4c498b21-648d-443e-a7ac-5a7c61da8a83-3.png"
                         },
                         new
                         {
-                            Id = new Guid("b528c015-15a5-4bb6-81c1-8127c94c480b"),
+                            Id = new Guid("5a2a381b-c915-48db-8aae-616473f01a30"),
                             ProductId = new Guid("67408bf6-6fa2-4a48-8b50-24552cfe88c1"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Hombre-67408bf6-6fa2-4a48-8b50-24552cfe88c1-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bf0a2a44-dfe6-4129-9538-c104154fae25"),
+                            Id = new Guid("51afebaa-e730-44d1-95f0-e0f9d809f69f"),
                             ProductId = new Guid("67408bf6-6fa2-4a48-8b50-24552cfe88c1"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Hombre-67408bf6-6fa2-4a48-8b50-24552cfe88c1-2.png"
                         },
                         new
                         {
-                            Id = new Guid("dd8dda3f-9581-4509-a1b3-8234a55f672b"),
+                            Id = new Guid("a31c0a71-f198-441c-8f92-8153286e689b"),
                             ProductId = new Guid("67408bf6-6fa2-4a48-8b50-24552cfe88c1"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Hombre-67408bf6-6fa2-4a48-8b50-24552cfe88c1-3.png"
                         },
                         new
                         {
-                            Id = new Guid("7d7536b2-ded0-413d-91cd-74a9c9fb41a0"),
+                            Id = new Guid("b41a653a-ab36-4d1f-aa91-99d27c6ca7e4"),
                             ProductId = new Guid("b35995f9-43b3-49e9-8dfb-1aa1e154a2a9"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Hombre-b35995f9-43b3-49e9-8dfb-1aa1e154a2a9-1.png"
                         },
                         new
                         {
-                            Id = new Guid("188fab77-86eb-4d3a-be02-4d4a515da9f9"),
+                            Id = new Guid("31220bcb-0ee4-4ef9-a5af-2ae96838cdb3"),
                             ProductId = new Guid("b35995f9-43b3-49e9-8dfb-1aa1e154a2a9"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Hombre-b35995f9-43b3-49e9-8dfb-1aa1e154a2a9-2.png"
                         },
                         new
                         {
-                            Id = new Guid("96808a88-fce8-4b22-9037-0aeb5621f866"),
+                            Id = new Guid("ecf586ab-6e1b-4bc0-bc8e-53bef0da4031"),
                             ProductId = new Guid("b35995f9-43b3-49e9-8dfb-1aa1e154a2a9"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Hombre-b35995f9-43b3-49e9-8dfb-1aa1e154a2a9-3.png"
                         },
                         new
                         {
-                            Id = new Guid("444c6c3e-fda9-4278-9346-41b9593fcff6"),
+                            Id = new Guid("8f2a5501-3736-4d5d-9d4d-ff86e558705a"),
                             ProductId = new Guid("5cac55bf-6b5a-4c34-b9de-88681596b4bf"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Mujer-5cac55bf-6b5a-4c34-b9de-88681596b4bf-1.png"
                         },
                         new
                         {
-                            Id = new Guid("2a51ebcd-0b2e-4edb-bc4a-03328015afc4"),
+                            Id = new Guid("ee078ec9-b0d4-4ff6-a69a-10ff36a31ba7"),
                             ProductId = new Guid("5cac55bf-6b5a-4c34-b9de-88681596b4bf"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Mujer-5cac55bf-6b5a-4c34-b9de-88681596b4bf-2.png"
                         },
                         new
                         {
-                            Id = new Guid("a0f518ad-de06-45a3-8514-401c0aa926dd"),
+                            Id = new Guid("6abcb9b4-5388-4fdb-a8b6-2859cb1f13c4"),
                             ProductId = new Guid("5cac55bf-6b5a-4c34-b9de-88681596b4bf"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Mujer-5cac55bf-6b5a-4c34-b9de-88681596b4bf-3.png"
                         },
                         new
                         {
-                            Id = new Guid("05c1f45a-a7e9-4409-9fb6-b2b7c4534ae2"),
+                            Id = new Guid("6a805351-ecaf-47c5-baf8-7088bf7f1dde"),
                             ProductId = new Guid("e67ce8dd-20c9-4205-b500-90fd166fed81"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Mujer-e67ce8dd-20c9-4205-b500-90fd166fed81-1.png"
                         },
                         new
                         {
-                            Id = new Guid("d1b620a1-d575-4d10-9be5-058628226252"),
+                            Id = new Guid("f7dced7e-e845-4f82-adfb-510983a8da64"),
                             ProductId = new Guid("e67ce8dd-20c9-4205-b500-90fd166fed81"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Mujer-e67ce8dd-20c9-4205-b500-90fd166fed81-2.png"
                         },
                         new
                         {
-                            Id = new Guid("d6ad0f5f-4b59-4819-ada6-a18126a99b1a"),
+                            Id = new Guid("9b4151ad-7527-4836-ace4-398fdce6ead2"),
                             ProductId = new Guid("e67ce8dd-20c9-4205-b500-90fd166fed81"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Mujer-e67ce8dd-20c9-4205-b500-90fd166fed81-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6d5f15cb-23ce-4f7b-be7a-93ef3453757f"),
+                            Id = new Guid("66d94122-50b8-4de2-ad8c-6d0c828c5f67"),
                             ProductId = new Guid("b68432dd-7059-4885-a6ae-f5f323b62463"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Niñas-b68432dd-7059-4885-a6ae-f5f323b62463-1.png"
                         },
                         new
                         {
-                            Id = new Guid("47b19e4b-7b71-4fd3-beb1-587d594883d8"),
+                            Id = new Guid("b9a708cf-955c-4ec5-a37f-96f6e6f125c3"),
                             ProductId = new Guid("b68432dd-7059-4885-a6ae-f5f323b62463"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Niñas-b68432dd-7059-4885-a6ae-f5f323b62463-2.png"
                         },
                         new
                         {
-                            Id = new Guid("483454cb-ec77-4146-ad32-dbc340f4a0ac"),
+                            Id = new Guid("f71d3a30-a6f0-42dc-829c-a02ce992b304"),
                             ProductId = new Guid("b68432dd-7059-4885-a6ae-f5f323b62463"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Niñas-b68432dd-7059-4885-a6ae-f5f323b62463-3.png"
                         },
                         new
                         {
-                            Id = new Guid("aece1fd8-4dbd-46fd-8b7d-6ebe5a785ea4"),
+                            Id = new Guid("b641b623-b331-4acc-bb9b-700d18310f76"),
                             ProductId = new Guid("474f92ee-95ac-4e69-900a-0ab296e3b296"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Niños-474f92ee-95ac-4e69-900a-0ab296e3b296-1.png"
                         },
                         new
                         {
-                            Id = new Guid("46987eeb-3699-4bba-9e80-52f997056857"),
+                            Id = new Guid("43025bd3-72d3-4ea0-b2d0-0ad7fca555f2"),
                             ProductId = new Guid("474f92ee-95ac-4e69-900a-0ab296e3b296"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Niños-474f92ee-95ac-4e69-900a-0ab296e3b296-2.png"
                         },
                         new
                         {
-                            Id = new Guid("95aa0c80-d624-4f41-b916-721798426dbe"),
+                            Id = new Guid("50e98578-2112-4115-a594-98797c262b51"),
                             ProductId = new Guid("474f92ee-95ac-4e69-900a-0ab296e3b296"),
                             Url = "/Images/Products/Puma/Product-Puma-Buzos y Camperas-Niños-474f92ee-95ac-4e69-900a-0ab296e3b296-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6135ec02-1beb-4d42-b07b-d0f742dfad0e"),
+                            Id = new Guid("bb8d50a9-a721-4d09-8149-d24bab85d64b"),
                             ProductId = new Guid("b537ce4f-fafa-4a16-99ad-fecac1a17384"),
                             Url = "/Images/Products/Puma/Product-Puma-Calzas-Mujer-b537ce4f-fafa-4a16-99ad-fecac1a17384-1.png"
                         },
                         new
                         {
-                            Id = new Guid("a7414756-0a41-4e08-9e96-977bdb0aeb50"),
+                            Id = new Guid("b28f3c95-edb6-4cd1-a331-65d59cf2fddc"),
                             ProductId = new Guid("b537ce4f-fafa-4a16-99ad-fecac1a17384"),
                             Url = "/Images/Products/Puma/Product-Puma-Calzas-Mujer-b537ce4f-fafa-4a16-99ad-fecac1a17384-2.png"
                         },
                         new
                         {
-                            Id = new Guid("88485ccc-9e31-4847-938f-f6201951b5d5"),
+                            Id = new Guid("b46560b5-119f-4d6f-a3af-7cef2dea6b63"),
                             ProductId = new Guid("c617b2ad-3e1a-41ba-bbd7-567481a717b4"),
                             Url = "/Images/Products/Puma/Product-Puma-Calzas-Mujer-c617b2ad-3e1a-41ba-bbd7-567481a717b4-1.png"
                         },
                         new
                         {
-                            Id = new Guid("90f2be7f-64c5-41a7-872a-07f5d8e34518"),
+                            Id = new Guid("dcb85ba6-1737-4857-b72b-af95a50de6cc"),
                             ProductId = new Guid("c617b2ad-3e1a-41ba-bbd7-567481a717b4"),
                             Url = "/Images/Products/Puma/Product-Puma-Calzas-Mujer-c617b2ad-3e1a-41ba-bbd7-567481a717b4-2.png"
                         },
                         new
                         {
-                            Id = new Guid("9d112f3d-615a-441a-b790-ecaa0b66fcfe"),
+                            Id = new Guid("a335f7cb-0578-429e-8286-9048464e53dc"),
                             ProductId = new Guid("c617b2ad-3e1a-41ba-bbd7-567481a717b4"),
                             Url = "/Images/Products/Puma/Product-Puma-Calzas-Mujer-c617b2ad-3e1a-41ba-bbd7-567481a717b4-3.png"
                         },
                         new
                         {
-                            Id = new Guid("40a04057-b8ed-462b-9025-d5cf8c15b8b2"),
+                            Id = new Guid("eeda2b76-02b2-4a54-a076-3d573edf8dae"),
                             ProductId = new Guid("aaa1ac0b-8147-4a79-b00a-f5489aeb1ffb"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Hombre-aaa1ac0b-8147-4a79-b00a-f5489aeb1ffb-1.png"
                         },
                         new
                         {
-                            Id = new Guid("ba788a26-a710-4b7f-84e1-0008ea08e96d"),
+                            Id = new Guid("56b6f6d0-58c9-4883-89f3-c7f642f23ac6"),
                             ProductId = new Guid("aaa1ac0b-8147-4a79-b00a-f5489aeb1ffb"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Hombre-aaa1ac0b-8147-4a79-b00a-f5489aeb1ffb-2.png"
                         },
                         new
                         {
-                            Id = new Guid("6b78a035-9e03-4c4b-8edf-ecf3c9a971a9"),
+                            Id = new Guid("a00e5aef-8031-4041-86c7-eb6289323f97"),
                             ProductId = new Guid("aaa1ac0b-8147-4a79-b00a-f5489aeb1ffb"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Hombre-aaa1ac0b-8147-4a79-b00a-f5489aeb1ffb-3.png"
                         },
                         new
                         {
-                            Id = new Guid("fdae6251-61a3-48d4-b039-329b6bbae3fd"),
+                            Id = new Guid("c3d0230c-f61b-4447-ac6f-d833d0cc96cc"),
                             ProductId = new Guid("a64d4099-646e-4691-9e48-76726984e83d"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Hombre-a64d4099-646e-4691-9e48-76726984e83d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("6155f45f-fbf3-44f4-aa26-f974dbd99f63"),
+                            Id = new Guid("d52beb3d-a102-4a02-8847-7784349548e4"),
                             ProductId = new Guid("a64d4099-646e-4691-9e48-76726984e83d"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Hombre-a64d4099-646e-4691-9e48-76726984e83d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("d1e8f18d-f752-4aae-a0b8-2a2c2bf99df6"),
+                            Id = new Guid("0da41a69-3c48-4078-a45a-76d766fa23c3"),
                             ProductId = new Guid("a64d4099-646e-4691-9e48-76726984e83d"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Hombre-a64d4099-646e-4691-9e48-76726984e83d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("17d75531-0459-4ee5-9c4d-4572d1e30ebc"),
+                            Id = new Guid("64fd28e2-4e7c-4c0c-83e1-da205ff5dbd2"),
                             ProductId = new Guid("aa5ffbd0-841f-4954-abe7-b619a4b6a216"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Mujer-aa5ffbd0-841f-4954-abe7-b619a4b6a216-1.png"
                         },
                         new
                         {
-                            Id = new Guid("099f0a9a-6a08-4310-9df5-05a908b650c8"),
+                            Id = new Guid("f309e587-0401-409e-be23-57a230531c23"),
                             ProductId = new Guid("aa5ffbd0-841f-4954-abe7-b619a4b6a216"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Mujer-aa5ffbd0-841f-4954-abe7-b619a4b6a216-2.png"
                         },
                         new
                         {
-                            Id = new Guid("b0e81cae-0969-45f6-8c42-eaae2fe4a4c5"),
+                            Id = new Guid("05e0ea7a-4a1d-4605-95ba-f38f1db0ee21"),
                             ProductId = new Guid("aa5ffbd0-841f-4954-abe7-b619a4b6a216"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Mujer-aa5ffbd0-841f-4954-abe7-b619a4b6a216-3.png"
                         },
                         new
                         {
-                            Id = new Guid("db32a973-4745-4eee-965d-2c84b3ecb790"),
+                            Id = new Guid("5e958adc-a864-4514-a8c3-a2622ca59898"),
                             ProductId = new Guid("0c92c422-5970-430e-a2b7-800313abf519"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Mujer-0c92c422-5970-430e-a2b7-800313abf519-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bab33a45-3b57-4c3a-8cbb-2415880dd378"),
+                            Id = new Guid("4bf58eb1-31d9-45b2-81eb-d57059bdc251"),
                             ProductId = new Guid("0c92c422-5970-430e-a2b7-800313abf519"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Mujer-0c92c422-5970-430e-a2b7-800313abf519-2.png"
                         },
                         new
                         {
-                            Id = new Guid("542eaa12-65e3-4ed0-b331-76905ddf8664"),
+                            Id = new Guid("7df92921-1fd8-464b-8469-91ee0ecc9f3b"),
                             ProductId = new Guid("bd54583c-534b-45b8-a8d2-ecfa27195c1d"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Niñas-bd54583c-534b-45b8-a8d2-ecfa27195c1d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("85eb7e10-e1b3-46cc-ae01-7732ff2de798"),
+                            Id = new Guid("bbc5b17f-8cdd-4431-bd3f-e4f16d074738"),
                             ProductId = new Guid("bd54583c-534b-45b8-a8d2-ecfa27195c1d"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Niñas-bd54583c-534b-45b8-a8d2-ecfa27195c1d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("28f68cab-6e01-4cb6-a2c8-a0eea715d983"),
+                            Id = new Guid("fd4b42f3-e3be-4d9e-849d-f68a6d6383f4"),
                             ProductId = new Guid("bd54583c-534b-45b8-a8d2-ecfa27195c1d"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Niñas-bd54583c-534b-45b8-a8d2-ecfa27195c1d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("c505fd89-1a0c-405c-a763-dcf8deeddf02"),
+                            Id = new Guid("42e174fc-a310-41b4-a65b-e7a6e6b38703"),
                             ProductId = new Guid("f43ce520-c5bd-4cfc-a883-c2f66cc0e371"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Niños-f43ce520-c5bd-4cfc-a883-c2f66cc0e371-1.png"
                         },
                         new
                         {
-                            Id = new Guid("08c22032-c157-4a2f-ae10-ca98dad07b34"),
+                            Id = new Guid("383e5bab-fb39-4cad-8694-9aae389da463"),
                             ProductId = new Guid("f43ce520-c5bd-4cfc-a883-c2f66cc0e371"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Niños-f43ce520-c5bd-4cfc-a883-c2f66cc0e371-2.png"
                         },
                         new
                         {
-                            Id = new Guid("f6f25ffa-d88c-46fd-9ffd-c3b3d8b9d85f"),
+                            Id = new Guid("7487dc0b-6089-43cc-afa2-c0184bc133cf"),
                             ProductId = new Guid("f43ce520-c5bd-4cfc-a883-c2f66cc0e371"),
                             Url = "/Images/Products/Puma/Product-Puma-Remeras-Niños-f43ce520-c5bd-4cfc-a883-c2f66cc0e371-3.png"
                         },
                         new
                         {
-                            Id = new Guid("aff8e0d1-be52-4ca5-a853-3e520e076791"),
+                            Id = new Guid("a3b38a0c-98b2-4b06-b137-4571ae38904e"),
                             ProductId = new Guid("26fbd842-584a-4a7a-ae3a-9cd26e637221"),
                             Url = "/Images/Products/Puma/Product-Puma-Tops-Mujer-26fbd842-584a-4a7a-ae3a-9cd26e637221-1.png"
                         },
                         new
                         {
-                            Id = new Guid("9d077155-4d39-4f65-ac5f-4501d58846d1"),
+                            Id = new Guid("a53be0bf-b3b8-4eba-ace9-9875f978fc47"),
                             ProductId = new Guid("26fbd842-584a-4a7a-ae3a-9cd26e637221"),
                             Url = "/Images/Products/Puma/Product-Puma-Tops-Mujer-26fbd842-584a-4a7a-ae3a-9cd26e637221-2.png"
                         },
                         new
                         {
-                            Id = new Guid("e4ccaa83-0aee-45f8-8cca-4d8d23e3483f"),
+                            Id = new Guid("17765c6d-459c-4dd5-accb-6a4f5e178430"),
                             ProductId = new Guid("26fbd842-584a-4a7a-ae3a-9cd26e637221"),
                             Url = "/Images/Products/Puma/Product-Puma-Tops-Mujer-26fbd842-584a-4a7a-ae3a-9cd26e637221-3.png"
                         },
                         new
                         {
-                            Id = new Guid("c819bde4-ccb0-4cee-9937-53c9e208dd65"),
+                            Id = new Guid("1a6681b7-6157-414e-9c88-685cfa1c3aae"),
                             ProductId = new Guid("73387c1e-6507-4078-988d-30b2f91e8ca9"),
                             Url = "/Images/Products/Puma/Product-Puma-Tops-Mujer-73387c1e-6507-4078-988d-30b2f91e8ca9-1.png"
                         },
                         new
                         {
-                            Id = new Guid("29ad36dc-4763-46fa-ae1e-592eea1a975c"),
+                            Id = new Guid("eaa2d23c-17b3-45b3-aab5-df304758d602"),
                             ProductId = new Guid("73387c1e-6507-4078-988d-30b2f91e8ca9"),
                             Url = "/Images/Products/Puma/Product-Puma-Tops-Mujer-73387c1e-6507-4078-988d-30b2f91e8ca9-2.png"
                         },
                         new
                         {
-                            Id = new Guid("ee19f67b-5f91-47e2-b22c-6483c6eeda0f"),
+                            Id = new Guid("acb79817-0cb9-4f70-b142-696665199d20"),
                             ProductId = new Guid("73387c1e-6507-4078-988d-30b2f91e8ca9"),
                             Url = "/Images/Products/Puma/Product-Puma-Tops-Mujer-73387c1e-6507-4078-988d-30b2f91e8ca9-3.png"
                         },
                         new
                         {
-                            Id = new Guid("b13478ee-0488-4a93-b862-d9db40d83984"),
+                            Id = new Guid("68389031-e1f9-480b-8f3c-da83bacbb409"),
                             ProductId = new Guid("e108a5b9-d0d8-4d8e-a6d7-172404336125"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Hombre-e108a5b9-d0d8-4d8e-a6d7-172404336125-1.png"
                         },
                         new
                         {
-                            Id = new Guid("4ea45d32-354f-44af-8de0-ee64fa2ba2e4"),
+                            Id = new Guid("e9ad42ce-130f-4f6a-baaf-51625ada86d8"),
                             ProductId = new Guid("e108a5b9-d0d8-4d8e-a6d7-172404336125"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Hombre-e108a5b9-d0d8-4d8e-a6d7-172404336125-2.png"
                         },
                         new
                         {
-                            Id = new Guid("89127aa4-dea4-4ea0-b1db-b146a246490a"),
+                            Id = new Guid("9a0ed0a8-2986-4e7d-a315-9d92824a4937"),
                             ProductId = new Guid("e108a5b9-d0d8-4d8e-a6d7-172404336125"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Hombre-e108a5b9-d0d8-4d8e-a6d7-172404336125-3.png"
                         },
                         new
                         {
-                            Id = new Guid("a8aa362c-cb55-404c-b3eb-290e1401b347"),
+                            Id = new Guid("3b89e939-1f86-4241-8f3c-53b1a9dd1635"),
                             ProductId = new Guid("5deda8f6-2fd4-41fc-bdd2-3dec8330af3e"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Hombre-5deda8f6-2fd4-41fc-bdd2-3dec8330af3e-1.png"
                         },
                         new
                         {
-                            Id = new Guid("f4c14867-f0c1-4c47-afac-1585bdfa5ebc"),
+                            Id = new Guid("00acf86b-f776-476c-8fd7-b9b0aa92d926"),
                             ProductId = new Guid("5deda8f6-2fd4-41fc-bdd2-3dec8330af3e"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Hombre-5deda8f6-2fd4-41fc-bdd2-3dec8330af3e-2.png"
                         },
                         new
                         {
-                            Id = new Guid("5230e0a0-3489-4228-9c5b-00a26be79c63"),
+                            Id = new Guid("d31b7823-5273-4b83-be3f-252fed66ffc2"),
                             ProductId = new Guid("5deda8f6-2fd4-41fc-bdd2-3dec8330af3e"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Hombre-5deda8f6-2fd4-41fc-bdd2-3dec8330af3e-3.png"
                         },
                         new
                         {
-                            Id = new Guid("041ac986-7ba9-4084-9459-c74406d6dd8f"),
+                            Id = new Guid("9a8ac24f-f9d4-483b-a8c8-0c68487d5146"),
                             ProductId = new Guid("4a94b629-2fbe-47dd-9a69-f487f1ef125b"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Mujer-4a94b629-2fbe-47dd-9a69-f487f1ef125b-1.png"
                         },
                         new
                         {
-                            Id = new Guid("fae2bfd3-43ce-440a-9d4d-f7c95f131195"),
+                            Id = new Guid("e7613755-ccf5-4cd5-9cfa-eacfb4a1243d"),
                             ProductId = new Guid("4a94b629-2fbe-47dd-9a69-f487f1ef125b"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Mujer-4a94b629-2fbe-47dd-9a69-f487f1ef125b-2.png"
                         },
                         new
                         {
-                            Id = new Guid("a449fe32-6a89-4fc7-8511-ec0528fbb234"),
+                            Id = new Guid("5de8e3a9-6eb6-4a9e-a824-03f2c9f46296"),
                             ProductId = new Guid("4a94b629-2fbe-47dd-9a69-f487f1ef125b"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Mujer-4a94b629-2fbe-47dd-9a69-f487f1ef125b-3.png"
                         },
                         new
                         {
-                            Id = new Guid("438a989a-e4df-4dea-8d57-d02c402e3070"),
+                            Id = new Guid("6ba81391-722a-4c26-a964-5078c151eed7"),
                             ProductId = new Guid("1a8ec708-e252-4e9f-88eb-3b4b832ec350"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Mujer-1a8ec708-e252-4e9f-88eb-3b4b832ec350-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bbc1d3ef-d5ee-4663-b7dd-3671ef62c11f"),
+                            Id = new Guid("a6660338-b0be-44e3-9364-58048694be8c"),
                             ProductId = new Guid("1a8ec708-e252-4e9f-88eb-3b4b832ec350"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Mujer-1a8ec708-e252-4e9f-88eb-3b4b832ec350-2.png"
                         },
                         new
                         {
-                            Id = new Guid("51bb1ea8-6d4e-401e-864f-e9c9fa3ef424"),
+                            Id = new Guid("256381af-9336-4bb7-ab6d-f553da21f730"),
                             ProductId = new Guid("1a8ec708-e252-4e9f-88eb-3b4b832ec350"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Mujer-1a8ec708-e252-4e9f-88eb-3b4b832ec350-3.png"
                         },
                         new
                         {
-                            Id = new Guid("552f5dc6-5b60-4a52-a099-800d050311d7"),
+                            Id = new Guid("8c140a77-2685-48b5-ba21-66efbd433b01"),
                             ProductId = new Guid("f58b815e-12b1-4499-8f04-bb6725034853"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Niñas-f58b815e-12b1-4499-8f04-bb6725034853-1.png"
                         },
                         new
                         {
-                            Id = new Guid("2cf6be87-d4e0-4625-bcd3-046ee2556947"),
+                            Id = new Guid("8f291bee-bea6-4b74-ab21-425c1d9da25a"),
                             ProductId = new Guid("f58b815e-12b1-4499-8f04-bb6725034853"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Niñas-f58b815e-12b1-4499-8f04-bb6725034853-2.png"
                         },
                         new
                         {
-                            Id = new Guid("b9bbaca7-157d-4b74-a916-6a21c79e01e5"),
+                            Id = new Guid("966ead6e-080e-46b5-9e56-0369986f575c"),
                             ProductId = new Guid("f58b815e-12b1-4499-8f04-bb6725034853"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Niñas-f58b815e-12b1-4499-8f04-bb6725034853-3.png"
                         },
                         new
                         {
-                            Id = new Guid("858caf85-da72-43c7-a05d-6b10b4b2376e"),
+                            Id = new Guid("70d8e611-f2ae-49e2-a7b5-ca8a03ebfadf"),
                             ProductId = new Guid("4adb6f3d-c138-43f6-b2fb-0ff0ec466381"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Niños-4adb6f3d-c138-43f6-b2fb-0ff0ec466381-1.png"
                         },
                         new
                         {
-                            Id = new Guid("bb36e072-80b9-44e6-8c97-62b1991f8948"),
+                            Id = new Guid("5862ce65-8227-4c6f-b687-0b0f824d5d7c"),
                             ProductId = new Guid("4adb6f3d-c138-43f6-b2fb-0ff0ec466381"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Niños-4adb6f3d-c138-43f6-b2fb-0ff0ec466381-2.png"
                         },
                         new
                         {
-                            Id = new Guid("fc71e8e5-c2c0-4139-8efe-9b927f45aeea"),
+                            Id = new Guid("1e5ea139-aedb-4119-ad94-e54667ab131d"),
                             ProductId = new Guid("4adb6f3d-c138-43f6-b2fb-0ff0ec466381"),
                             Url = "/Images/Products/Puma/Product-Puma-Zapatillas-Hombre-01591ef9-277b-4e32-bfd3-03226b4f5b33-3.png"
                         },
                         new
                         {
-                            Id = new Guid("0cc92ddf-ec8b-4381-a779-14f51c3bfc15"),
+                            Id = new Guid("cf515343-4b37-4e09-a2c2-4ebb9c651eb3"),
                             ProductId = new Guid("029d34cc-06fd-44b7-a9f2-5270e754d788"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Hombre-029d34cc-06fd-44b7-a9f2-5270e754d788-1.png"
                         },
                         new
                         {
-                            Id = new Guid("dc40d6fa-1708-42c5-ad60-0bb8cfc085a9"),
+                            Id = new Guid("0df0a059-b9b2-4f81-b00f-f82e1a302347"),
                             ProductId = new Guid("029d34cc-06fd-44b7-a9f2-5270e754d788"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Hombre-029d34cc-06fd-44b7-a9f2-5270e754d788-2.png"
                         },
                         new
                         {
-                            Id = new Guid("80a7e02f-df28-4a28-becd-727ee1f8d79d"),
+                            Id = new Guid("d8933a16-06be-4d47-b800-056a42791643"),
                             ProductId = new Guid("029d34cc-06fd-44b7-a9f2-5270e754d788"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Hombre-029d34cc-06fd-44b7-a9f2-5270e754d788-3.png"
                         },
                         new
                         {
-                            Id = new Guid("5a2a6b73-aafc-4188-a760-00affcd036db"),
+                            Id = new Guid("38455b1d-2e59-44ca-b733-864abb6d80d4"),
                             ProductId = new Guid("ed3d39e2-417d-43eb-99ad-864942355ca5"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Hombre-ed3d39e2-417d-43eb-99ad-864942355ca5-1.png"
                         },
                         new
                         {
-                            Id = new Guid("9c6a6f16-da17-4564-b969-a5a81b6ad604"),
+                            Id = new Guid("32424929-5f82-422d-8f2c-57bf6eb1a25b"),
                             ProductId = new Guid("ed3d39e2-417d-43eb-99ad-864942355ca5"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Hombre-ed3d39e2-417d-43eb-99ad-864942355ca5-2.png"
                         },
                         new
                         {
-                            Id = new Guid("63fad675-2d7a-446c-8ef6-b2931b7cc557"),
+                            Id = new Guid("67714dda-cb20-49bd-97b8-5718fa2f01dd"),
                             ProductId = new Guid("ed3d39e2-417d-43eb-99ad-864942355ca5"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Hombre-ed3d39e2-417d-43eb-99ad-864942355ca5-3.png"
                         },
                         new
                         {
-                            Id = new Guid("abef7ae7-69ad-4258-b74f-f79765d67ecf"),
+                            Id = new Guid("02b1814d-601a-43ed-afbd-301315d524b4"),
                             ProductId = new Guid("4cbb9373-c51f-43d5-a88b-82941daec0c1"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Mujer-4cbb9373-c51f-43d5-a88b-82941daec0c1-1.png"
                         },
                         new
                         {
-                            Id = new Guid("a47b238a-d907-4bbe-a541-bd2f377091fc"),
+                            Id = new Guid("72681d75-94ad-44d7-9483-b14550b3cfbe"),
                             ProductId = new Guid("4cbb9373-c51f-43d5-a88b-82941daec0c1"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Mujer-4cbb9373-c51f-43d5-a88b-82941daec0c1-2.png"
                         },
                         new
                         {
-                            Id = new Guid("bec0d7d4-6e9b-4bf7-8fa2-01767e4126cd"),
+                            Id = new Guid("8371a616-2ae1-4646-b479-7f33d0680389"),
                             ProductId = new Guid("f94933b0-b851-41ec-85a6-62b172aad404"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Mujer-f94933b0-b851-41ec-85a6-62b172aad404-1.png"
                         },
                         new
                         {
-                            Id = new Guid("dec92d38-a56e-4567-918b-91f75d21223e"),
+                            Id = new Guid("ae5edeea-944f-48f3-b20c-c2a48372ab4d"),
                             ProductId = new Guid("f94933b0-b851-41ec-85a6-62b172aad404"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Mujer-f94933b0-b851-41ec-85a6-62b172aad404-2.png"
                         },
                         new
                         {
-                            Id = new Guid("bf634522-7f72-4c51-9da7-7fc87ad2fc4c"),
+                            Id = new Guid("48d7a28b-cf0e-4724-8fcf-56656f9b703c"),
                             ProductId = new Guid("f94933b0-b851-41ec-85a6-62b172aad404"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Buzos y Camperas-Mujer-f94933b0-b851-41ec-85a6-62b172aad404-3.png"
                         },
                         new
                         {
-                            Id = new Guid("afbac351-4f65-4018-ba37-f095c1f03787"),
+                            Id = new Guid("52b7d262-4b82-4992-af68-24aa6470e64f"),
                             ProductId = new Guid("01ebe9c3-d238-4dbc-81b0-0abe238878e2"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Calzas-Mujer-01ebe9c3-d238-4dbc-81b0-0abe238878e2-1.png"
                         },
                         new
                         {
-                            Id = new Guid("17ac8606-3d21-4df9-8eb7-6db6697ffbfa"),
+                            Id = new Guid("cfc934fb-7008-4ff2-8cd2-79ff51c42332"),
                             ProductId = new Guid("01ebe9c3-d238-4dbc-81b0-0abe238878e2"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Calzas-Mujer-01ebe9c3-d238-4dbc-81b0-0abe238878e2-2.png"
                         },
                         new
                         {
-                            Id = new Guid("ad272d2b-36eb-4ba8-8090-8bc7e656b776"),
+                            Id = new Guid("89c5b06e-32f8-4539-b491-6e36af4fa096"),
                             ProductId = new Guid("01ebe9c3-d238-4dbc-81b0-0abe238878e2"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Calzas-Mujer-01ebe9c3-d238-4dbc-81b0-0abe238878e2-3.png"
                         },
                         new
                         {
-                            Id = new Guid("7ead5364-83ab-4917-b841-cbe21127dce3"),
+                            Id = new Guid("f0850ac4-c01a-496a-b665-0ef88c9dec80"),
                             ProductId = new Guid("c7160512-a504-4d24-bb65-e8357e591f89"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Calzas-Mujer-c7160512-a504-4d24-bb65-e8357e591f89-1.png"
                         },
                         new
                         {
-                            Id = new Guid("a054916b-9399-42af-8c5e-a88f9b425580"),
+                            Id = new Guid("3826e434-3be9-4694-b124-c36f53c05074"),
                             ProductId = new Guid("c7160512-a504-4d24-bb65-e8357e591f89"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Calzas-Mujer-c7160512-a504-4d24-bb65-e8357e591f89-2.png"
                         },
                         new
                         {
-                            Id = new Guid("093a6d75-58fe-4e94-8b0d-8a13680df824"),
+                            Id = new Guid("4196c3ca-024c-46aa-bc42-534e98e9c43f"),
                             ProductId = new Guid("c7160512-a504-4d24-bb65-e8357e591f89"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Calzas-Mujer-c7160512-a504-4d24-bb65-e8357e591f89-3.png"
                         },
                         new
                         {
-                            Id = new Guid("7a055fd0-6153-4743-932d-797931bb465d"),
+                            Id = new Guid("d000d6f4-b43f-43fb-bfea-aa31fdfb260b"),
                             ProductId = new Guid("418f8acd-c640-40d6-8f1d-084465af5300"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Hombre-418f8acd-c640-40d6-8f1d-084465af5300-1.png"
                         },
                         new
                         {
-                            Id = new Guid("a14c50fa-f2a8-4a4f-80fb-5a9ef94d48ad"),
+                            Id = new Guid("14c7ed83-f20b-42d6-9c99-c3a6284d2442"),
                             ProductId = new Guid("418f8acd-c640-40d6-8f1d-084465af5300"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Hombre-418f8acd-c640-40d6-8f1d-084465af5300-2.png"
                         },
                         new
                         {
-                            Id = new Guid("661865ab-ef46-438d-9d3d-e58d7ae257d2"),
+                            Id = new Guid("4c012cc0-36f3-4338-8399-7a3f85fbe551"),
                             ProductId = new Guid("418f8acd-c640-40d6-8f1d-084465af5300"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Hombre-418f8acd-c640-40d6-8f1d-084465af5300-3.png"
                         },
                         new
                         {
-                            Id = new Guid("ccb62321-7c9b-4be3-87bc-10f4ce3601d3"),
+                            Id = new Guid("fc6c35e5-26bd-4b3a-b0c5-bf48336243ad"),
                             ProductId = new Guid("2cf5de04-2161-4f05-b978-31e332a827d8"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Hombre-2cf5de04-2161-4f05-b978-31e332a827d8-1.png"
                         },
                         new
                         {
-                            Id = new Guid("9a6097e2-88ce-46c6-a0ab-a8f5b6a7ba24"),
+                            Id = new Guid("92ce6da3-432b-4d10-86ca-b34ef64549e2"),
                             ProductId = new Guid("2cf5de04-2161-4f05-b978-31e332a827d8"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Hombre-2cf5de04-2161-4f05-b978-31e332a827d8-2.png"
                         },
                         new
                         {
-                            Id = new Guid("6069230f-9e34-4f11-9cfd-6832898eabd6"),
+                            Id = new Guid("95747a93-ea47-48e0-b4db-233f517135d4"),
                             ProductId = new Guid("2cf5de04-2161-4f05-b978-31e332a827d8"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Hombre-2cf5de04-2161-4f05-b978-31e332a827d8-3.png"
                         },
                         new
                         {
-                            Id = new Guid("fc759be9-01e5-4cb7-a427-1f3da400f37e"),
+                            Id = new Guid("a0286e88-dcc1-4794-8ff9-896a05347d03"),
                             ProductId = new Guid("7e76479a-8f23-4dda-aaaa-888a3d0797ea"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Mujer-7e76479a-8f23-4dda-aaaa-888a3d0797ea-1.png"
                         },
                         new
                         {
-                            Id = new Guid("70e04dc8-2634-467a-bdee-ef9b8a68ae1a"),
+                            Id = new Guid("52bf63c3-25f9-4b65-8ba0-3c98713c8379"),
                             ProductId = new Guid("7e76479a-8f23-4dda-aaaa-888a3d0797ea"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Mujer-7e76479a-8f23-4dda-aaaa-888a3d0797ea-2.png"
                         },
                         new
                         {
-                            Id = new Guid("0a879dce-d3f5-432f-93e4-1be9876b0cae"),
+                            Id = new Guid("14358043-a170-45b7-9c0f-bbac281fe2f6"),
                             ProductId = new Guid("7e76479a-8f23-4dda-aaaa-888a3d0797ea"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Mujer-7e76479a-8f23-4dda-aaaa-888a3d0797ea-3.png"
                         },
                         new
                         {
-                            Id = new Guid("c983e9a3-6774-4f8b-9183-e07c26b7abf9"),
+                            Id = new Guid("ff3873c5-bb8e-49fb-bcca-6200e832a03c"),
                             ProductId = new Guid("d72edb9a-9483-4cb6-a6ac-70044b28449d"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Mujer-d72edb9a-9483-4cb6-a6ac-70044b28449d-1.png"
                         },
                         new
                         {
-                            Id = new Guid("acc92706-9574-462e-8d8b-251c90c2a106"),
+                            Id = new Guid("618bb56a-1ae8-4bc0-9b6a-7365c3ec47b0"),
                             ProductId = new Guid("d72edb9a-9483-4cb6-a6ac-70044b28449d"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Mujer-d72edb9a-9483-4cb6-a6ac-70044b28449d-2.png"
                         },
                         new
                         {
-                            Id = new Guid("4221015a-3da2-46c2-831e-bc9e8c1f3e06"),
+                            Id = new Guid("0c3d81ec-c192-4613-b5cb-490a672575fe"),
                             ProductId = new Guid("d72edb9a-9483-4cb6-a6ac-70044b28449d"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Remeras-Mujer-d72edb9a-9483-4cb6-a6ac-70044b28449d-3.png"
                         },
                         new
                         {
-                            Id = new Guid("0efe66d0-af81-4dee-a88e-d407bf765f5e"),
+                            Id = new Guid("cf28e0e7-dbc1-4321-995f-e94b8f5eb57b"),
                             ProductId = new Guid("991f1ffc-b151-421f-950a-8948d8e6cd86"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Tops-Mujer-991f1ffc-b151-421f-950a-8948d8e6cd86-1.png"
                         },
                         new
                         {
-                            Id = new Guid("6b9ea672-1e9f-4d6f-8666-ff04f5d60f84"),
+                            Id = new Guid("b66cadbd-1c49-425b-8140-d266e8edd95b"),
                             ProductId = new Guid("991f1ffc-b151-421f-950a-8948d8e6cd86"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Tops-Mujer-991f1ffc-b151-421f-950a-8948d8e6cd86-2.png"
                         },
                         new
                         {
-                            Id = new Guid("e80011f4-86c5-4292-9c03-dc345f16e766"),
+                            Id = new Guid("2f2a774a-a9b1-49f6-aad4-a18fadf70517"),
                             ProductId = new Guid("991f1ffc-b151-421f-950a-8948d8e6cd86"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Tops-Mujer-991f1ffc-b151-421f-950a-8948d8e6cd86-3.png"
                         },
                         new
                         {
-                            Id = new Guid("864264c7-073d-4319-b59b-923d4a82c1c3"),
+                            Id = new Guid("9df36abb-7f41-40ac-a7a3-770fbbfc9314"),
                             ProductId = new Guid("f84976af-60b2-4dfa-8613-2139f7c681f8"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Tops-Mujer-f84976af-60b2-4dfa-8613-2139f7c681f8-1.png"
                         },
                         new
                         {
-                            Id = new Guid("efe70695-97f0-46b0-b37f-8716e80ebb69"),
+                            Id = new Guid("22dd97d1-a395-49b3-bd0e-e1c88fd8cf84"),
                             ProductId = new Guid("f84976af-60b2-4dfa-8613-2139f7c681f8"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Tops-Mujer-f84976af-60b2-4dfa-8613-2139f7c681f8-2.png"
                         },
                         new
                         {
-                            Id = new Guid("1bd9dcfc-046b-4db3-b8be-5f0dc3c8159e"),
+                            Id = new Guid("8940db74-98c2-4fd8-9b8a-ab796157ef70"),
                             ProductId = new Guid("f84976af-60b2-4dfa-8613-2139f7c681f8"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Tops-Mujer-f84976af-60b2-4dfa-8613-2139f7c681f8-3.png"
                         },
                         new
                         {
-                            Id = new Guid("adf9d08a-0194-47a9-832d-c773d4b4fda6"),
+                            Id = new Guid("32d6485f-e825-4bb5-89e5-3523404d31ee"),
                             ProductId = new Guid("39e394fc-1afe-4969-8064-bc196834af14"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Hombre-39e394fc-1afe-4969-8064-bc196834af14-1.png"
                         },
                         new
                         {
-                            Id = new Guid("fb471f4e-fe36-4765-bdd7-0e4a4ad82a7b"),
+                            Id = new Guid("a94adff3-8fe7-4430-8657-3a104ac98b98"),
                             ProductId = new Guid("39e394fc-1afe-4969-8064-bc196834af14"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Hombre-39e394fc-1afe-4969-8064-bc196834af14-2.png"
                         },
                         new
                         {
-                            Id = new Guid("55952ec9-47b8-43c8-b035-50101b12ebd9"),
+                            Id = new Guid("b9ebbf80-d200-41fc-bbb0-d2f15a7e5115"),
                             ProductId = new Guid("39e394fc-1afe-4969-8064-bc196834af14"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Hombre-39e394fc-1afe-4969-8064-bc196834af14-3.png"
                         },
                         new
                         {
-                            Id = new Guid("cf23abba-e7b0-4dc3-a72b-3057b8cdfbb3"),
+                            Id = new Guid("bd42abd7-7c3e-4bf2-90ad-4c9c4e4c8365"),
                             ProductId = new Guid("e9b31ad4-5e25-42bf-9cc2-453814d552ee"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Hombre-e9b31ad4-5e25-42bf-9cc2-453814d552ee-1.png"
                         },
                         new
                         {
-                            Id = new Guid("7f96973e-93aa-4016-8b94-3bfb0e9b730f"),
+                            Id = new Guid("11504603-58bb-42d5-bd67-13882c0603f3"),
                             ProductId = new Guid("e9b31ad4-5e25-42bf-9cc2-453814d552ee"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Hombre-e9b31ad4-5e25-42bf-9cc2-453814d552ee-2.png"
                         },
                         new
                         {
-                            Id = new Guid("1d9053e3-f12f-464d-a665-c7037af5e998"),
+                            Id = new Guid("ef1abfaa-739b-45a8-a1fe-2e08cf105110"),
                             ProductId = new Guid("e9b31ad4-5e25-42bf-9cc2-453814d552ee"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Hombre-e9b31ad4-5e25-42bf-9cc2-453814d552ee-3.png"
                         },
                         new
                         {
-                            Id = new Guid("6b85f6c5-d7e9-4372-a8f5-01cf0444cbc7"),
+                            Id = new Guid("1986364b-29e4-40b7-9688-0f69f8334951"),
                             ProductId = new Guid("2cba3f53-408e-4ed5-9b16-5c3a2ff10f70"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Mujer-2cba3f53-408e-4ed5-9b16-5c3a2ff10f70-1.png"
                         },
                         new
                         {
-                            Id = new Guid("e01829f6-e7fd-48a5-a404-0d256f864f03"),
+                            Id = new Guid("4a247c62-0fd3-40a0-90de-bd0be4f0b40a"),
                             ProductId = new Guid("2cba3f53-408e-4ed5-9b16-5c3a2ff10f70"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Mujer-2cba3f53-408e-4ed5-9b16-5c3a2ff10f70-2.png"
                         },
                         new
                         {
-                            Id = new Guid("e5f1d652-f621-42a4-b9bf-30e3111cad3d"),
+                            Id = new Guid("bb004dd8-45d7-4ea3-850d-eea3b16f4f13"),
                             ProductId = new Guid("3660b93b-5430-421a-899d-adc6ac3514fd"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Mujer-3660b93b-5430-421a-899d-adc6ac3514fd-1.png"
                         },
                         new
                         {
-                            Id = new Guid("709107dc-7bf8-429f-b075-18fd41d586ee"),
+                            Id = new Guid("ebc30c56-2683-4251-a3de-47c18947a710"),
                             ProductId = new Guid("3660b93b-5430-421a-899d-adc6ac3514fd"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Mujer-3660b93b-5430-421a-899d-adc6ac3514fd-2.png"
                         },
                         new
                         {
-                            Id = new Guid("3c2089d1-0698-4d7f-a53b-9a3135d64a89"),
+                            Id = new Guid("c2680545-b0f7-4d4b-bfea-e029946a1bd5"),
                             ProductId = new Guid("3660b93b-5430-421a-899d-adc6ac3514fd"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Mujer-3660b93b-5430-421a-899d-adc6ac3514fd-3.png"
                         },
                         new
                         {
-                            Id = new Guid("bc3f99ca-c4d7-4e6a-8ada-54b64ca54a90"),
+                            Id = new Guid("97d6a879-2c35-4ddd-bc34-8bb37ed00de3"),
                             ProductId = new Guid("02f7e4b6-0ee0-4245-86c6-cdcdafec1bb5"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Niñas-02f7e4b6-0ee0-4245-86c6-cdcdafec1bb5-1.png"
                         },
                         new
                         {
-                            Id = new Guid("6a517140-a1a2-49d4-b9a2-3410b878a56f"),
+                            Id = new Guid("afbd6c20-43d3-4942-bee6-6737dfe5969a"),
                             ProductId = new Guid("02f7e4b6-0ee0-4245-86c6-cdcdafec1bb5"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Niñas-02f7e4b6-0ee0-4245-86c6-cdcdafec1bb5-2.png"
                         },
                         new
                         {
-                            Id = new Guid("ef4afc79-2318-4d74-b094-2521c549016f"),
+                            Id = new Guid("ebf1e9ef-c4e5-4c29-9a31-3265f1f1a862"),
                             ProductId = new Guid("02f7e4b6-0ee0-4245-86c6-cdcdafec1bb5"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Niñas-02f7e4b6-0ee0-4245-86c6-cdcdafec1bb5-3.png"
                         },
                         new
                         {
-                            Id = new Guid("b8ad673c-bbbd-40ea-96c5-1ef3fc94000e"),
+                            Id = new Guid("a7470ef9-c620-46e2-9325-683a4566cec1"),
                             ProductId = new Guid("6b00b41e-a07c-4a7b-ba49-a01503ef6269"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Niños-6b00b41e-a07c-4a7b-ba49-a01503ef6269-1.png"
                         },
                         new
                         {
-                            Id = new Guid("8a195386-315b-48c6-94af-b6d0ff7eb3b5"),
+                            Id = new Guid("e8e90a86-2c89-4441-ad58-453be2951e92"),
                             ProductId = new Guid("6b00b41e-a07c-4a7b-ba49-a01503ef6269"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Niños-6b00b41e-a07c-4a7b-ba49-a01503ef6269-2.png"
                         },
                         new
                         {
-                            Id = new Guid("d3eb9329-d538-479f-a925-cc08d241d201"),
+                            Id = new Guid("2baafaa2-804c-400e-a4c1-14d898d9d881"),
                             ProductId = new Guid("6b00b41e-a07c-4a7b-ba49-a01503ef6269"),
                             Url = "/Images/Products/Reebok/Product-Reebok-Zapatillas-Niños-6b00b41e-a07c-4a7b-ba49-a01503ef6269-3.png"
                         });
@@ -3357,15 +3382,26 @@ namespace API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("API.Entities.OrderItem", b =>
+            modelBuilder.Entity("API.Entities.BasketItem", b =>
                 {
-                    b.HasOne("API.Entities.Order", "Orders")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrdersOrderId")
+                    b.HasOne("API.Entities.CustomerBasket", "CustomerBasket")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("CustomerBasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Orders");
+                    b.Navigation("CustomerBasket");
+                });
+
+            modelBuilder.Entity("API.Entities.OrderItem", b =>
+                {
+                    b.HasOne("API.Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("API.Entities.PictureUrl", b =>
@@ -3406,6 +3442,11 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("API.Entities.CustomerBasket", b =>
+                {
+                    b.Navigation("BasketItems");
                 });
 
             modelBuilder.Entity("API.Entities.Order", b =>
