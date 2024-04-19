@@ -28,6 +28,8 @@ namespace API.Profiles
             CreateMap<BasketItemToCreateDto, BasketItem>();
             CreateMap<CustomerBasket, CustomerBasketToReturnDto>();
             CreateMap<BasketItem, BasketItemToReturnDto>();
+            CreateMap<Order, OrderToReturnDto>();
+            CreateMap<OrderItem, OrderItemToReturnDto>();
         }
     }
 }

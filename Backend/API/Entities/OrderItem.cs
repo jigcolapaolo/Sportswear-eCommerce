@@ -2,7 +2,7 @@
 {
     public class OrderItem
     {
-        public Guid Id { get; set; }
+        public Guid OrderItemId { get; set; }
         public Guid ProductId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
@@ -12,9 +12,12 @@
         // Navigation property
         public Order Order { get; set; }
 
-        public OrderItem() 
+        public OrderItem(decimal price, int quantity, Guid productId) 
         {
-            Id = Guid.NewGuid();
+            OrderItemId = Guid.NewGuid();
+            Price = price;
+            Quantity = quantity;
+            ProductId = productId;
 
         }
     }

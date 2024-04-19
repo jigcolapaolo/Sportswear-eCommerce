@@ -2,6 +2,7 @@
 {
     public class OrderToCreateDTO
     {
+        public Guid BasketId { get; set; }
         public DateTime OrderDate { get; set; }
         public string Email { get; set; }
         public decimal Subtotal { get; set; }

@@ -1,17 +1,16 @@
-﻿namespace API.Dtos
+﻿using API.Entities;
+
+namespace API.Dtos
 {
     public class OrderToReturnDto
     {
-        public Guid orderId { get; set; }
+        public Guid Id { get; set; }
+        public DateTime OrderDate { get; set; }
+        public string Email { get; set; }
+        public decimal Subtotal { get; set; }
 
-        public Guid basketId { get; set; }
-        //shipToAddress
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string street { get; set; }
-        public string city { get; set; }
-        public string state { get; set; }
-        public string zipCode { get; set; }
+        public List<OrderItemToReturnDto> OrderItems { get; set; }
+
 
     }
 }

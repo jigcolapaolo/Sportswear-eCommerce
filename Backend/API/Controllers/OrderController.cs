@@ -2,7 +2,9 @@
 using API.Dtos;
 using API.Entities;
 using API.Repository;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Text.Json;
 
 namespace API.Controllers
@@ -12,55 +14,61 @@ namespace API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrdersRepository _ordersRepository;
+        private readonly IBasketItemRepository _basketItemRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IOrdersRepository ordersRepository)
+        public OrdersController(IOrdersRepository ordersRepository, IBasketItemRepository basketItemRepository, IProductRepository productRepository, IMapper mapper)
         {
             _ordersRepository = ordersRepository;
+            _basketItemRepository = basketItemRepository;
+            _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Order>> CreateOrder(OrderToCreateDTO orderDTO)
-        {
-            var order = new Order
-            {
-                OrderDate = orderDTO.OrderDate,
-                Email = orderDTO.Email,
-                Subtotal = orderDTO.Subtotal,
-                Status = orderDTO.Status,
-                OrderItems = new List<OrderItem>()
-            };
+        public async Task<ActionResult<OrderToReturnDto>> CreateOrder(Guid basketId)
+        {   
+            // get basket
+            var basket = await _basketItemRepository.GetBasketItemAsync(basketId);
 
-            foreach (var itemDTO in orderDTO.OrderItems)
+            // create a list of items
+            var items = new List<OrderItem>();
+            foreach (var item in basket.BasketItems)
             {
-                var orderItem = new OrderItem
-                {
-                    ProductId = itemDTO.ProductId,
-                    Price = itemDTO.Price,
-                    Quantity = itemDTO.Quantity
-                };
+                // get the product
+                var product = await _productRepository.GetProductByIdAsync(item.ProductId);
+                // create ab orderItem
+                var orderItem = new OrderItem(item.Price, item.Quantity,product.ProductId);
 
-                order.OrderItems.Add(orderItem);
+                items.Add(orderItem);
             }
 
+            // calc subtotal
+            var subtotal = items.Sum(item => item.Price * item.Quantity);
+
+            // get the email
+            var email = User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+            // create order
+            var order = new Order(items, email, subtotal);
+
+            // save to db
             await _ordersRepository.CreateOrdersAsync(order);
 
-            var options = JsonSerializerOptionsConfig.GetJsonSerializerOptions(); // Obtener opciones de serialización JSON
-            string jsonString = JsonSerializer.Serialize(order, options); // Serializar objeto order con las opciones de serialización
+            // delete basket
+            await _basketItemRepository.DeleteBasketItemAsync(basketId);
 
-            // Devuelve la respuesta HTTP con el objeto order serializado como JSON
-            return Content(jsonString, "application/json");
+            var orderDto =  _mapper.Map<OrderToReturnDto>(order);
+
+            return Ok(orderDto);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
-        {
-            var orders = await _ordersRepository.GetAllOrdersAsync();
-            return Ok(orders);
-        }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(Guid id)
+        public async Task<ActionResult<Order>> GetOrderByIdForUser(Guid id)
         {
+
             var order = await _ordersRepository.GetOrderByIdAsync(id);
 
             if (order == null)
@@ -68,7 +76,7 @@ namespace API.Controllers
                 return NotFound(); // Devuelve 404 si la orden no se encuentra
             }
 
-            return Ok(order); // Devuelve la orden encontrada con el código de estado 200
+            return Ok(_mapper.Map<OrderToReturnDto>(order)); // Devuelve la orden encontrada con el código de estado 200
         }
 
     }

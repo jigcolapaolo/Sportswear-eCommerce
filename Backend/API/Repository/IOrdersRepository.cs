@@ -11,7 +11,7 @@ namespace API.Repository
         Task<List<Order>> GetAllOrdersAsync();
 
         //Get by Id
-        Task<Order> GetOrderByIdAsync(Guid orderId);
+        Task<Order?> GetOrderByIdAsync(Guid orderId);
 
         // Saves changes into the database
         Task SaveChangesAsync();

@@ -23,9 +23,9 @@ namespace API.Repository
             return await _dbContext.Orders.ToListAsync();
         }
 
-        public async Task<Order> GetOrderByIdAsync(Guid orderId)
+        public async Task<Order?> GetOrderByIdAsync(Guid orderId)
         {
-            return await _dbContext.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            return await _dbContext.Orders.Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == orderId);
         }
 
         public async Task SaveChangesAsync()
