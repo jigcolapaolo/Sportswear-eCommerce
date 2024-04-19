@@ -2,17 +2,20 @@
 {
     public class OrderItem
     {
-        public Guid OrderItemId { get; set; }
+        public Guid Id { get; set; }
+        public Guid ProductId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
 
+        // Llave foránea a Order
+        public Guid OrderId { get; set; }
         // Navigation property
-        public Order Orders { get; set; }
+        public Order Order { get; set; }
 
-        // TODO 3 Inicializar properties(Price, Quantity) en el  constructor
         public OrderItem() 
-        { 
-            OrderItemId = Guid.NewGuid();
+        {
+            Id = Guid.NewGuid();
+
         }
     }
 }

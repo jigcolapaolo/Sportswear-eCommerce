@@ -145,7 +145,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Order", b =>
                 {
-                    b.Property<Guid>("OrderId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -163,29 +163,32 @@ namespace API.Migrations
                     b.Property<decimal>("Subtotal")
                         .HasColumnType("numeric");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("API.Entities.OrderItem", b =>
                 {
-                    b.Property<Guid>("OrderItemId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("OrdersOrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.HasKey("OrderItemId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("OrdersOrderId");
+                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
                 });
@@ -3356,13 +3359,13 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.OrderItem", b =>
                 {
-                    b.HasOne("API.Entities.Order", "Orders")
+                    b.HasOne("API.Entities.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrdersOrderId")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Orders");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("API.Entities.PictureUrl", b =>

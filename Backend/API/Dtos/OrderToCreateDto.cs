@@ -1,14 +1,18 @@
 ﻿namespace API.Dtos
 {
-    public class OrderToCreateDto
+    public class OrderToCreateDTO
     {
-        public Guid basketId { get; set; }
-        //shipToAddress
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string street { get; set; }
-        public string city { get; set; }
-        public string state { get; set; }
-        public string zipCode { get; set; }
+        public DateTime OrderDate { get; set; }
+        public string Email { get; set; }
+        public decimal Subtotal { get; set; }
+        public bool Status { get; set; }
+        public List<OrderItemDTO>? OrderItems { get; set; }
+    }
+
+    public class OrderItemDTO
+    {
+        public Guid ProductId { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
     }
 }

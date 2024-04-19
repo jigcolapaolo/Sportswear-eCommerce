@@ -1,64 +1,75 @@
-﻿using API.Dtos;
+﻿using API.configurations;
+using API.Dtos;
 using API.Entities;
-//using API.Migrations;
 using API.Repository;
-using API.Services;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace API.Controllers
 {
     [Route("api/orders")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IOrdersRepository _ordersRepository;
 
-        public OrderController(IMapper mapper, IOrdersRepository ordersRepository)
+        public OrdersController(IOrdersRepository ordersRepository)
         {
-            _mapper = mapper;
             _ordersRepository = ordersRepository;
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> CreateOrder(OrderToCreateDto orderDto, Guid basketId)
-        //{
-        //    // Mapping
-        //    Order order = _mapper.Map<Order>(orderDto);
+        [HttpPost]
+        public async Task<ActionResult<Order>> CreateOrder(OrderToCreateDTO orderDTO)
+        {
+            var order = new Order
+            {
+                OrderDate = orderDTO.OrderDate,
+                Email = orderDTO.Email,
+                Subtotal = orderDTO.Subtotal,
+                Status = orderDTO.Status,
+                OrderItems = new List<OrderItem>()
+            };
 
-        //    await _ordersRepository.CreateOrdersAsync(order);
-        //    await _ordersRepository.SaveChangesAsync();
+            foreach (var itemDTO in orderDTO.OrderItems)
+            {
+                var orderItem = new OrderItem
+                {
+                    ProductId = itemDTO.ProductId,
+                    Price = itemDTO.Price,
+                    Quantity = itemDTO.Quantity
+                };
 
-        //    return NoContent();
-        //}
+                order.OrderItems.Add(orderItem);
+            }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<OrderToReturnDto>>> GetAllOrders()
-        //{
-        //    var orders = await _ordersRepository.GetAllOrdersAsync();
+            await _ordersRepository.CreateOrdersAsync(order);
 
-        //    if (orders == null || orders.Count == 0)
-        //    {
-        //        return NotFound("No se han encontrado ordenes.");
-        //    }
+            var options = JsonSerializerOptionsConfig.GetJsonSerializerOptions(); // Obtener opciones de serialización JSON
+            string jsonString = JsonSerializer.Serialize(order, options); // Serializar objeto order con las opciones de serialización
 
-        //    return _mapper.Map<List<OrderToReturnDto>>(orders);
-        //}
+            // Devuelve la respuesta HTTP con el objeto order serializado como JSON
+            return Content(jsonString, "application/json");
+        }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<OrderToReturnDto>> GetOrderById(Guid orderId)
-        //{
-        //    var order = await _ordersRepository.GetOrdersByIdAsync(orderId);
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrders()
+        {
+            var orders = await _ordersRepository.GetAllOrdersAsync();
+            return Ok(orders);
+        }
 
-        //    if (order == null)
-        //    {
-        //        return NotFound("Orden no encontrada.");
-        //    }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Order>> GetOrder(Guid id)
+        {
+            var order = await _ordersRepository.GetOrderByIdAsync(id);
 
-        //    var orderToReturn = _mapper.Map<OrderToReturnDto>(order);
+            if (order == null)
+            {
+                return NotFound(); // Devuelve 404 si la orden no se encuentra
+            }
 
-        //    return orderToReturn;
-        //}
+            return Ok(order); // Devuelve la orden encontrada con el código de estado 200
+        }
+
     }
 }

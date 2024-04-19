@@ -485,3 +485,4 @@ $RECYCLE.BIN/
 /Backend/API/Migrations/20240413142643_inicio.cs
 /Backend/API/Migrations/20240415233723_Initial.cs
 /Backend/API/Migrations/20240415233723_Initial.Designer.cs
+/Backend/API/Migrations/20240417031951_orders.Designer.cs
