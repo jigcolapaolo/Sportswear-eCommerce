@@ -74,9 +74,9 @@ const NavBar = () => {
           </div>
           {/* Contenido del navbar */}
           <div className="flex justify-around items-center h-full w-full">
-            <div className="h-full w-64 pb-2 flex items-center">
+            <a href='/' className="h-full w-64 pb-2 flex items-center">
               <img className="hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
-            </div>
+            </a>
             <div className="hidden sm:ml-6 sm:block">
               <form onSubmit={manejarBusqueda}>
                 <input
@@ -89,10 +89,10 @@ const NavBar = () => {
               </form>
             </div>
             <div className="flex">
-              <a>
+              <a href='/catalogo'>
                 <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de basket' />
               </a>
-              <a>
+              <a href='/perfil'>
                 <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/perfil1.png' alt='icono de perfil' />
               </a>
             </div>
