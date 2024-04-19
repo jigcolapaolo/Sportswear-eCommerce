@@ -18,6 +18,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  font-family: 'Roboto';
+}
+
 /* CSS Reset */
 *,
 *::before,
