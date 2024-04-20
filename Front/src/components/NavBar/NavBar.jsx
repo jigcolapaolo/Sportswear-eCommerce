@@ -1,39 +1,35 @@
 import { useState, useEffect } from 'react';
 import LoginModal from '../LoginModal/LoginModal';
 import Carrito from '../Carrito/Carrito';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [busqueda, setBusqueda] = useState('');
-  const [resultados, setResultados] = useState([]);
+  // const [busqueda, setBusqueda] = useState('');
+  // const [resultados, setResultados] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBasketBarOpen, setIsBasketBarOpen] = useState(false);
 
-  const buscarProductos = async () => {
-    const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
-    try {
-      const response = await fetch(`${url}?busqueda=${busqueda}`);
-      const data = await response.json();
-      // setResultados(data);
-      console.log(data);
-    } catch (error) {
-      console.error('Error al buscar productos:', error);
+  // const buscarProductos = async () => {
+  //   const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
+  //   try {
+  //     const response = await fetch(`${url}?busqueda=${busqueda}`);
+  //     const data = await response.json();
+  //     // setResultados(data);
+  //   } catch (error) {
+  //     console.error('Error al buscar productos:', error);
+  //   }
+  // };
+
+  const navigate = useNavigate();
+
+  //Barra de busqueda
+  const searchEnter = (e) =>{
+    if(e.key === 'Enter' || e.type === 'click'){
+      e.preventDefault();
+      navigate('/catalogo');
     }
   };
-
-  const manejarBusquedaChange = (e) => {
-    setBusqueda(e.target.value);
-  };
-
-  const manejarBusqueda = (e) => {
-    e.preventDefault();
-    buscarProductos();
-  };
-
-  useEffect(() => {
-    buscarProductos();
-  }, [busqueda]);
-
 
   //Login Modal
   const toggleLoginModal = () => {
@@ -71,16 +67,15 @@ const NavBar = () => {
               <img className="hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
             </a>
             <div className="hidden sm:ml-6 sm:block">
-              <form onSubmit={manejarBusqueda} className="relative">
+              <form className="relative">
                 <div className="relative flex items-center">
                   <input
                     type="text"
                     placeholder="Buscar..."
                     className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
-                    value={busqueda}
-                    onChange={manejarBusquedaChange}
+                    onKeyDown={searchEnter}
                   />
-                  <div className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                  <div onClick={searchEnter} className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
                     <img src="../../../public/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
                   </div>
                 </div>
@@ -98,34 +93,24 @@ const NavBar = () => {
         </div>
         {/* Barra de busqueda mobile */}
         <div className={`flex justify-center sm:hidden transition-[max-height] duration-200 ease-in-out overflow-hidden ${isMobileMenuOpen ? 'max-h-[300px]' : 'max-h-0'}`} id="mobile-menu">
-          <form onSubmit={manejarBusqueda} className="relative pb-2">
+          <form className="relative pb-2">
             <div className="relative flex items-center">
               <input
                 type="text"
                 placeholder="Buscar..."
                 className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
-                value={busqueda}
-                onChange={manejarBusquedaChange}
+                onKeyDown={searchEnter}
               />
-              <div className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
+              <div onClick={searchEnter} className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
                 <img src="../../../public/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
               </div>
             </div>
           </form>
         </div>
       </nav>
-      {/* Login Modal */}
+      {/* Login Modal y Carrito */}
       <LoginModal isLoginModalOpen={isLoginModalOpen} />
       <Carrito isBasketBarOpen={isBasketBarOpen} />
-      {/* Resultados */}
-      {/* <div>
-        {resultados.map((producto, index) => (
-          <div key={index}>
-            <p>{producto.name}</p>
-            <p>{producto.description}</p>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 };

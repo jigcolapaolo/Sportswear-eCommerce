@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 export default function Articulo() {
   const [datosArticulos, setDatosArticulos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const currentPage = 9;
+  const currentPage = 1;
 
   const articulosDefault = [
     {
@@ -29,7 +29,8 @@ export default function Articulo() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://ecommerce-api.app.csharpjourney.xyz/api/products?PageNumber=${currentPage}`);
+        // const response = await fetch(`https://ecommerce-api.app.csharpjourney.xyz/api/products?PageNumber=${currentPage}`);
+        const response = await fetch(`https://ecommerce-api.app.csharpjourney.xyz/api/products?PageSize=105`);
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
@@ -81,8 +82,8 @@ export default function Articulo() {
             <div className="flex flex-col py-2 px-3 gap-2">
               <h2 className='font-bold text-center text-lg truncate'>{articulo.name}</h2>
               <div>
-                <small className='font-bold text-left text-red-200 line-through'>${articulo.price}</small>
-                <h2 className='font-bold text-left text-red-200 text-2xl truncate'>${Math.round((articulo.price * 52.91) / 100) - 1}</h2>
+
+                <h2 className='font-bold text-left text-red-200 text-2xl truncate'>${articulo.price}</h2>
               </div>
               <div>
                 <h2 className="truncate text-gray-400">{articulo.categoryName} / {articulo.brandName}</h2>
