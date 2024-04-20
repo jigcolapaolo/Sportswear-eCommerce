@@ -5,29 +5,18 @@ import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  // const [busqueda, setBusqueda] = useState('');
-  // const [resultados, setResultados] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBasketBarOpen, setIsBasketBarOpen] = useState(false);
+  const [busqueda, setBusqueda] = useState('');
 
-  // const buscarProductos = async () => {
-  //   const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
-  //   try {
-  //     const response = await fetch(`${url}?busqueda=${busqueda}`);
-  //     const data = await response.json();
-  //     // setResultados(data);
-  //   } catch (error) {
-  //     console.error('Error al buscar productos:', error);
-  //   }
-  // };
 
   const navigate = useNavigate();
 
   //Barra de busqueda
-  const searchEnter = (e) =>{
+  const searchEnter = (e) => {
     if(e.key === 'Enter' || e.type === 'click'){
       e.preventDefault();
-      navigate('/catalogo');
+      navigate('/catalogo', { state: { searchValue: busqueda } });
     }
   };
 
@@ -73,6 +62,8 @@ const NavBar = () => {
                     type="text"
                     placeholder="Buscar..."
                     className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
+                    value={busqueda}
+                    onChange={(e) => setBusqueda(e.target.value)}
                     onKeyDown={searchEnter}
                   />
                   <div onClick={searchEnter} className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
@@ -99,6 +90,8 @@ const NavBar = () => {
                 type="text"
                 placeholder="Buscar..."
                 className="xl:w-[700px] lg:w-[500px] md:w-[400px] h-[40px] rounded-full p-[20px] outline-0 border-[#ecac30] border-2 focus:border-yellow-400"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
                 onKeyDown={searchEnter}
               />
               <div onClick={searchEnter} className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">

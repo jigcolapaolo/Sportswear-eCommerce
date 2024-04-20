@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function ArticuloCatalogo({ categoryName }) {
+export default function ArticuloCatalogo({ categoryName, searchValue }) {
     const [datosArticulos, setDatosArticulos] = useState([]);
     const [loading, setLoading] = useState(true);
     const currentPage = 1;
@@ -33,15 +33,23 @@ export default function ArticuloCatalogo({ categoryName }) {
                 if (!response.ok) {
                     throw new Error('Error al obtener los datos');
                 }
-                const data = await response.json();
-                setDatosArticulos(data);
+                var data = await response.json();
 
+                console.log(searchValue);
                 //Filtro segun categoría de CategoryGrid
-                if (categoryName) {
-                    setDatosArticulos(data.filter(articulo => articulo.categoryName === categoryName));
-                } else {
-                    setDatosArticulos(data);
+                if (categoryName)
+                    data = data.filter(articulo => articulo.categoryName === categoryName);
+                //Filtro segun valor del searchBar
+                if (searchValue) {
+                    data = data.filter(articulo =>
+                        articulo.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                        articulo.brandName.toLowerCase().includes(searchValue.toLowerCase()) ||
+                        articulo.categoryName.toLowerCase().includes(searchValue.toLowerCase()) ||
+                        articulo.audienceType.toLowerCase().includes(searchValue.toLowerCase())
+                    );
                 }
+
+                setDatosArticulos(data);
 
                 setLoading(false);
                 console.log(data);
@@ -53,8 +61,9 @@ export default function ArticuloCatalogo({ categoryName }) {
         };
 
         fetchData();
-    }, [categoryName]);
+    }, [categoryName, searchValue]);
 
+    //Mientras carga muestra..
     if (loading) {
         //Placeholders
         const placeholders = Array.from({ length: 3 }, (_, index) => (
@@ -73,6 +82,18 @@ export default function ArticuloCatalogo({ categoryName }) {
             </div>
         );
     }
+
+    //Si datosArticulos esta vacio
+    if (datosArticulos.length === 0) {
+        return (
+            <div className='flex justify-center h-[500px] pt-20'>
+                <div className="flex justify-center items-center text-center bg-gray-800 rounded-full text-white p-8 w-2/4 h-2/5">
+                    <p className='text-4xl'>No se encontraron Artículos.</p>
+                </div>
+            </div>
+        );
+    }
+
 
     return (
 

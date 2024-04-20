@@ -1,20 +1,24 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const Hero = () => {
   const carouselRef = useRef(null);
+  const [fade, setFade] = useState(false);
 
-  const handleOnSlideChange = (index) => {
-    if (index === 2) {
-      setTimeout(() => {
-        carouselRef.current;
-      }, 100);
-    }
-  };
+  useEffect(() => {
+    // Activar el efecto de fade después de un breve retraso
+    const timeout = setTimeout(() => {
+      setFade(true);
+    }, 100);
+    
+    // Limpiar el timeout en caso de que el componente se desmonte antes de que se active el fade
+    return () => clearTimeout(timeout);
+  }, []);
+
 
   return (
-    <div className="pt-[62px]">
+    <div className={`pt-[62px] ${fade ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}>
       <Carousel
         ref={carouselRef}
         showArrows={true}
@@ -23,7 +27,6 @@ const Hero = () => {
         showStatus={false}
         autoPlay={true}
         interval={5000}
-        onChange={handleOnSlideChange}
       >
         <div>
           <img
