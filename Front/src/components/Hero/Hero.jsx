@@ -8,7 +8,7 @@ const Hero = () => {
   const handleOnSlideChange = (index) => {
     if (index === 2) {
       setTimeout(() => {
-        carouselRef.current && carouselRef.current.next();
+        carouselRef.current;
       }, 100);
     }
   };

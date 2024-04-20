@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import LoginModal from '../LoginModal/LoginModal';
+import Carrito from '../Carrito/Carrito';
 
 const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isBasketBarOpen, setIsBasketBarOpen] = useState(false);
 
   const buscarProductos = async () => {
     const url = "https://ecommerce-api.app.csharpjourney.xyz/api/products";
@@ -36,6 +38,11 @@ const NavBar = () => {
   //Login Modal
   const toggleLoginModal = () => {
     setIsLoginModalOpen(!isLoginModalOpen);
+  };
+
+  //Basket Bar
+  const toggleBasketBar = () => {
+    setIsBasketBarOpen(!isBasketBarOpen);
   };
 
   return (
@@ -80,7 +87,7 @@ const NavBar = () => {
               </form>
             </div>
             <div className="flex">
-              <a href='/catalogo'>
+              <a onClick={toggleBasketBar}>
                 <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de basket' />
               </a>
               <a onClick={toggleLoginModal}>
@@ -109,15 +116,16 @@ const NavBar = () => {
       </nav>
       {/* Login Modal */}
       <LoginModal isLoginModalOpen={isLoginModalOpen} />
+      <Carrito isBasketBarOpen={isBasketBarOpen} />
       {/* Resultados */}
-      <div>
+      {/* <div>
         {resultados.map((producto, index) => (
           <div key={index}>
             <p>{producto.name}</p>
             <p>{producto.description}</p>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
