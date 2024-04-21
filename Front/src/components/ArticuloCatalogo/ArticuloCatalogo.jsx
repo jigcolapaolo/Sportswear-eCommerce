@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function ArticuloCatalogo({ categoryName, searchValue }) {
+export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlCarrito }) {
     const [datosArticulos, setDatosArticulos] = useState([]);
     const [loading, setLoading] = useState(true);
     const currentPage = 1;
@@ -25,6 +25,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue }) {
             description: "--------"
         }
     ];
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -94,27 +95,34 @@ export default function ArticuloCatalogo({ categoryName, searchValue }) {
         );
     }
 
-
     return (
 
         <div className="flex flex-wrap justify-center pb-36">
             {datosArticulos.map((articulo, index) => (
-                <div key={index} className="border-gray-600 border-2 text-[#F1F2F3] hover:bg-gray-700 rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 cursor-pointer hover:scale-105 transition duration-2000">
+                <div key={index} className="border-gray-600 border-2 text-[#F1F2F3] rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 cursor-pointer hover:filter hover:drop-shadow-[0_0_10px_black] transition duration-2000">
                     <div className="flex flex-col">
                         <div className="w-full h-52 bg-gray-700">
                             <img src={articulo.imgUrls.find(url => url.endsWith("1.png"))}
                                 alt={articulo.name}
                                 className="w-full h-full object-contain" />
                         </div>
-                        <div className="flex flex-col py-2 px-3 gap-2">
+                        <div className="flex flex-col py-2 px-3 gap-2 bg-[#212121]">
                             <h2 className='font-bold text-center text-lg truncate'>{articulo.name}</h2>
                             <div>
-
                                 <h2 className='font-bold text-left text-red-200 text-2xl truncate'>${articulo.price}</h2>
                             </div>
                             <div>
                                 <h2 className="truncate text-gray-400">{articulo.categoryName} / {articulo.brandName}</h2>
                                 <h2 className="truncate text-gray-400">{articulo.audienceType}</h2>
+                                {/* Boton agregar a carrito */}
+                                <div className='flex justify-end items-center rounded-full text-[#ecac30]'>
+                                    <button onClick={() => agregarAlCarrito(articulo)} className='bg-gray-900 rounded pl-2 py-1 hover:bg-gray-800'>
+                                        <div className='flex hover:brightness-150'>
+                                            <span>+</span>
+                                            <img src="../../../public/images/iconos/basket.png" alt="icono-basket" className="mr-2 w-[25px] h-[25px]" />
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

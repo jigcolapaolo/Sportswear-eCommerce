@@ -3,7 +3,7 @@ import LoginModal from '../LoginModal/LoginModal';
 import Carrito from '../Carrito/Carrito';
 import { useNavigate } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar = ({ basketItems }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBasketBarOpen, setIsBasketBarOpen] = useState(false);
@@ -103,7 +103,7 @@ const NavBar = () => {
       </nav>
       {/* Login Modal y Carrito */}
       <LoginModal isLoginModalOpen={isLoginModalOpen} />
-      <Carrito isBasketBarOpen={isBasketBarOpen} />
+      <Carrito isBasketBarOpen={isBasketBarOpen} basketItems={basketItems} />
     </div>
   );
 };
