@@ -51,28 +51,33 @@ function App() {
                 } else {
                     return update;
                 }
-                
+
             }
 
         });
     };
 
-    const eliminarItemCarrito = (articulo) => {
+    const eliminarItemCarrito = (articulo, clear = false) => {
         setBasketItems(prevItems => {
-            //Busca si el artículo ya existe en el carrito
-            const existingItemIndex = prevItems.findIndex(item => item.productId === articulo.productId);
-
-            if (existingItemIndex !== -1) {
-                //Si el artículo existe, lo elimina del carrito
-                const newItems = [...prevItems];
-                newItems.splice(existingItemIndex, 1);
-                return newItems;
+            if (!clear) {
+                const existingItemIndex = prevItems.findIndex(item => item.productId === articulo.productId);
+    
+                if (existingItemIndex !== -1) {
+                    // Si el artículo existe, lo elimina del carrito
+                    const newItems = [...prevItems];
+                    newItems.splice(existingItemIndex, 1);
+                    return newItems; // Devuelve el nuevo array sin el artículo eliminado
+                } else {
+                    // Si no existe, no hace cambios
+                    return prevItems;
+                }
             } else {
-                //Si no existe, no hace cambios
-                return prevItems;
+                // Elimina todos los artículos
+                return [];
             }
         });
     };
+    
 
 
     return (

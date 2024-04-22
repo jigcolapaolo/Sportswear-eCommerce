@@ -69,10 +69,18 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
                 </div>
 
             </div>
+            {/* Boton vaciar carrito */}
+            <div className='flex justify-end px-2'>
+                <button onClick={() => eliminarItemCarrito({}, true)} className='flex justify-between items-center bg-[#ecac30] rounded pl-3 p-1 m-2 w-1/5 h-auto text-1xl hover:bg-yellow-400 transition duration-2000'>
+                    Vaciar Carrito
+                    <img src="../../../public/images/iconos/trashcanblack.png" alt="icono-basket" className="mr-2 w-[20px] h-[25px]" />
+                </button>
+            </div>
             {/* Mostrar el total del carrito */}
             <div className="flex justify-center p-6">
                 <p className="text-[#ecac30] text-3xl">Total: <span className='text-white'>${total}</span></p>
             </div>
+            {/* Boton Comprar */}
             <div className='flex justify-center p-6'>
                 <button className='bg-[#ecac30] rounded p-3 m-2 w-1/2 h-auto text-3xl hover:bg-yellow-400 transition duration-2000'>Comprar</button>
             </div>
