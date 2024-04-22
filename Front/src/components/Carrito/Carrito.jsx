@@ -11,7 +11,7 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
     // Lista nula o vacia
     if (!basketItems || basketItems.length == 0) {
         return (
-            <div className={`overflow-y-auto bg-[#212121] fixed h-full mt-16 w-1/2 z-30 ${isBasketBarOpen ? 'right-0' : '-right-full'} transition-all duration-200 ease-in-out overflow-hidden`}>
+            <div className={`border-l-2 border-gray-800 overflow-y-auto bg-[#212121] fixed h-full mt-16 w-[85%] sm:w-[85%] md:w-[65%] lg:w-1/2 z-30 ${isBasketBarOpen ? 'right-0' : '-right-full'} transition-all duration-200 ease-in-out overflow-hidden`}>
                 <p className='font-rubik my-6 text-center text-white text-4xl'>Carrito de Compras</p>
                 <div className='border-2 border-[#ecac30] rounded mx-4'>
                     {/* Articulos */}
@@ -29,7 +29,7 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
 
 
     return (
-        <div className={`overflow-y-auto bg-[#212121] fixed h-full mt-16 w-1/2 z-30 ${isBasketBarOpen ? 'right-0' : '-right-full'} transition-all duration-200 ease-in-out overflow-hidden`}>
+        <div className={`border-l-2 border-gray-800 overflow-y-auto bg-[#212121] fixed h-full mt-16 w-[85%] sm:w-[85%] md:w-[65%] lg:w-1/2 z-30 ${isBasketBarOpen ? 'right-0' : '-right-full'} transition-all duration-200 ease-in-out overflow-hidden`}>
             <p className='font-rubik my-6 text-center text-white text-4xl'>Carrito de Compras</p>
             <div className='border-2 border-[#ecac30] rounded mx-4'>
                 {/* Articulos */}

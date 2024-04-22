@@ -23,6 +23,8 @@ function App() {
         sessionStorage.setItem('basketItems', JSON.stringify(basketItems));
     }, [basketItems]);
 
+
+    //Función que agrega un nuevo artículo, aumenta o disminuye su cantidad
     const agregarAlCarrito = (articulo, sub = false) => {
         setBasketItems(prevItems => {
             //Busca si el artículo ya existe en el carrito
@@ -57,6 +59,7 @@ function App() {
         });
     };
 
+    //Funcion que elimina uno o todos los artículos
     const eliminarItemCarrito = (articulo, clear = false) => {
         setBasketItems(prevItems => {
             if (!clear) {
