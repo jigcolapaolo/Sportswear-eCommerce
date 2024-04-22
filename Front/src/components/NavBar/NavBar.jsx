@@ -3,7 +3,7 @@ import LoginModal from '../LoginModal/LoginModal';
 import Carrito from '../Carrito/Carrito';
 import { useNavigate } from 'react-router-dom';
 
-const NavBar = ({ basketItems }) => {
+const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBasketBarOpen, setIsBasketBarOpen] = useState(false);
@@ -14,7 +14,7 @@ const NavBar = ({ basketItems }) => {
 
   //Barra de busqueda
   const searchEnter = (e) => {
-    if(e.key === 'Enter' || e.type === 'click'){
+    if (e.key === 'Enter' || e.type === 'click') {
       e.preventDefault();
       navigate('/catalogo', { state: { searchValue: busqueda } });
     }
@@ -103,7 +103,10 @@ const NavBar = ({ basketItems }) => {
       </nav>
       {/* Login Modal y Carrito */}
       <LoginModal isLoginModalOpen={isLoginModalOpen} />
-      <Carrito isBasketBarOpen={isBasketBarOpen} basketItems={basketItems} />
+      <Carrito isBasketBarOpen={isBasketBarOpen}
+        basketItems={basketItems}
+        agregarAlCarrito={agregarAlCarrito}
+        eliminarItemCarrito={eliminarItemCarrito} />
     </div>
   );
 };

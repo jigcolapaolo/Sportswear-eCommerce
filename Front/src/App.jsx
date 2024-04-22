@@ -23,13 +23,61 @@ function App() {
         sessionStorage.setItem('basketItems', JSON.stringify(basketItems));
     }, [basketItems]);
 
-    const agregarAlCarrito = (articulo) => {
-        setBasketItems([...basketItems, articulo]);
+    const agregarAlCarrito = (articulo, sub = false) => {
+        setBasketItems(prevItems => {
+            //Busca si el artículo ya existe en el carrito
+            const existingItem = prevItems.find(item => item.productId === articulo.productId);
+
+            if (!sub) {
+                if (existingItem) {
+                    //Incrementa la cantidad
+                    return prevItems.map(item =>
+                        item.productId === articulo.productId ? { ...item, cantidad: item.cantidad + 1 } : item
+                    );
+                } else {
+                    //Si no existe, lo agrega con cantidad 1
+                    return [...prevItems, { ...articulo, cantidad: 1 }];
+                }
+            } else {
+
+                //Disminuye la cantidad
+                var update = prevItems.map(item =>
+                    item.productId === articulo.productId ? { ...item, cantidad: item.cantidad - 1 } : item
+                );
+
+                if (articulo.cantidad === 1) {
+                    eliminarItemCarrito(articulo);
+                    return prevItems.filter(item => item.productId !== articulo.productId);
+                } else {
+                    return update;
+                }
+                
+            }
+
+        });
     };
+
+    const eliminarItemCarrito = (articulo) => {
+        setBasketItems(prevItems => {
+            //Busca si el artículo ya existe en el carrito
+            const existingItemIndex = prevItems.findIndex(item => item.productId === articulo.productId);
+
+            if (existingItemIndex !== -1) {
+                //Si el artículo existe, lo elimina del carrito
+                const newItems = [...prevItems];
+                newItems.splice(existingItemIndex, 1);
+                return newItems;
+            } else {
+                //Si no existe, no hace cambios
+                return prevItems;
+            }
+        });
+    };
+
 
     return (
         <Router>
-            <NavBar basketItems={basketItems} />
+            <NavBar basketItems={basketItems} agregarAlCarrito={agregarAlCarrito} eliminarItemCarrito={eliminarItemCarrito} />
             <Routes>
                 <Route path="/" element={<Home agregarAlCarrito={agregarAlCarrito} />} />
                 <Route path="/catalogo" element={<Catalogo agregarAlCarrito={agregarAlCarrito} />} />

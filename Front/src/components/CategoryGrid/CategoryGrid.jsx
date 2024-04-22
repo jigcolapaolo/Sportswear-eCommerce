@@ -57,7 +57,7 @@ export const CategoryGrid = () => {
                 alt={category.alt}
                 className='w-full h-auto max-h-36 sm:max-h-none opacity-80 blur-none sm:opacity-100 group-hover:blur-none group-hover:opacity-100 ease-in-out duration-300'
               />
-              <p className='absolute inset-0 flex items-center justify-center text-white text-2xl lg:text-3xl font-semibold'>
+              <p className='font-rubik absolute inset-0 flex items-center justify-center text-white text-2xl lg:text-3xl font-semibold'>
                 {category.name}
               </p>
             </a>
@@ -76,7 +76,7 @@ export const CategoryGrid = () => {
           alt={category.alt}
           className='w-full h-auto max-h-36 sm:max-h-none opacity-80 blur-none sm:opacity-100 group-hover:blur-none group-hover:opacity-100 ease-in-out duration-300 rounded-md'
         />
-        <p className='absolute inset-0 flex items-center justify-center text-white text-2xl lg:text-3xl font-semibold'>
+        <p className='font-rubik absolute inset-0 flex items-center justify-center text-white text-2xl lg:text-3xl font-semibold'>
           {category.name}
         </p>
       </a>
@@ -95,7 +95,7 @@ export const CategoryGrid = () => {
           alt={category.alt}
           className='brightness-75 w-full h-auto max-h-36 sm:max-h-none opacity-80 blur-none sm:opacity-100 group-hover:blur-none group-hover:opacity-100 ease-in-out duration-300 rounded-md'
         />
-        <p className='absolute inset-0 flex items-center justify-center text-white text-center text-2xl lg:text-3xl font-semibold'>
+        <p className='font-rubik absolute inset-0 flex items-center justify-center text-white text-center text-2xl lg:text-3xl font-semibold'>
           {category.name}
         </p>
       </a>
