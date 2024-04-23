@@ -7,7 +7,6 @@ export const CategoryGrid = () => {
   const categoryClick = (categoryName) => (e) => {
     e.preventDefault();
     navigate("/catalogo", { state: { categoryName } });
-    console.log(categoryName);
   };
   
   

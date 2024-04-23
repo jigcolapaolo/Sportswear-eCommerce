@@ -22,6 +22,32 @@ const Footer = () => {
           -Trabaja con nosotros
         </p>
       </div>
+      <div className="flex flex-col gap-4 justify-between">
+        <p className="text-2xl">Proyecto realizado por:</p>
+        <div className="flex gap-52">
+          <div>
+            <p className="font-bold text-lg">-Martin Villafañe</p>
+            <a target="_blank" className="text-blue-600 hover:text-blue-800" href="https://linkedin.com/in/martin-villafa%C3%B1e-115439277">LinkedIn</a>
+            <p className="font-bold text-lg">-Jhonatan Larico</p>
+            <a target="_blank" className="text-blue-600 hover:text-blue-800" href="https://github.com/jhonatanELC">GitHub</a>
+            <p className="font-bold text-lg">-Jacinto Gutierrez</p>
+            <p className="font-bold text-lg">-Nicolas Escobar</p>
+            <p className="font-bold text-lg">-Hernan Ruiz</p>
+          </div>
+          <div>
+            <p className="font-bold text-lg">-Miguel Salazar</p>
+            <a target="_blank" className="text-blue-600 hover:text-blue-800" href="https://linkedin.com/in/miguel-salazar-5576b7258">LinkedIn</a>
+            <p className="font-bold text-lg">-Federico Ocaranza</p>
+            <a target="_blank" className="text-blue-600 hover:text-blue-800" href="https://linkedin.com/in/federico-ocaranza/">LinkedIn</a>
+            <p className="font-bold text-lg">-Juan Ignacio Colapaolo</p>
+            <div className="flex gap-2">
+              <a target="_blank" className="text-blue-600 hover:text-blue-800" href="https://linkedin.com/in/juan-ignacio-colapaolo-b916642a0">LinkedIn</a>
+              <span>/</span>
+              <a target="_blank" className="text-blue-600 hover:text-blue-800" href="https://juancolapaolo-portfolio.netlify.app/">Portfolio</a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="flex flex-col items-center justify-center">
         <p className="font-normal text-base text-xl leading-28.13 text-gray-900 mb-8 cursor-default">

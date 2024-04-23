@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlCarrito }) {
     const [datosArticulos, setDatosArticulos] = useState([]);
@@ -25,6 +26,14 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
             description: "--------"
         }
     ];
+
+    const navigate = useNavigate();
+
+    const articuloClick = (articulo) => (e) => {
+      e.preventDefault();
+      navigate("/producto", { state: { articulo } });
+    };
+
 
 
     useEffect(() => {
@@ -99,7 +108,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
 
         <div className="flex flex-wrap justify-center pb-36">
             {datosArticulos.map((articulo, index) => (
-                <div key={index} className="border-gray-600 border-2 text-[#F1F2F3] rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 cursor-pointer hover:filter hover:drop-shadow-[0_0_10px_black] transition duration-2000">
+                <div key={index} onClick={articuloClick(articulo)} className="border-gray-600 border-2 text-[#F1F2F3] rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 cursor-pointer hover:filter hover:drop-shadow-[0_0_10px_black] transition duration-2000">
                     <div className="flex flex-col">
                         <div className="w-full h-52 bg-gray-700">
                             <img src={articulo.imgUrls.find(url => url.endsWith("1.png"))}

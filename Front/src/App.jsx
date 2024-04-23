@@ -24,8 +24,9 @@ function App() {
     }, [basketItems]);
 
 
-    //Función que agrega un nuevo artículo, aumenta o disminuye su cantidad
-    const agregarAlCarrito = (articulo, sub = false) => {
+    //Función que agrega un nuevo artículo, aumenta o disminuye su cantidad.
+    //Puede recibir una cantidad especifica desde Producto.jsx
+    const agregarAlCarrito = (articulo, sub = false, cantidadR = 1) => {
         setBasketItems(prevItems => {
             //Busca si el artículo ya existe en el carrito
             const existingItem = prevItems.find(item => item.productId === articulo.productId);
@@ -34,11 +35,11 @@ function App() {
                 if (existingItem) {
                     //Incrementa la cantidad
                     return prevItems.map(item =>
-                        item.productId === articulo.productId ? { ...item, cantidad: item.cantidad + 1 } : item
+                        item.productId === articulo.productId ? { ...item, cantidad: item.cantidad + cantidadR } : item
                     );
                 } else {
                     //Si no existe, lo agrega con cantidad 1
-                    return [...prevItems, { ...articulo, cantidad: 1 }];
+                    return [...prevItems, { ...articulo, cantidad: cantidadR }];
                 }
             } else {
 
@@ -89,7 +90,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home agregarAlCarrito={agregarAlCarrito} />} />
                 <Route path="/catalogo" element={<Catalogo agregarAlCarrito={agregarAlCarrito} />} />
-                <Route path="/producto" element={<Producto />} />
+                <Route path="/producto" element={<Producto agregarAlCarrito={agregarAlCarrito} />} />
                 <Route path="/perfil" element={<Perfil />} />
                 <Route path="/registro" element={<Registro />} />
             </Routes>
