@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import LoginModal from '../LoginModal/LoginModal';
 import Carrito from '../Carrito/Carrito';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBasketBarOpen, setIsBasketBarOpen] = useState(false);
   const [busqueda, setBusqueda] = useState('');
+  const navbarRef = useRef(null);
 
 
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
     }
   };
 
+
   //Login Modal
   const toggleLoginModal = () => {
     setIsLoginModalOpen(!isLoginModalOpen);
@@ -30,8 +32,27 @@ const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
     setIsBasketBarOpen(!isBasketBarOpen);
   };
 
+
+  //Manejo click fuera del Basket Bar para cerrarlo
+  const handleOutsideClick = (e) => {
+    if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+      setIsBasketBarOpen(false);
+      setIsLoginModalOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+
+
   return (
-    <div>
+    <div ref={navbarRef}>
       <nav className="bg-transparent backdrop-filter backdrop-blur-xl bg-[#212121] fixed w-full z-50">
         <div className="flex h-16 items-center justify-between">
           {/* Menu mobile */}

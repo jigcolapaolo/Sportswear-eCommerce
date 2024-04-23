@@ -8,9 +8,18 @@ function Producto({ agregarAlCarrito }) {
     //Recibe de Articulo y ArticuloCatalogo, verifica si es nulo
     const { state } = useLocation();
     const articulo = state && state.articulo;
+
     const [imagenSeleccionada, setImagenSeleccionada] = useState(articulo.imgUrls.find(url => url.endsWith("1.png")));
     const [cantidad, setCantidad] = useState(1);
+    const [talleSeleccionado, setTalleSeleccionado] = useState(0);
 
+    const talleClick = (talle) => {
+        setTalleSeleccionado(talle);
+    };
+
+
+
+    //Cantidad del producto
     const aumentarCantidad = () => {
         setCantidad(prevCantidad => prevCantidad + 1);
     };
@@ -21,10 +30,89 @@ function Producto({ agregarAlCarrito }) {
         }
     };
 
-
+    //Error al cargar imagen
     const handleImageError = (e) => {
         e.target.style.display = 'none'; //Oculta la imagen si hay un error
     };
+
+    //Renderizo tallas segun categoría y audiencia
+    function renderDivBasedOnConditions() {
+        if (articulo.categoryName === "Zapatillas" && (articulo.audienceType === "Niños" || articulo.audienceType === "Niñas")) {
+            //Para zapatillas de niños
+            return (<React.Fragment>
+                <div className='flex justify-between'>
+                    <button onClick={() => talleClick(17.5)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 17.5 ? "border-[#ecac30]" : "border-gray-600"}`}>17.5</button>
+                    <button onClick={() => talleClick(19)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 19 ? "border-[#ecac30]" : "border-gray-600"}`}>19</button>
+                    <button onClick={() => talleClick(20)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 20 ? "border-[#ecac30]" : "border-gray-600"}`}>20</button>
+                    <button onClick={() => talleClick(21)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 21 ? "border-[#ecac30]" : "border-gray-600"}`}>21</button>
+                </div>
+                <div className='flex justify-between'>
+                    <button onClick={() => talleClick(21.5)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 21.5 ? "border-[#ecac30]" : "border-gray-600"}`}>21.5</button>
+                    <button onClick={() => talleClick(22)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 22 ? "border-[#ecac30]" : "border-gray-600"}`}>22</button>
+                    <button onClick={() => talleClick(22.5)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 22.5 ? "border-[#ecac30]" : "border-gray-600"}`}>22.5</button>
+                    <button onClick={() => talleClick(23.5)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 23.5 ? "border-[#ecac30]" : "border-gray-600"}`}>23.5</button>
+                </div>
+                <div className='flex justify-between'>
+                <button onClick={() => talleClick(24)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 24 ? "border-[#ecac30]" : "border-gray-600"}`}>24</button>
+                    <button onClick={() => talleClick(24.5)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 24.5 ? "border-[#ecac30]" : "border-gray-600"}`}>24.5</button>
+                    <button onClick={() => talleClick(25)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 25 ? "border-[#ecac30]" : "border-gray-600"}`}>25</button>
+                    <button onClick={() => talleClick(26)} className={`border-4 px-2 w-[13%] rounded ${talleSeleccionado === 26 ? "border-[#ecac30]" : "border-gray-600"}`}>26</button>
+                </div>
+            </React.Fragment>);
+        } else if (articulo.categoryName !== "Zapatillas" && (articulo.audienceType === "Niños" || articulo.audienceType === "Niñas")) {
+            //Para ropa de niños
+            return (<React.Fragment>
+                <div className='flex justify-around'>
+                    <button onClick={() => talleClick("6 años")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "6 años" ? "border-[#ecac30]" : "border-gray-600"}`}>6 años</button>
+                    <button onClick={() => talleClick("9 años")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "9 años" ? "border-[#ecac30]" : "border-gray-600"}`}>9 años</button>
+                    <button onClick={() => talleClick("10 años")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "10 años" ? "border-[#ecac30]" : "border-gray-600"}`}>10 años</button>
+                    <button onClick={() => talleClick("12 años")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "12 años" ? "border-[#ecac30]" : "border-gray-600"}`}>12 años</button>
+                </div>
+            </React.Fragment>);
+        } else if (articulo.categoryName === "Zapatillas" && (articulo.audienceType !== "Niños" && articulo.audienceType !== "Niñas")) {
+            //Para zapatillas de adultos
+            return (<React.Fragment>
+                <div className='flex justify-between'>
+                    <button onClick={() => talleClick(36)} className={`border-4 px-2 rounded ${talleSeleccionado === 36 ? "border-[#ecac30]" : "border-gray-600"}`}>36</button>
+                    <button onClick={() => talleClick(36.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 36.5 ? "border-[#ecac30]" : "border-gray-600"}`}>36.5</button>
+                    <button onClick={() => talleClick(37)} className={`border-4 px-2 rounded ${talleSeleccionado === 37 ? "border-[#ecac30]" : "border-gray-600"}`}>37</button>
+                    <button onClick={() => talleClick(37.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 37.5 ? "border-[#ecac30]" : "border-gray-600"}`}>37.5</button>
+                    <button onClick={() => talleClick(38)} className={`border-4 px-2 rounded ${talleSeleccionado === 38 ? "border-[#ecac30]" : "border-gray-600"}`}>38</button>
+                    <button onClick={() => talleClick(38.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 38.5 ? "border-[#ecac30]" : "border-gray-600"}`}>38.5</button>
+                </div>
+                <div className='flex justify-between'>
+                    <button onClick={() => talleClick(39)} className={`border-4 px-2 rounded ${talleSeleccionado === 39 ? "border-[#ecac30]" : "border-gray-600"}`}>39</button>
+                    <button onClick={() => talleClick(39.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 39.5 ? "border-[#ecac30]" : "border-gray-600"}`}>39.5</button>
+                    <button onClick={() => talleClick(40)} className={`border-4 px-2 rounded ${talleSeleccionado === 40 ? "border-[#ecac30]" : "border-gray-600"}`}>40</button>
+                    <button onClick={() => talleClick(40.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 40.5 ? "border-[#ecac30]" : "border-gray-600"}`}>40.5</button>
+                    <button onClick={() => talleClick(41)} className={`border-4 px-2 rounded ${talleSeleccionado === 41 ? "border-[#ecac30]" : "border-gray-600"}`}>41</button>
+                    <button onClick={() => talleClick(41.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 41.5 ? "border-[#ecac30]" : "border-gray-600"}`}>41.5</button>
+                </div>
+                <div className='flex justify-between'>
+                    <button onClick={() => talleClick(42)} className={`border-4 px-2 rounded ${talleSeleccionado === 42 ? "border-[#ecac30]" : "border-gray-600"}`}>42</button>
+                    <button onClick={() => talleClick(42.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 42.5 ? "border-[#ecac30]" : "border-gray-600"}`}>42.5</button>
+                    <button onClick={() => talleClick(43)} className={`border-4 px-2 rounded ${talleSeleccionado === 43 ? "border-[#ecac30]" : "border-gray-600"}`}>43</button>
+                    <button onClick={() => talleClick(43.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 43.5 ? "border-[#ecac30]" : "border-gray-600"}`}>43.5</button>
+                    <button onClick={() => talleClick(44)} className={`border-4 px-2 rounded ${talleSeleccionado === 44 ? "border-[#ecac30]" : "border-gray-600"}`}>44</button>
+                    <button onClick={() => talleClick(44.5)} className={`border-4 px-2 rounded ${talleSeleccionado === 44.5 ? "border-[#ecac30]" : "border-gray-600"}`}>44.5</button>
+                </div>
+            </React.Fragment>);
+        } else {
+            //Para ropa de adultos
+            return (<React.Fragment>
+                <div className='flex justify-around'>
+                    <button onClick={() => talleClick("XL")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "XL" ? "border-[#ecac30]" : "border-gray-600"}`}>XL</button>
+                    <button onClick={() => talleClick("XS")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "XS" ? "border-[#ecac30]" : "border-gray-600"}`}>XS</button>
+                    <button onClick={() => talleClick("L")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "L" ? "border-[#ecac30]" : "border-gray-600"}`}>L</button>
+                    <button onClick={() => talleClick("M")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "M" ? "border-[#ecac30]" : "border-gray-600"}`}>M</button>
+                    <button onClick={() => talleClick("S")} className={`border-4 px-2 rounded-full ${talleSeleccionado === "S" ? "border-[#ecac30]" : "border-gray-600"}`}>S</button>
+                </div>
+            </React.Fragment>);
+        }
+    }
+
+
+
 
     return (
         <main className='bg-[#212121]'>
@@ -73,7 +161,7 @@ function Producto({ agregarAlCarrito }) {
                     </div>
                     {/* Medios de Pago */}
                     <div className='flex flex-col gap-4'>
-                        <p>Medios de pago:</p>
+                        <p className='font-bold'>Medios de pago:</p>
                         <div className='flex justify-evenly'>
                             <div>
                                 <img className="w-16 h-12 bg-gray-100 rounded" src="../../../public/images/iconosMetodosPago/visas.png" alt="logo-visa"></img>
@@ -92,6 +180,14 @@ function Producto({ agregarAlCarrito }) {
                             </div>
                         </div>
                     </div>
+
+                    <div className='flex flex-col gap-2'>
+                        <p className='font-bold'>Talles:</p>
+                        <div className='flex flex-col gap-2 text-2xl'>
+                            {renderDivBasedOnConditions()}
+                        </div>
+                    </div>
+
                     <div className='flex flex-col gap-2'>
                         <p className='text-lg font-bold'>Cantidad:</p>
                         <div className='flex gap-2'>
@@ -116,7 +212,7 @@ function Producto({ agregarAlCarrito }) {
                 </div>
             </div>
             <Footer />
-        </main>
+        </main >
     );
 }
 
