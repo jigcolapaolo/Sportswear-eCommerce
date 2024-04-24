@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlCarrito, filtroSeleccionado }) {
+export default function ArticuloCatalogo({ searchValue, agregarAlCarrito, filtroSeleccionado }) {
     const [datosArticulos, setDatosArticulos] = useState([]);
     const [loading, setLoading] = useState(true);
     const currentPage = 1;
@@ -46,9 +46,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
                 var data = await response.json();
 
                 console.log(searchValue);
-                //Filtro segun categoría de CategoryGrid
-                if (categoryName)
-                    data = data.filter(articulo => articulo.categoryName === categoryName);
+
                 //Filtro segun valor del searchBar
                 if (searchValue) {
                     data = data.filter(articulo =>
@@ -58,7 +56,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
                         articulo.audienceType.toLowerCase().includes(searchValue.toLowerCase())
                     );
                 }
-                
+
                 //Filtro segun orden alfabetico de Filtros
                 if (filtroSeleccionado.ordenAZ)
                     data.sort((a, b) => a.name.localeCompare(b.name));
@@ -71,9 +69,16 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
                     data.sort((a, b) => b.price - a.price);
                 if (filtroSeleccionado.precioDescendente)
                     data.sort((a, b) => a.price - b.price);
-                //Filtro segun categoría de Filtros
 
+                //Filtro segun categoría de Filtros
+                if (filtroSeleccionado.categoria != "" && filtroSeleccionado.categoria != "Todas")
+                    data = data.filter(articulo => articulo.categoryName === filtroSeleccionado.categoria)
+                //Filtro segun precio de Filtros
+                if (parseFloat(filtroSeleccionado.precio) != 0)
+                    data = data.filter(articulo => articulo.price <= parseFloat(filtroSeleccionado.precio))
                 //Filtro segun audiencia de Filtros
+                if (filtroSeleccionado.audiencia != "" && filtroSeleccionado.audiencia != "Todos")
+                    data = data.filter(articulo => articulo.audienceType === filtroSeleccionado.audiencia)
 
                 setDatosArticulos(data);
 
@@ -87,7 +92,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
         };
 
         fetchData();
-    }, [categoryName, searchValue, filtroSeleccionado]);
+    }, [searchValue, filtroSeleccionado]);
 
     //Mientras carga muestra..
     if (loading) {
@@ -103,7 +108,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
         ));
 
         return (
-            <div className="flex flex-wrap justify-center pb-36">
+            <div className="flex flex-col sm:flex-row justify-center pb-36">
                 {placeholders}
             </div>
         );

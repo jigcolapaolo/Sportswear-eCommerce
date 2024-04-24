@@ -16,8 +16,10 @@ function Catalogo({ agregarAlCarrito }) {
         ordenAZ: false,
         ordenZA: false,
         precioAscendente: false,
-        precioDescendente: false
-
+        precioDescendente: false,
+        categoria: categoryName ? categoryName : "Todas",
+        precio: 0,
+        audiencia: "Todos",
     });
 
 
@@ -28,7 +30,7 @@ function Catalogo({ agregarAlCarrito }) {
                 setFiltroSeleccionado={setFiltroSeleccionado}
             />
             <h1 className='pt-24 sm:pt-24 font-rubik text-5xl text-white ml-16 pb-12 cursor-default'>Catálogo</h1>
-            <ArticuloCatalogo categoryName={categoryName}
+            <ArticuloCatalogo 
                 searchValue={searchValue}
                 agregarAlCarrito={agregarAlCarrito}
                 filtroSeleccionado={filtroSeleccionado} />
