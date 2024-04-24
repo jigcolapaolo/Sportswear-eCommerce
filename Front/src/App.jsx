@@ -86,10 +86,12 @@ function App() {
 
     return (
         <Router>
-            <NavBar basketItems={basketItems} agregarAlCarrito={agregarAlCarrito} eliminarItemCarrito={eliminarItemCarrito} />
+            <NavBar basketItems={basketItems} 
+            agregarAlCarrito={agregarAlCarrito} 
+            eliminarItemCarrito={eliminarItemCarrito}/>
             <Routes>
                 <Route path="/" element={<Home agregarAlCarrito={agregarAlCarrito} />} />
-                <Route path="/catalogo" element={<Catalogo agregarAlCarrito={agregarAlCarrito} />} />
+                <Route path="/catalogo" element={<Catalogo agregarAlCarrito={agregarAlCarrito}/>} />
                 <Route path="/producto" element={<Producto agregarAlCarrito={agregarAlCarrito} />} />
                 <Route path="/perfil" element={<Perfil />} />
                 <Route path="/registro" element={<Registro />} />

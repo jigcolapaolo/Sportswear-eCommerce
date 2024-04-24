@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlCarrito }) {
+export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlCarrito, filtroSeleccionado }) {
     const [datosArticulos, setDatosArticulos] = useState([]);
     const [loading, setLoading] = useState(true);
     const currentPage = 1;
@@ -30,8 +30,8 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
     const navigate = useNavigate();
 
     const articuloClick = (articulo) => (e) => {
-      e.preventDefault();
-      navigate("/producto", { state: { articulo } });
+        e.preventDefault();
+        navigate("/producto", { state: { articulo } });
     };
 
 
@@ -58,6 +58,22 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
                         articulo.audienceType.toLowerCase().includes(searchValue.toLowerCase())
                     );
                 }
+                
+                //Filtro segun orden alfabetico de Filtros
+                if (filtroSeleccionado.ordenAZ)
+                    data.sort((a, b) => a.name.localeCompare(b.name));
+
+                if (filtroSeleccionado.ordenZA)
+                    data.sort((a, b) => b.name.localeCompare(a.name));
+
+                //Filtro segun orden precio de Filtros
+                if (filtroSeleccionado.precioAscendente)
+                    data.sort((a, b) => b.price - a.price);
+                if (filtroSeleccionado.precioDescendente)
+                    data.sort((a, b) => a.price - b.price);
+                //Filtro segun categoría de Filtros
+
+                //Filtro segun audiencia de Filtros
 
                 setDatosArticulos(data);
 
@@ -71,7 +87,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
         };
 
         fetchData();
-    }, [categoryName, searchValue]);
+    }, [categoryName, searchValue, filtroSeleccionado]);
 
     //Mientras carga muestra..
     if (loading) {

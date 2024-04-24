@@ -12,11 +12,11 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
     if (!basketItems || basketItems.length == 0) {
         return (
             <div className={`border-l-2 border-gray-800 overflow-y-auto bg-[#212121] fixed h-full mt-16 w-[85%] sm:w-[85%] md:w-[65%] lg:w-1/2 z-30 ${isBasketBarOpen ? 'right-0' : '-right-full'} transition-all duration-200 ease-in-out overflow-hidden`}>
-                <p className='font-rubik my-6 text-center text-white text-4xl'>Carrito de Compras</p>
+                <p className='font-rubik my-6 text-center text-white text-4xl cursor-default'>Carrito de Compras</p>
                 <div className='border-2 border-[#ecac30] rounded mx-4'>
                     {/* Articulos */}
                     <div className="flex flex-wrap justify-center items-center p-36">
-                        <p className='text-white text-3xl'>No se agrego ningún Artículo</p>
+                        <p className='text-white text-3xl cursor-default'>No se agrego ningún Artículo</p>
                     </div>
                 </div>
                 <div className='flex justify-center p-6'>
@@ -30,7 +30,7 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
 
     return (
         <div className={`border-l-2 border-gray-800 overflow-y-auto bg-[#212121] fixed h-full mt-16 w-[85%] sm:w-[85%] md:w-[65%] lg:w-1/2 z-30 ${isBasketBarOpen ? 'right-0' : '-right-full'} transition-all duration-200 ease-in-out overflow-hidden`}>
-            <p className='font-rubik my-6 text-center text-white text-4xl'>Carrito de Compras</p>
+            <p className='font-rubik my-6 text-center text-white text-4xl cursor-default'>Carrito de Compras</p>
             <div className='border-2 border-[#ecac30] rounded mx-4'>
                 {/* Articulos */}
                 <div className="flex flex-wrap justify-center">
@@ -54,9 +54,9 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
                                         <div className='flex gap-2 items-baseline'>
                                             <h2 className="truncate text-gray-400 text-xl mr-2">Cantidad:<span className='ml-2 text-[#ecac30]'>{articulo.cantidad}</span></h2>
                                             <button onClick={() => agregarAlCarrito(articulo)} className='bg-gray-800 rounded-full px-2 text-gray-300 text-xl hover:bg-gray-700'>+</button>
-                                            <button onClick={() => agregarAlCarrito(articulo, true)} className='bg-gray-800 rounded-full px-3 text-gray-300 text-xl hover:bg-gray-700'>-</button>
+                                            <button onClick={(e) => { e.stopPropagation(); agregarAlCarrito(articulo, true); }} className='bg-gray-800 rounded-full px-3 text-gray-300 text-xl hover:bg-gray-700'>-</button>
                                         </div>
-                                        <button onClick={() => eliminarItemCarrito(articulo)} className='pl-2 py-1'>
+                                        <button onClick={(e) => { e.stopPropagation(); eliminarItemCarrito(articulo); }} className='pl-2 py-1'>
                                             <div className='flex hover:brightness-150'>
                                                 <img src="../../../public/images/iconos/trashcan.png" alt="icono-basket" className="mr-2 w-[20px] h-[25px]" />
                                             </div>
@@ -78,7 +78,7 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
             </div>
             {/* Mostrar el total del carrito */}
             <div className="flex justify-center p-6">
-                <p className="text-[#ecac30] text-3xl">Total: <span className='text-white'>${total}</span></p>
+                <p className="text-[#ecac30] text-3xl cursor-default">Total: <span className='text-white'>${total}</span></p>
             </div>
             {/* Boton Comprar */}
             <div className='flex justify-center p-6'>

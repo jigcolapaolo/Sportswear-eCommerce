@@ -116,8 +116,8 @@ function Producto({ agregarAlCarrito }) {
 
     return (
         <main className='bg-[#212121]'>
-            <div className='flex justify-around gap-6 py-24 px-12'>
-                <div className='flex flex-col w-1/2 gap-6'>
+            <div className='flex flex-col lg:flex-row justify-around gap-6 py-24 px-12'>
+                <div className='flex flex-col w-full lg:w-1/2 gap-6'>
                     {/* Imagen seleccionada */}
                     <div className='w-auto h-96 rounded border-2 border-gray-800 bg-gradient-to-t from-gray-600 to-gray-800'>
                         <img src={imagenSeleccionada} alt="imagen-articulo" className='w-full h-full object-contain'></img>
@@ -142,7 +142,7 @@ function Producto({ agregarAlCarrito }) {
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col w-1/2 p-12 text-white gap-16 bg-[#2e2e2e] rounded'>
+                <div className='flex flex-col w-full lg:w-1/2 p-12 text-white gap-16 bg-[#2e2e2e] rounded'>
                     {/* Nombre, precio, descripcion */}
                     <div className='flex flex-col gap-12'>
                         <div className='flex flex-col gap-4'>
