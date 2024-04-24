@@ -8,7 +8,7 @@ import Catalogo from "./Catalogo.jsx";
 import Perfil from "./Perfil.jsx";
 import Producto from "./Producto.jsx";
 import Registro from "./Registro.jsx";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useEffect } from "react";
 
 

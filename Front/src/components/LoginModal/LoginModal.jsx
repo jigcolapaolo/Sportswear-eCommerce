@@ -13,7 +13,7 @@ const LoginModal = ({ isLoginModalOpen }) => {
                 <img src="../../../public/images/iconos/google.png" alt="Logo Google" className="mr-2 w-[25px] h-[25px]" /> Continuar con Google
                 </button>
             </div>
-            <p className="text-white text-center cursor-default">¿No tenés cuenta? <a href="/registro" className="text-[#ecac30] hover:text-yellow-400">Registrate</a></p>
+            <p className="text-white text-center cursor-default">¿No tenés cuenta? <a href="/Registro" className="text-[#ecac30] hover:text-yellow-400">Registrate</a></p>
         </div>
     )
 }
