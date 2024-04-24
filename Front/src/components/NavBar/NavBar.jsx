@@ -1,24 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import LoginModal from '../LoginModal/LoginModal';
 import Carrito from '../Carrito/Carrito';
 import { useNavigate } from 'react-router-dom';
 
-const NavBar = ({ basketItems }) => {
+const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isBasketBarOpen, setIsBasketBarOpen] = useState(false);
   const [busqueda, setBusqueda] = useState('');
+  const navbarRef = useRef(null);
 
 
   const navigate = useNavigate();
 
   //Barra de busqueda
   const searchEnter = (e) => {
-    if(e.key === 'Enter' || e.type === 'click'){
+    if (e.key === 'Enter' || e.type === 'click') {
       e.preventDefault();
       navigate('/catalogo', { state: { searchValue: busqueda } });
     }
   };
+
 
   //Login Modal
   const toggleLoginModal = () => {
@@ -30,8 +32,27 @@ const NavBar = ({ basketItems }) => {
     setIsBasketBarOpen(!isBasketBarOpen);
   };
 
+
+  //Manejo click fuera del Basket Bar para cerrarlo
+  const handleOutsideClick = (e) => {
+    if (navbarRef.current && !navbarRef.current.contains(e.target)) {
+      setIsBasketBarOpen(false);
+      setIsLoginModalOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+
+
   return (
-    <div>
+    <div ref={navbarRef}>
       <nav className="bg-transparent backdrop-filter backdrop-blur-xl bg-[#212121] fixed w-full z-50">
         <div className="flex h-16 items-center justify-between">
           {/* Menu mobile */}
@@ -103,7 +124,10 @@ const NavBar = ({ basketItems }) => {
       </nav>
       {/* Login Modal y Carrito */}
       <LoginModal isLoginModalOpen={isLoginModalOpen} />
-      <Carrito isBasketBarOpen={isBasketBarOpen} basketItems={basketItems} />
+      <Carrito isBasketBarOpen={isBasketBarOpen}
+        basketItems={basketItems}
+        agregarAlCarrito={agregarAlCarrito}
+        eliminarItemCarrito={eliminarItemCarrito} />
     </div>
   );
 };

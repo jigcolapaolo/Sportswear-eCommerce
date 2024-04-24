@@ -9,7 +9,7 @@ function Home({ agregarAlCarrito }) {
         <main className='bg-[#212121]'>
             <Hero />
             <CategoryGrid />
-            <h1 className="text-4xl lg:text-5xl md:text-5xl sm:text-4xl text-[#ecac30] text-center mb-10 cursor-default">¡Productos en Oferta!</h1>
+            <h1 className="font-rubik text-4xl lg:text-5xl md:text-5xl sm:text-4xl text-[#ecac30] text-center mb-10 cursor-default">¡Productos en Oferta!</h1>
             <Articulo agregarAlCarrito={agregarAlCarrito} />
             <Footer />
         </main>

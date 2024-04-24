@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
-export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlCarrito }) {
+export default function ArticuloCatalogo({ searchValue, agregarAlCarrito, filtroSeleccionado }) {
     const [datosArticulos, setDatosArticulos] = useState([]);
     const [loading, setLoading] = useState(true);
     const currentPage = 1;
@@ -26,6 +27,14 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
         }
     ];
 
+    const navigate = useNavigate();
+
+    const articuloClick = (articulo) => (e) => {
+        e.preventDefault();
+        navigate("/producto", { state: { articulo } });
+    };
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,9 +46,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
                 var data = await response.json();
 
                 console.log(searchValue);
-                //Filtro segun categoría de CategoryGrid
-                if (categoryName)
-                    data = data.filter(articulo => articulo.categoryName === categoryName);
+
                 //Filtro segun valor del searchBar
                 if (searchValue) {
                     data = data.filter(articulo =>
@@ -49,6 +56,29 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
                         articulo.audienceType.toLowerCase().includes(searchValue.toLowerCase())
                     );
                 }
+
+                //Filtro segun orden alfabetico de Filtros
+                if (filtroSeleccionado.ordenAZ)
+                    data.sort((a, b) => a.name.localeCompare(b.name));
+
+                if (filtroSeleccionado.ordenZA)
+                    data.sort((a, b) => b.name.localeCompare(a.name));
+
+                //Filtro segun orden precio de Filtros
+                if (filtroSeleccionado.precioAscendente)
+                    data.sort((a, b) => b.price - a.price);
+                if (filtroSeleccionado.precioDescendente)
+                    data.sort((a, b) => a.price - b.price);
+
+                //Filtro segun categoría de Filtros
+                if (filtroSeleccionado.categoria != "" && filtroSeleccionado.categoria != "Todas")
+                    data = data.filter(articulo => articulo.categoryName === filtroSeleccionado.categoria)
+                //Filtro segun precio de Filtros
+                if (parseFloat(filtroSeleccionado.precio) != 0)
+                    data = data.filter(articulo => articulo.price <= parseFloat(filtroSeleccionado.precio))
+                //Filtro segun audiencia de Filtros
+                if (filtroSeleccionado.audiencia != "" && filtroSeleccionado.audiencia != "Todos")
+                    data = data.filter(articulo => articulo.audienceType === filtroSeleccionado.audiencia)
 
                 setDatosArticulos(data);
 
@@ -62,7 +92,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
         };
 
         fetchData();
-    }, [categoryName, searchValue]);
+    }, [searchValue, filtroSeleccionado]);
 
     //Mientras carga muestra..
     if (loading) {
@@ -78,7 +108,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
         ));
 
         return (
-            <div className="flex flex-wrap justify-center pb-36">
+            <div className="flex flex-col sm:flex-row justify-center pb-36">
                 {placeholders}
             </div>
         );
@@ -99,7 +129,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
 
         <div className="flex flex-wrap justify-center pb-36">
             {datosArticulos.map((articulo, index) => (
-                <div key={index} className="border-gray-600 border-2 text-[#F1F2F3] rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 cursor-pointer hover:filter hover:drop-shadow-[0_0_10px_black] transition duration-2000">
+                <div key={index} onClick={articuloClick(articulo)} className="border-gray-600 border-2 text-[#F1F2F3] rounded w-4/4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-2 cursor-pointer hover:filter hover:drop-shadow-[0_0_10px_black] transition duration-2000">
                     <div className="flex flex-col">
                         <div className="w-full h-52 bg-gray-700">
                             <img src={articulo.imgUrls.find(url => url.endsWith("1.png"))}
@@ -116,7 +146,7 @@ export default function ArticuloCatalogo({ categoryName, searchValue, agregarAlC
                                 <h2 className="truncate text-gray-400">{articulo.audienceType}</h2>
                                 {/* Boton agregar a carrito */}
                                 <div className='flex justify-end items-center rounded-full text-[#ecac30]'>
-                                    <button onClick={() => agregarAlCarrito(articulo)} className='bg-gray-900 rounded pl-2 py-1 hover:bg-gray-800'>
+                                    <button onClick={(e) => { e.stopPropagation(); agregarAlCarrito(articulo); }} className='bg-gray-900 rounded pl-2 py-1 hover:bg-gray-800'>
                                         <div className='flex hover:brightness-150'>
                                             <span>+</span>
                                             <img src="../../../public/images/iconos/basket.png" alt="icono-basket" className="mr-2 w-[25px] h-[25px]" />
