@@ -140,7 +140,7 @@ const Registro = () => {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="flex flex-col items-center gap-10 bg-[#212121] p-8 rounded z-50 border-2 border-[#ecac30]">
           <p className="font-rubik text-2xl text-[#ecac30]">Registro Exitoso!</p>
-          <a href="/" className="cursor-pointer w-1/2 p-2 text-center bg-gray-600 rounded text-white text-xl hover:text-yellow-500 hover:bg-gray-700 hover:drop-shadow-[0_0_5px_black]">Ir a Home</a>
+          <a href="/Perfil" className="cursor-pointer w-1/2 p-2 text-center bg-gray-600 rounded text-white text-xl hover:text-yellow-500 hover:bg-gray-700 hover:drop-shadow-[0_0_5px_black]">Ir a Perfil</a>
         </div>
       </div>
 

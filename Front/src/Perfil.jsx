@@ -1,112 +1,33 @@
 import { useState } from "react";
-import LoginModal from "./components/LoginModal/LoginModal";
+
 
 function Perfil() {
-  const [botonVisible, setBotonVisible] = useState(false);
 
-  function botonDesplegable() {
-    setBotonVisible(!botonVisible);
-  }
+
 
   return (
-    <main className="bg-[#212121]">
-      <h1 className="style-title">
-        Perfil
-      </h1>
-      <LoginModal />
-
-      <div className="style-content">
-        <div className="dropDown">
-          <button
-            onClick={botonDesplegable} 
-            className="w-634 h-91 top-59 left-2 border border-t-1 border-b-0 border-l-1 border-r-0 border-yellow-500"
-          >
-            NOMBRE Y APELLIDO
-          </button>
-          {botonVisible && (
-            <div className="nextElementS">
-              <ul>
-                <li> Opcion 1 </li>
-                <li> Opcion 2 </li>
-                <li> Opcion 3 </li>
-              </ul>
-            </div>
-          )}
+    <main className="bg-[#212121] h-screen" 
+    style={{ backgroundImage: "url('../../../public/images/imgPerfil/perfilbg1.jpg'), url('../../../public/images/imgPerfil/perfilbg2.png')", backgroundRepeat: "no-repeat", backgroundPosition: "right bottom 100%, left bottom 90%" }}>
+      <div className="bg-[#212121] h-[65px] w-full"></div>
+      <div className="w-full flex flex-col items-center gap-20">
+        <div className="rounded bg-[#212121] cursor-default mt-6">
+          <h1 className="font-rubik text-4xl p-2 px-12 text-center text-white">Perfil</h1>
         </div>
-
-        <div className="dropDown">
-          <button
-            onClick={botonDesplegable} 
-            className="w-634 h-91 top-59 left-2 border border-t-1 border-b-0 border-l-1 border-r-0 border-yellow-500"
-          >
-            FECHA DE NACIMIENTO
-          </button>
-          {botonVisible && (
-            <div className="nextElementS">
-              <ul>
-                <li> Opcion 1 </li>
-                <li> Opcion 2 </li>
-                <li> Opcion 3 </li>
-              </ul>
-            </div>
-          )}
-        </div> 
-
-        <div className="dropDown">
-          <button
-            onClick={botonDesplegable} 
-            className="w-634 h-91 top-59 left-2 border border-t-1 border-b-0 border-l-1 border-r-0 border-yellow-500"
-          >
-            VIVO EN:
-          </button>
-          {botonVisible && (
-            <div className="nextElementS">
-              <ul>
-                <li> Opcion 1 </li>
-                <li> Opcion 2 </li>
-                <li> Opcion 3 </li>
-              </ul>
-            </div>
-          )}
+        {/* Datos */}
+        <div className="flex flex-col gap-2 bg-[#212121] border-2 border-[#ecac30] rounded p-5 w-1/2">
+          <div className="border-b-2 border-[#ecac30] pb-2">
+            <p className="text-white font-rubik text-2xl">Nombre</p>
+            <p className="text-white">Coco</p>
+          </div>
+          <div className="border-t-2 border-[#ecac30] pt-2">
+            <p className="text-white font-rubik text-2xl">Email</p>
+            <p className="text-white">Coco@Coco.com</p>
+          </div>
         </div>
-
-        <div className="dropDown">
-          <button
-            onClick={botonDesplegable} 
-            className="w-634 h-91 top-59 left-2 border border-t-1 border-b-0 border-l-1 border-r-0 border-yellow-500"
-          >
-            DNI:
-          </button>
-          {botonVisible && (
-            <div className="nextElementS">
-              <ul>
-                <li> Opcion 1 </li>
-                <li> Opcion 2 </li>
-                <li> Opcion 3 </li>
-              </ul>
-            </div>
-          )}
+        {/* Guardar Datos */}
+        <div className="flex justify-center">
+          <button className="p-4 text-2xl bg-[#ecac30] rounded hover:brightness-150">Guardar datos</button>
         </div>
-
-        <div className="dropDown">
-          <button
-            onClick={botonDesplegable} 
-            className="w-634 h-91 top-59 left-2 border border-t-1 border-b-0 border-l-1 border-r-0 border-yellow-500"
-          >
-            TARJETA
-          </button>
-          {botonVisible && (
-            <div className="nextElementS">
-              <ul>
-                <li> Opcion 1 </li>
-                <li> Opcion 2 </li>
-                <li> Opcion 3 </li>
-              </ul>
-            </div>
-          )}
-        </div>
-
-        <button className="w-539 h-66 rounded-lg bg-orange-400 shadow-xl hover:shadow-none transition-shadow duration-500 ease-in-out"> Guardar datos </button>
       </div>
     </main>
   );

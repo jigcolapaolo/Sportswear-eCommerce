@@ -131,28 +131,3 @@ input[type=radio]:checked + label::before {
   background-color: #212121;
   margin-right: 5px;
 }
-
-
-/* Estilos Registro-Perfil */
-.style-title {
-  width: 204px;
-  height: 50px;
-  top: 143px;
-  left: 628px;
-  font-family: 'Rubik Mono One', sans-serif; 
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 49.52px;
-  text-align: center;
-  color: #FFFFFF;
-}
-
-.style-content {
-  width: 636px;
-  height: 646px;
-  top: 219px;
-  left: 402px;
-  border-radius: 10px;
-  border: 1px solid #212121;
-  background-color: #F8BD00;
-}
