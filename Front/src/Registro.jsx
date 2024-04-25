@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Registro = () => {
   const [modalRegistroOk, setModalRegistroOk] = useState(false);
@@ -11,6 +11,13 @@ const Registro = () => {
     email: null,
     contraseña: null,
   });
+
+  useEffect(() => {
+    const usuario = localStorage.getItem('usuario');
+    if (!usuario) {
+      localStorage.setItem('usuario', JSON.stringify({ nombre: null, email: null, contraseña: null }));
+    }
+  }, []);
 
 
   const handleRegistro = () => {
@@ -43,6 +50,9 @@ const Registro = () => {
       //Compruebo si todos los filtros estan en true 
       if (Object.values(inputs).every(value => value === true)) {
         setModalRegistroOk(true);
+
+        localStorage.setItem('usuario', JSON.stringify({ nombre: nombreValue, email: emailValue, contraseña: contraseñaValue }));
+        console.log(JSON.parse(localStorage.getItem('usuario')));
       }
 
       return inputs;
@@ -57,18 +67,18 @@ const Registro = () => {
       <div className="bg-gradient-to-b from-yellow-700 via-yellow-600 to-orange-600 
       h-full flex justify-center items-center pb-5">
 
-        <div className="flex flex-col w-full gap-20 items-center mt-8">
+        <div className="flex flex-col w-full gap-8 items-center mt-8">
           <div className="rounded bg-[#212121] cursor-default">
             <h1 className="font-rubik text-3xl p-2 px-12 text-center text-white">Registro</h1>
           </div>
 
           <form id="registroForm" className="flex flex-col gap-4 
-          bg-yellow-500
+          bg-gray-800 bg-gradient-to-b from-gray-800 to-gray-900
            w-[95%] md:w-[80%] lg:w-1/2 h-auto rounded border-4 border-gray-900 p-6">
             {/* Nombre y Apellido */}
             <div className="flex justify-between">
               <div className="flex flex-col w-1/2">
-                <p className="font-rubik cursor-default">Nombre</p>
+                <p className="font-rubik text-white cursor-default">Nombre</p>
                 <input
                   className={`w-[93%] sm:w-full p-5 h-8 text-white placeholder-white outline-0
                    border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
@@ -84,7 +94,7 @@ const Registro = () => {
             {/* Email */}
             <div className="flex justify-start">
               <div className="flex flex-col w-1/2">
-                <p className="font-rubik cursor-default">Email</p>
+                <p className="font-rubik text-white cursor-default">Email</p>
                 <input
                   className={`w-[93%] sm:w-full p-5 h-8 text-white placeholder-white
                    outline-0 border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
@@ -100,7 +110,7 @@ const Registro = () => {
             {/* Contraseña */}
             <div className="flex justify-between gap-2">
               <div className="flex flex-col w-1/2">
-                <p className="font-rubik cursor-default">Contraseña</p>
+                <p className="font-rubik text-white cursor-default">Contraseña</p>
                 <input
                   className={`w-full p-5 h-8 text-white placeholder-white outline-0
                    border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
@@ -113,7 +123,7 @@ const Registro = () => {
                 <p className={`text-red-600 font-bold ${registroInputs.contraseña === false && (contraseñaValue === "" || contraseñaValue != repetirContraseñaValue) ? "opacity-1" : "opacity-0"}`}>Debe ingresar una contraseña en ambos campos y deben coincidir.</p>
               </div>
               <div className="flex flex-col">
-                <p className="font-rubik cursor-default truncate">Repetir Contraseña</p>
+                <p className="font-rubik text-white cursor-default truncate">Repetir Contraseña</p>
                 <input
                   className={`w-full p-5 h-8 text-white placeholder-white outline-0
                    border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
