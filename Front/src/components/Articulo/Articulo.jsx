@@ -92,8 +92,8 @@ export default function Articulo({ agregarAlCarrito }) {
             <div className="flex flex-col py-2 px-3 gap-2 bg-[#212121]">
               <h2 className='font-bold text-center text-lg truncate'>{articulo.name}</h2>
               <div>
-                <small className='font-bold text-left text-red-200 line-through'>${articulo.price}</small>
-                <h2 className='font-bold text-left text-red-200 text-2xl truncate'>${Math.round((articulo.price * 52.91) / 100) - 1}</h2>
+                <small className='font-bold text-left text-red-200 line-through'>${Math.round(articulo.price * 1.20)}</small>
+                <h2 className='font-bold text-left text-red-200 text-2xl truncate'>${articulo.price}</h2>
               </div>
               <div>
                 <h2 className="truncate text-gray-400">{articulo.categoryName} / {articulo.brandName}</h2>

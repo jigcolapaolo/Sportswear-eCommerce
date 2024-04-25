@@ -1,155 +1,149 @@
-{
-  /* function Registro() {
-  return (
-    <main className="bg-gray-900">
-      <h1 className="text-9xl pt-16">Registro</h1>
-
-      <div className="absolute w-1440 h-1024 top-882 left-1891 bg-gradient-to-r from-yellow-500 via-yellow-600 to-red-600">
-        <img
-          src="/images/logoProyecto/logo-del-ecommerce.png"
-          alt="logo del E-commerce"
-          className="absolute w-275 h-87 top-27 left-582 rounded-lg"
-        />
-        <form className="absolute inset-0 mx-auto my-auto w-187 h-27 rounded-md border border-gray-800 bg-gradient-to-r from-gray-800 via-gray-800 to-gray-900">
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="text"
-            placeholder="Ingresa tu nombre"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="text"
-            placeholder="Ingresa tu apellido"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="email"
-            placeholder="Ingresa tu email"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="password"
-            placeholder="Ingresa tu contraseña"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="password"
-            placeholder="Repite tu contraseña"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="text"
-            placeholder="Ingresa el nombre de tu ciudad"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="number"
-            placeholder="Ingresa el número de tu tarjeta"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="text"
-            placeholder="Ingresa el nombre del titular"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="number"
-            placeholder="Ingresa tu fecha de nacimiento"
-          />
-          <input
-            className="block w-full h-10 rounded-lg border border-gray-300 mb-4 px-4"
-            type="number"
-            placeholder="Ingresa el código de seguridad de la tarjeta"
-          />
-        </form>
-
-        <button className="absolute w-487 h-66 top-941 left-476 bg-gray-800 text-white rounded-lg py-2 px-4">
-          LISTO
-        </button>
-      </div>
-    </main>
-  );
-}
-
-export default Registro; */
-}
+import { useState } from "react";
 
 const Registro = () => {
+  const [modalRegistroOk, setModalRegistroOk] = useState(false);
+  const [nombreValue, setNombreValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+  const [contraseñaValue, setContraseñaValue] = useState("");
+  const [repetirContraseñaValue, setRepetirContraseñaValue] = useState("");
+  const [registroInputs, setRegistroInputs] = useState({
+    nombre: null,
+    email: null,
+    contraseña: null,
+  });
+
+
+  const handleRegistro = () => {
+    setRegistroInputs((prevState => {
+      const inputs = { ...prevState }
+
+      if (nombreValue != "")
+        inputs.nombre = true;
+      else
+        inputs.nombre = false;
+
+      if (emailValue != "") {
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailRegex.test(emailValue))
+          inputs.email = true;
+        else
+          inputs.email = false;
+
+      } else {
+        inputs.email = false;
+      }
+      console.log(inputs.email);
+      if (contraseñaValue === repetirContraseñaValue && contraseñaValue != "")
+        inputs.contraseña = true;
+      else
+        inputs.contraseña = false;
+
+      //Compruebo si todos los filtros estan en true 
+      if (Object.values(inputs).every(value => value === true)) {
+        setModalRegistroOk(true);
+      }
+
+      return inputs;
+
+    }))
+
+  }
+
   return (
-    <main className="bg-gray-900">
-      <div className="bg-gradient-to-b from-yellow-300 via-yellow-400 to-orange-500 h-screen flex justify-center items-center">
-        <h1 className="titulo text-center text-black">Registro</h1>
+    <main className="bg-gray-900 relative">
+      <div className="bg-[#212121] h-[65px] w-full"></div>
+      <div className="bg-gradient-to-b from-yellow-700 via-yellow-600 to-orange-600 
+      h-full flex justify-center items-center pb-5">
 
-        <div className="flex flex-col items-center">
-          <img
-            className="imagen w-64 h-auto rounded-tl-lg opacity-0"
-            src="../public/images/logoProyecto/logo-del-ecommerce.png"
-            alt="logo del E-commerce"
-          />
+        <div className="flex flex-col w-full gap-20 items-center mt-8">
+          <div className="rounded bg-[#212121] cursor-default">
+            <h1 className="font-rubik text-3xl p-2 px-12 text-center text-white">Registro</h1>
+          </div>
 
-          <form className="formulario w-96 h-auto rounded-tl-md border border-gray-800 opacity-0">
-            <input
-              className="input w-full h-8 rounded-tl-md border border-gray-800"
-              type="text"
-              placeholder="Ingresa tu nombre"
-            />
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="text"
-              placeholder="Ingresa tu apellido"
-            />
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="email"
-              placeholder="Ingresa tu email"
-            />
-
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="password"
-              placeholder="Ingresa tu contraseña"
-            />
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="password"
-              placeholder="Repite tu contraseña"
-            />
-
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="text"
-              placeholder="Ingresa el nombre de tu ciudad"
-            />
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="number"
-              placeholder="Ingresa el número de tu tarjeta"
-            />
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="text"
-              placeholder="Ingresa el nombre del titular"
-            />
-            <input
-              className="input w-full h-8 border border-gray-800"
-              type="number"
-              placeholder="Ingresa tu fecha de nacimiento"
-            />
-            <input
-              className="input w-full h-8 rounded-bl-md border border-gray-800"
-              type="number"
-              placeholder="Ingresa el código de seguridad de la tarjeta"
-            />
+          <form id="registroForm" className="flex flex-col gap-4 
+          bg-yellow-500
+           w-[95%] md:w-[80%] lg:w-1/2 h-auto rounded border-4 border-gray-900 p-6">
+            {/* Nombre y Apellido */}
+            <div className="flex justify-between">
+              <div className="flex flex-col w-1/2">
+                <p className="font-rubik cursor-default">Nombre</p>
+                <input
+                  className={`w-[93%] sm:w-full p-5 h-8 text-white placeholder-white outline-0
+                   border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
+                    rounded bg-[#212121] border border-gray-800 ${registroInputs.nombre === false && nombreValue != null && nombreValue === "" ? "border-red-600" : ""}`}
+                  type="text"
+                  placeholder="Ingresa tu nombre.."
+                  value={nombreValue}
+                  onChange={(e) => setNombreValue(e.target.value)}
+                />
+                <p className={`text-red-600 font-bold ${registroInputs.nombre === false && nombreValue != null && nombreValue === "" ? "opacity-1" : "opacity-0"}`}>No ha ingresado un nombre.</p>
+              </div>
+            </div>
+            {/* Email */}
+            <div className="flex justify-start">
+              <div className="flex flex-col w-1/2">
+                <p className="font-rubik cursor-default">Email</p>
+                <input
+                  className={`w-[93%] sm:w-full p-5 h-8 text-white placeholder-white
+                   outline-0 border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
+                    rounded bg-[#212121] border border-gray-800 ${registroInputs.email === false && emailValue != null && !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) ? "border-red-600" : ""}`}
+                  type="email"
+                  placeholder="Ingresa tu email.."
+                  value={emailValue}
+                  onChange={(e) => setEmailValue(e.target.value)}
+                />
+                <p className={`text-red-600 font-bold ${registroInputs.email === false && emailValue != null && !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) ? "opacity-1" : "opacity-0"}`}>No ha ingresado un email válido.</p>
+              </div>
+            </div>
+            {/* Contraseña */}
+            <div className="flex justify-between gap-2">
+              <div className="flex flex-col w-1/2">
+                <p className="font-rubik cursor-default">Contraseña</p>
+                <input
+                  className={`w-full p-5 h-8 text-white placeholder-white outline-0
+                   border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
+                    rounded bg-[#212121] border border-gray-800 ${registroInputs.contraseña === false && (contraseñaValue === "" || contraseñaValue != repetirContraseñaValue) ? "border-red-600" : ""}`}
+                  type="password"
+                  placeholder="Ingresa tu contraseña.."
+                  value={contraseñaValue}
+                  onChange={(e) => setContraseñaValue(e.target.value)}
+                />
+                <p className={`text-red-600 font-bold ${registroInputs.contraseña === false && (contraseñaValue === "" || contraseñaValue != repetirContraseñaValue) ? "opacity-1" : "opacity-0"}`}>Debe ingresar una contraseña en ambos campos y deben coincidir.</p>
+              </div>
+              <div className="flex flex-col">
+                <p className="font-rubik cursor-default truncate">Repetir Contraseña</p>
+                <input
+                  className={`w-full p-5 h-8 text-white placeholder-white outline-0
+                   border-[#212121] text-lg border-4 focus:border-orange-300 cursor-pointer
+                    rounded bg-[#212121] border border-gray-800 ${registroInputs.contraseña === false && (contraseñaValue === "" || contraseñaValue != repetirContraseñaValue) ? "border-red-600" : ""}`}
+                  type="password"
+                  placeholder="Repite tu contraseña.."
+                  value={repetirContraseñaValue}
+                  onChange={(e) => setRepetirContraseñaValue(e.target.value)}
+                />
+              </div>
+            </div>
           </form>
-
-          <button
-            type="submit"
-            className="boton w-96 h-16 opacity-0 bg-gray-800 font-rubik-mono-one text-2xl font-normal text-center text-orange-500"
-          >
-            LISTO
-          </button>
+          <div className="flex justify-center items-center px-4 h-16 mb-4 
+          rounded bg-gray-800 font-rubik text-2xl text-center text-[#ecac30] hover:brightness-150">
+            <button onClick={() => handleRegistro()} type="submit">
+              LISTO
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <div className={`absolute inset-0 ${modalRegistroOk ? "flex justify-center items-center" : "hidden"}`}>
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="flex flex-col items-center gap-10 bg-[#212121] p-8 rounded z-50 border-2 border-[#ecac30]">
+          <p className="font-rubik text-2xl text-[#ecac30]">Registro Exitoso!</p>
+          <a href="/" className="cursor-pointer w-1/2 p-2 text-center bg-gray-600 rounded text-white text-xl hover:text-yellow-500 hover:bg-gray-700 hover:drop-shadow-[0_0_5px_black]">Ir a Home</a>
+        </div>
+      </div>
+
     </main>
   );
 };
