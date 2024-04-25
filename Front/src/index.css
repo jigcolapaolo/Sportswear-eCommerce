@@ -1,14 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
 @tailwind base;
 @tailwind components;
+/* index.css o App.css */
 @tailwind utilities;
 
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+
+  --text-font: 'Roboto';
+  --title-font: 'Rubik Mono One';
+
+  background-color: hsl(228, 12%, 25%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  font-family: var(--text-font);
+}
+
+.font-rubik {
+  font-family: var(--title-font);
+}
+
+/* CSS Reset */
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ol, ul {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+}
+table {
+  border-collapse: collapse;
+}
+textarea {
+  white-space: revert;
+}
+  
+
+/* ---------------Barra de Scroll-------------- */
+::-webkit-scrollbar {
+  width: .6rem;
+  border-radius: .5rem;
+  background-color: hsl(228, 12%, 25%);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(228, 8%, 35%);
+  border-radius: .5rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(228, 8%, 45%);
+}
+
+/* ---------------Footer Divider-------------- */
+.custom-shape-divider-top-footer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-footer svg {
+  position: relative;
+  display: block;
+  width: calc(600% + 1.3px);
+  height: 40px;
+}
+
+.custom-shape-divider-top-footer .shape-fill {
+  fill: #212121;
+}
+
+
+/* Ocultar flechas de input number */
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+
+/* Estilos de input radio */
+input[type=radio] {
+  display: none;
+ }
+
+/* Estilos para los labels */
+input[type=radio] + label {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+input[type=radio] + label::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border:3px solid #ffe388;
+  background-color: #f7c35b;
+  margin-right: 5px;
+}
+
+/* Estilos para los círculos seleccionados */
+input[type=radio]:checked + label::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #212121;
+  margin-right: 5px;
 }
