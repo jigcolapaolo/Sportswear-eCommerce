@@ -41,9 +41,9 @@ function Catalogo({ agregarAlCarrito }) {
                     top: 0,
                     behavior: "smooth"
                 });
-            }} className="p-2 z-20 fixed rounded object-right-bottom bg-orange-300 drop-shadow-[0_0_5px_black] border-black top-[620px] right-12 hover:brightness-150">
+            }} className="p-2 z-20 fixed rounded object-right-bottom bg-orange-300 drop-shadow-[0_0_5px_black] border-black top-[90%] right-12 hover:brightness-150">
 
-                <img src="../../../public/images/iconos/arrow.png" alt="Icono de búsqueda"
+                <img src="/images/iconos/arrow.png" alt="Icono de búsqueda"
                     className={`w-5 h-5 brightness-[0]`} />
 
             </button>

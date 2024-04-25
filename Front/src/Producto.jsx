@@ -137,9 +137,9 @@ function Producto({ agregarAlCarrito }) {
                                 <p className='text-white text-2xl'>Compartí este producto:</p>
                             </div>
                             <div className="flex justify-around self-center w-1/2 bg-[#2e2e2e] rounded p-2">
-                                <img className="mx-4 w-10 h-10 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/iconosFooter/skill-icons_instagram.png" alt="Icono de instagram" />
-                                <img className="mx-4 w-10 h-10 hover:cursor-pointer hover:brightness-50 hover:scale-110 transition duration-2000" src="../../../public/images/iconosFooter/xlogowhite.png" alt="Icono de x" />
-                                <img className="mx-4 w-10 h-10 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/iconosFooter/devicon_facebook.png" alt="Icono de facebook" />
+                                <img className="mx-4 w-10 h-10 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="/images/iconosFooter/skill-icons_instagram.png" alt="Icono de instagram" />
+                                <img className="mx-4 w-10 h-10 hover:cursor-pointer hover:brightness-50 hover:scale-110 transition duration-2000" src="/images/iconosFooter/xlogowhite.png" alt="Icono de x" />
+                                <img className="mx-4 w-10 h-10 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="/images/iconosFooter/devicon_facebook.png" alt="Icono de facebook" />
                             </div>
                         </div>
                     </div>
@@ -166,19 +166,19 @@ function Producto({ agregarAlCarrito }) {
                             <p className='font-bold font-rubik cursor-default'>Medios de pago:</p>
                             <div className='flex justify-evenly'>
                                 <div>
-                                    <img className="w-16 h-12 bg-gray-100 rounded" src="../../../public/images/iconosMetodosPago/visas.png" alt="logo-visa"></img>
+                                    <img className="w-16 h-12 bg-gray-100 rounded" src="/images/iconosMetodosPago/visas.png" alt="logo-visa"></img>
                                 </div>
                                 <div>
-                                    <img className="w-16 h-12 bg-gray-100 rounded" src="../../../public/images/iconosMetodosPago/visaDebito.png" alt="logo-visa-debito"></img>
+                                    <img className="w-16 h-12 bg-gray-100 rounded" src="/images/iconosMetodosPago/visaDebito.png" alt="logo-visa-debito"></img>
                                 </div>
                                 <div>
-                                    <img className="w-16 h-12 bg-gray-100 rounded" src="../../../public/images/iconosMetodosPago/mastercard.png" alt="logo-mastercard"></img>
+                                    <img className="w-16 h-12 bg-gray-100 rounded" src="/images/iconosMetodosPago/mastercard.png" alt="logo-mastercard"></img>
                                 </div>
                                 <div>
-                                    <img className="w-16 h-12 bg-gray-100 rounded" src="../../../public/images/iconosMetodosPago/mastercardDebito.png" alt="logo-mastercard-debito"></img>
+                                    <img className="w-16 h-12 bg-gray-100 rounded" src="/images/iconosMetodosPago/mastercardDebito.png" alt="logo-mastercard-debito"></img>
                                 </div>
                                 <div>
-                                    <img className="w-16 h-12 bg-gray-100 rounded" src="../../../public/images/iconosMetodosPago/mercadopago.png" alt="logo-mercadopago"></img>
+                                    <img className="w-16 h-12 bg-gray-100 rounded" src="/images/iconosMetodosPago/mercadopago.png" alt="logo-mercadopago"></img>
                                 </div>
                             </div>
                         </div>

@@ -39,7 +39,7 @@ const LoginModal = ({ isLoginModalOpen }) => {
                         <button type="submit" className="rounded text-lg mt-2 w-1/2 p-1 bg-[#ecac30] hover:bg-yellow-400">Ingresar</button>
                     </form>
                     <button disabled className="flex rounded w-[60%] p-1 py-2 px-3 text-lg bg-gray-100 brightness-50">
-                        <img src="../../../public/images/iconos/google.png" alt="Logo Google" className="mr-2 w-[25px] h-[25px]" /> Continuar con Google
+                        <img src="/images/iconos/google.png" alt="Logo Google" className="mr-2 w-[25px] h-[25px]" /> Continuar con Google
                     </button>
                 </div>
                 <p className="text-white text-center cursor-default">¿No tenés cuenta? <a href="/Registro" className="text-[#ecac30] hover:text-yellow-400">Registrate</a></p>

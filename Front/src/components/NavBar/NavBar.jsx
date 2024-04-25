@@ -66,7 +66,7 @@ const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
                 onClick={() => setIsMobileMenuOpen(prevState => !prevState)}
               >
                 <span className="sr-only">Open main menu</span>
-                <img src="../../../public/images/iconos/arrow.png" alt="Icono de búsqueda"
+                <img src="/images/iconos/arrow.png" alt="Icono de búsqueda"
                   className={`w-6 h-6 hover:brightness-200 ${isMobileMenuOpen ? 'rotate-0' : '-rotate-180'} transition duration-2000`} />
               </button>
             </div>
@@ -74,7 +74,7 @@ const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
           {/* Contenido del navbar */}
           <div className="flex justify-around items-center h-full w-full">
             <a href='/' className="h-full w-64 pb-2 flex items-center">
-              <img className="hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="../../../public/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
+              <img className="hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src="/images/logoProyecto/logo-del-ecommerce.png" alt="Logo del E-commerce" />
             </a>
             <div className="hidden sm:ml-6 sm:block">
               <form className="relative">
@@ -88,17 +88,17 @@ const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
                     onKeyDown={searchEnter}
                   />
                   <div onClick={searchEnter} className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
-                    <img src="../../../public/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
+                    <img src="/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
                   </div>
                 </div>
               </form>
             </div>
             <div className="flex">
               <a onClick={toggleBasketBar}>
-                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/basket.png' alt='icono de basket' />
+                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='/images/iconos/basket.png' alt='icono de basket' />
               </a>
               <a onClick={toggleLoginModal}>
-                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='../../../public/images/iconos/perfil1.png' alt='icono de perfil' />
+                <img className="mx-4 w-8 h-8 hover:cursor-pointer hover:brightness-150 hover:scale-110 transition duration-2000" src='/images/iconos/perfil1.png' alt='icono de perfil' />
               </a>
             </div>
           </div>
@@ -116,7 +116,7 @@ const NavBar = ({ basketItems, agregarAlCarrito, eliminarItemCarrito }) => {
                 onKeyDown={searchEnter}
               />
               <div onClick={searchEnter} className="absolute bg-[#212121] p-[1px] rounded-full right-4 top-1/2 transform -translate-y-1/2 cursor-pointer">
-                <img src="../../../public/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
+                <img src="/images/iconos/search.png" alt="Icono de búsqueda" className="w-8 h-8 hover:brightness-150" />
               </div>
             </div>
           </form>

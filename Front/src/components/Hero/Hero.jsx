@@ -30,21 +30,21 @@ const Hero = () => {
       >
         <div>
           <img
-            src="../images/imgHero/Banner1.png"
+            src="/images/imgHero/Banner1.png"
             alt="Banner 1"
             className="h-full w-full object-cover"
           />
         </div>
         <div>
           <img
-            src="../images/imgHero/Banner2.png"
+            src="/images/imgHero/Banner2.png"
             alt="Banner 2"
             className="h-full w-full object-cover"
           />
         </div>
         <div>
           <img
-            src="../images/imgHero/Banner3.png"
+            src="/images/imgHero/Banner3.png"
             alt="Banner 3"
             className="h-full w-full object-cover"
           />
