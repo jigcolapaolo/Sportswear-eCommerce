@@ -1,11 +1,17 @@
 version: '3.4'
 
 services:
-  sql-server:
-    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+  # sql-server:
+  #   image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+  #   environment:
+  #     ACCEPT_EULA: "Y"
+  #     SA_PASSWORD: "Pa55w0rd!"
+  #     MSSQL_PID: Express
+  #   ports:
+  #     - '1433:1433'
+  postgres:
+    image: postgres
     environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Pa55w0rd!"
-      MSSQL_PID: Express
+      POSTGRES_PASSWORD: "Pa55w0rd!"
     ports:
-      - '1433:1433'
+     - '5432:5432'
