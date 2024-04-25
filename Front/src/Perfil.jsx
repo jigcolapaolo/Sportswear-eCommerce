@@ -16,7 +16,7 @@ function Perfil() {
 
   return (
     <main className="bg-[#212121] h-screen"
-      style={{ backgroundImage: "url('../../../public/images/imgPerfil/perfilbg1.jpg'), url('../../../public/images/imgPerfil/perfilbg2.png')", backgroundRepeat: "no-repeat", backgroundPosition: "right bottom 100%, left bottom 90%" }}>
+      style={{ backgroundImage: "url('/images/imgPerfil/perfilbg1.jpg'), url('/images/imgPerfil/perfilbg2.png')", backgroundRepeat: "no-repeat", backgroundPosition: "right bottom 100%, left bottom 90%" }}>
       <div className="bg-[#212121] h-[65px] w-full"></div>
       <div className="w-full flex flex-col items-center gap-20">
         <div className="rounded bg-[#212121] cursor-default mt-6">

@@ -58,7 +58,7 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
                                         </div>
                                         <button onClick={(e) => { e.stopPropagation(); eliminarItemCarrito(articulo); }} className='pl-2 py-1'>
                                             <div className='flex hover:brightness-150'>
-                                                <img src="../../../public/images/iconos/trashcan.png" alt="icono-basket" className="mr-2 w-[20px] h-[25px]" />
+                                                <img src="/images/iconos/trashcan.png" alt="icono-basket" className="mr-2 w-[20px] h-[25px]" />
                                             </div>
                                         </button>
                                     </div>
@@ -73,7 +73,7 @@ const Carrito = ({ isBasketBarOpen, basketItems, agregarAlCarrito, eliminarItemC
             <div className='flex justify-end px-2'>
                 <button onClick={() => eliminarItemCarrito({}, true)} className='flex justify-between items-center bg-[#ecac30] rounded pl-3 p-1 m-2 w-1/5 h-auto text-1xl hover:bg-yellow-400 transition duration-2000'>
                     Vaciar Carrito
-                    <img src="../../../public/images/iconos/trashcanblack.png" alt="icono-basket" className="mr-2 w-[20px] h-[25px]" />
+                    <img src="/images/iconos/trashcanblack.png" alt="icono-basket" className="mr-2 w-[20px] h-[25px]" />
                 </button>
             </div>
             {/* Mostrar el total del carrito */}

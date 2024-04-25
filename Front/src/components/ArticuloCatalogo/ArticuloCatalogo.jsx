@@ -149,7 +149,7 @@ export default function ArticuloCatalogo({ searchValue, agregarAlCarrito, filtro
                                     <button onClick={(e) => { e.stopPropagation(); agregarAlCarrito(articulo); }} className='bg-gray-900 rounded pl-2 py-1 hover:bg-gray-800'>
                                         <div className='flex hover:brightness-150'>
                                             <span>+</span>
-                                            <img src="../../../public/images/iconos/basket.png" alt="icono-basket" className="mr-2 w-[25px] h-[25px]" />
+                                            <img src="/images/iconos/basket.png" alt="icono-basket" className="mr-2 w-[25px] h-[25px]" />
                                         </div>
                                     </button>
                                 </div>

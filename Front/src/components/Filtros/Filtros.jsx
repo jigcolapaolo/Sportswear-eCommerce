@@ -70,7 +70,7 @@ const Filtros = ({ setFiltroSeleccionado, filtroSeleccionado }) => {
       <div className={`py-8 sm:py-10 md:py-5 fixed z-20 flex justify-around items-center w-full h-14 bg-gradient-to-r from-[#ecac30] via-yellow-500 to-[#ecac30]`}>
         {/* Boton dropdown filtros */}
         <button onClick={() => setFilterDropdownToggle(!filterDropdownToggle)} className="w-30 h-10 hover:bg-yellow-400 rounded">
-          <img src="../../../public/images/botones/boton-desplegable.png" alt="boton para desplegar la barra de filtros" className="" />
+          <img src="/images/botones/boton-desplegable.png" alt="boton para desplegar la barra de filtros" className="" />
         </button>
 
         <div className="flex justify-evenly items-center gap-2">
@@ -119,7 +119,7 @@ const Filtros = ({ setFiltroSeleccionado, filtroSeleccionado }) => {
             </div>
             <div className="flex justify-center items-center">
               <button onClick={() => toggleModal('categoria')}>
-                <img src="../../../public/images/iconos/arrow.png" alt="Icono de búsqueda"
+                <img src="/images/iconos/arrow.png" alt="Icono de búsqueda"
                   className={`w-5 h-5 rotate-90 brightness-[0] hover:brightness-150`} />
               </button>
             </div>
@@ -156,7 +156,7 @@ const Filtros = ({ setFiltroSeleccionado, filtroSeleccionado }) => {
             </div>
             <div className="flex justify-center items-center">
               <button onClick={() => toggleModal('precio')}>
-                <img src="../../../public/images/iconos/arrow.png" alt="Icono de búsqueda"
+                <img src="/images/iconos/arrow.png" alt="Icono de búsqueda"
                   className={`w-5 h-5 rotate-90 brightness-[0] hover:brightness-150`} />
               </button>
             </div>
@@ -192,7 +192,7 @@ const Filtros = ({ setFiltroSeleccionado, filtroSeleccionado }) => {
             </div>
             <div className="flex justify-center items-center">
               <button onClick={() => toggleModal('para')}>
-                <img src="../../../public/images/iconos/arrow.png" alt="Icono de búsqueda"
+                <img src="/images/iconos/arrow.png" alt="Icono de búsqueda"
                   className={`w-5 h-5 rotate-90 brightness-[0] hover:brightness-150`} />
               </button>
             </div>
