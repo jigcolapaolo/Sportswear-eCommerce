@@ -2,8 +2,30 @@
 ### 👉 [Repositorio original](https://github.com/No-Country/c17-117-t-csharp)
 
 
-  Proyecto realizado en una simulación laboral de [No Country](https://github.com/No-Country) con un equipo multidisciplinario.
+Proyecto realizado en una simulación laboral de [No Country](https://github.com/No-Country) con un equipo multidisciplinario.
+## Stack utilizado
+### *`Frontend`*
+<p>
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,html,css,tailwind,js,figma&perline=11" />
+  </a>
+</p>
 
+### *`Backend`*
+<p>
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=cs,dotnet,postgres&perline=11" />
+  </a>
+</p>
+
+## Integrantes del equipo:
+-Billy Campagnoli (Team Leader)</br>
+-Martin Villafañe (Diseñador UX/UI)</br>
+-Juan Colapaolo (Fullstack)</br>
+-Miguel Salazar (Frontend)</br>
+-Jhonatan Larico (Backend)</br>
+-Federico Ocaranza (Backend)</br>
+-Jacinto Gutierrez (Backend)</br>
 
 ### Landing Page
 ![Sportswear-1](https://github.com/No-Country/c17-117-t-csharp/assets/145474462/5c0afa64-d1bd-4c2b-9c25-b968ac903bd3)
