@@ -39,7 +39,7 @@ export default function ArticuloCatalogo({ searchValue, agregarAlCarrito, filtro
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://ecommerce-api.app.csharpjourney.xyz/api/products?PageSize=105`);
+                const response = await fetch(`http://sportswearapi.somee.com/api/products?PageSize=105`);
                 if (!response.ok) {
                     throw new Error('Error al obtener los datos');
                 }
