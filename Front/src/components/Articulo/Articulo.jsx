@@ -40,7 +40,7 @@ export default function Articulo({ agregarAlCarrito }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://ecommerce-api.app.csharpjourney.xyz/api/products?PageNumber=${currentPage}`);
+        const response = await fetch(`http://sportswearapi.somee.com/api/products?PageNumber=${currentPage}`);
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
