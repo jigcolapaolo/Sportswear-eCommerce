@@ -1,5 +1,6 @@
 using API.Entities;
 using API.Entities.Identity;
+using API.Entities.Seeding;
 using API.Profiles;
 using API.Repository;
 using API.Services;
@@ -124,6 +125,20 @@ app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    context.Database.EnsureCreated();
+
+    if (!context.Brands.Any())
+    {
+        InitialSeeding.ProgramSeed(context);
+        context.SaveChanges();
+    }
+}
+
 
 app.MapControllers();
 

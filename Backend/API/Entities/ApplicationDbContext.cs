@@ -39,7 +39,23 @@ namespace API.Entities
             modelBuilder.Entity<CustomerBasket>()
                 .HasMany(cb => cb.BasketItems)
                 .WithOne(b => b.CustomerBasket);
-                
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<OrderItem>()
+                .Property(oi => oi.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.Subtotal)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<BasketItem>()
+                .Property(b => b.Price)
+                .HasColumnType("decimal(18,2)");
+
 
         }
 
